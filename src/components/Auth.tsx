@@ -13,6 +13,8 @@ export default function Auth() {
       email: email,
     });
 
+    console.log('email', email, 'data', data, 'error', error)
+
     return data;
   }
 

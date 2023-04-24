@@ -1,8 +1,13 @@
 import type { AppPropsWithLayout } from "next/app";
 import "../../styles/globals.css";
 import Multi from "../components/layouts/Multi";
+import { UserProvider, useUser } from "contexts/UserProvider";
+import { ReactElement } from "react";
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+function determinLayout({
+  Component,
+  pageProps,
+}: AppPropsWithLayout): ReactElement {
   if (Component.getLayout) {
     return Component.getLayout(<Component {...pageProps} />);
   } else {
@@ -13,3 +18,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     );
   }
 }
+
+export default function App(props: AppPropsWithLayout) {
+  return <UserProvider>{determinLayout(props)}</UserProvider>;
+}
+
