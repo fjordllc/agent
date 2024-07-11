@@ -14,13 +14,17 @@ supabaseのローカル環境の立ち上げ
 npx supabase start
 ```
 
-ローカル環境用の環境変数を設定
+ローカル環境用の環境変数を設定する。
+雛形が`.env.local.example`にあるので`.env.local`としてコピーする。
 
 ```console
 cp .env.local.example .env.local
 ```
 
-`npx supabase status`で各種設定値が見れるのでその中の*API URL*を`NEXT_PUBLIC_SUPABASE_URL`に、*anon key*を`NEXT_PUBLIC_SUPABASE_ANON_KEY`に設定する。
+`npx supabase status`で見れる各種設定値を`.env.local`に書く。
+*API URL*は`NEXT_PUBLIC_SUPABASE_URL`に、*anon key*を`NEXT_PUBLIC_SUPABASE_ANON_KEY`に設定する。
+
+`.env.local`:
 
 ```
 NEXT_PUBLIC_SUPABASE_URL=API URLを設定する
