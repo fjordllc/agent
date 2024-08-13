@@ -9,7 +9,7 @@ import {
   ReactElement,
 } from "react";
 import { User } from "@supabase/supabase-js";
-import supabase from "lib/supabase";
+import supabase from "../lib/supabase";
 
 type UserState = {
   user: User | null;
