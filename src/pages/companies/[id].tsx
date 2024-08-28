@@ -1,1 +1,7 @@
-import { useRouter } from 'next/router'
+import Companies from "../../components/Companies";
+
+export default function CompanyPage() {
+  return (
+    <Companies />
+  );
+}
