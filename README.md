@@ -8,7 +8,7 @@
 npm install
 ```
 
-supabaseのローカル環境の立ち上げ
+supabaseのローカル環境の立ち上げ。
 
 ```console
 npx supabase start
