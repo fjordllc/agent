@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import Dashboard from "../components/Dashboard";
-import Multi from "../components/layouts/Multi";
-import Single from "../components/layouts/Single";
+import Multi from "../components/layouts/MulitLayout";
+import Single from "../components/layouts/SingleLayout";
 import Welcome from "../components/Welcome";
 import useSession from "../hooks/useSession";
 

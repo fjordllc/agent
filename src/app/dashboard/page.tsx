@@ -1,3 +1,5 @@
+import '@/app/globals.css'
+
 export default async function Dashboard() {
   return (
     <>
