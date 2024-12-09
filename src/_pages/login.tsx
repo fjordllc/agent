@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import Auth from "../components/Auth";
-import Single from "../components/layouts/Single";
+import Single from "../components/layouts/SingleLayout";
 
 function Login() {
   return <Auth />;

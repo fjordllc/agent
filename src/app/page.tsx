@@ -1,13 +1,16 @@
+import "@/app/globals.css";
 import Link from "next/link";
+import SingleLayout from "@components/layouts/SingleLayout";
 
 export default async function Index() {
   return (
-    <>
-      <h1>Fjord Agent</h1>
+    <SingleLayout>
+      <h2>トップページ</h2>
       <ul>
-        <li><Link href="/sign-up" >サインアップ</Link></li>
-        <li><Link href="/sign-in" >サインイン</Link></li>
+        <li>
+          <Link href="/dashboard">ダッシュボード</Link>
+        </li>
       </ul>
-    </>
+    </SingleLayout>
   );
 }

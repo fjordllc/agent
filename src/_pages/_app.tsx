@@ -1,6 +1,6 @@
 import type { AppPropsWithLayout } from "next/app";
 import "../../styles/globals.css";
-import Multi from "../components/layouts/Multi";
+import Multi from "../components/layouts/MulitLayout";
 import { UserProvider, useUser } from "../contexts/UserProvider";
 import { ReactElement } from "react";
 
