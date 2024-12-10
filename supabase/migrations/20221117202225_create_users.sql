@@ -66,3 +66,5 @@ create trigger on_auth_user_created
 after
 insert
     on auth.users for each row execute procedure public.handle_new_user();
+
+DELETE FROM supabase_migrations.schema_migrations WHERE version = '20221117202225';
