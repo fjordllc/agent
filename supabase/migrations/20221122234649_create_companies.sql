@@ -47,3 +47,5 @@ INSERT
                 role = 'admin'
         )
     );
+
+DELETE FROM supabase_migrations.schema_migrations WHERE version = '20221122234649';
