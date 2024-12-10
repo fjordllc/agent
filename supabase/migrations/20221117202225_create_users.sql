@@ -29,6 +29,10 @@ GRANT ALL ON TABLE public.users TO postgres;
 
 GRANT ALL ON TABLE public.users TO service_role;
 
+DROP POLICY IF EXISTS "Allow select for all authenticated users." ON public.users;
+
+DROP POLICY IF EXISTS "Allow update for users themselves." ON public.users;
+
 CREATE POLICY "Allow select for all authenticated users." ON public.users AS PERMISSIVE FOR
 SELECT
     TO public USING ((auth.role() = 'authenticated' :: text));
@@ -37,20 +41,28 @@ CREATE POLICY "Allow update for users themselves." ON public.users AS PERMISSIVE
 UPDATE
     TO public USING ((auth.uid() = id));
 
--- inserts a row into public.users
-create function public.handle_new_user()
-returns trigger
-language plpgsql
-security definer set search_path = public
-as $$
-begin
-  insert into public.users (id, role, email)
-  values (new.id, 'admin', new.email);
-  return new;
-end;
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+
+DROP FUNCTION IF EXISTS public.handle_new_user();
+
+-- Create the function
+CREATE FUNCTION public.handle_new_user()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+    INSERT INTO public.users (id, role, email)
+    VALUES (NEW.id, 'admin', NEW.email);
+
+    RETURN NEW;
+END;
 $$;
+
 
 -- trigger the function every time a user is created
 create trigger on_auth_user_created
-  after insert on auth.users
-  for each row execute procedure public.handle_new_user();
+after
+insert
+    on auth.users for each row execute procedure public.handle_new_user();
