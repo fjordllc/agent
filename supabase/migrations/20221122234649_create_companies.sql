@@ -27,6 +27,12 @@ GRANT ALL ON TABLE public.companies TO postgres;
 
 GRANT ALL ON TABLE public.companies TO service_role;
 
+DROP POLICY IF EXISTS "Authenticated users can access table data" ON public.companies;
+
+DROP POLICY IF EXISTS "Admin users can update table data" ON public.companies;
+
+DROP POLICY IF EXISTS "Admin users can insert table data" ON public.companies;
+
 CREATE POLICY "Authenticated users can access table data" ON public.companies AS PERMISSIVE FOR
 SELECT
     TO public USING ((auth.role() = 'authenticated' :: text));
@@ -56,3 +62,5 @@ INSERT
                 role = 'admin'
         )
     );
+
+DELETE FROM supabase_migrations.schema_migrations WHERE version = '20221122234649';
