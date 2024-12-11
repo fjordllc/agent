@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
 import { Database } from "../lib/database.types";
-import {
-  PencilSquareIcon,
-  TrashIcon,
-  PlusIcon,
-} from "@heroicons/react/24/solid";
 import Link from "next/link";
 
 type ICompany = Database["public"]["Tables"]["companies"]["Row"];
@@ -35,7 +30,6 @@ export default function Companies() {
               href="/companies/new"
               className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto"
             >
-              <PlusIcon className="-ml-1 mr-2 h-6 w-6" />
               追加
             </Link>
           </div>
@@ -113,7 +107,6 @@ function Company({ company }: CompanyProps) {
           data-modal-toggle="user-modal"
           className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
-          <PencilSquareIcon className="mr-2 h-5 w-5" />
           編集
         </button>
         <button
@@ -121,7 +114,6 @@ function Company({ company }: CompanyProps) {
           data-modal-toggle="delete-user-modal"
           className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
-          <TrashIcon className="mr-2 h-5 w-5" />
           削除
         </button>
       </td>
