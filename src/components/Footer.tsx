@@ -1,6 +1,5 @@
 export default function Footer() {
   const footerItems = [
-    { text: "プライバシーポリシー", url: "/privacy-policy" },
     { text: "利用規約", url: "/tos" },
   ];
 
