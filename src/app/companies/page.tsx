@@ -1,7 +1,11 @@
-export default async function Companies() {
+"use client"
+
+import Companies from "@components/Companies";
+
+export default function CompaniesPage() {
   return (
     <>
-      <h2>企業一覧</h2>
+      <Companies />
     </>
   );
 }
