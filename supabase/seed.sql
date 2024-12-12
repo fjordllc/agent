@@ -6,3 +6,7 @@ INSERT INTO companies (name, website, memo) VALUES ('株式会社ロッカ', 'ht
 INSERT INTO companies (name, website, memo) VALUES ('株式会社リンゴ', 'https://example.com/apple', 'リンゴは良い会社');
 INSERT INTO companies (name, website, memo) VALUES ('株式会社バナナ', 'https://example.com/banana', 'バナナは良い会社');
 INSERT INTO companies (name, website, memo) VALUES ('株式会社オレンジ', 'https://example.com/orange', 'オレンジは良い会社');
+
+INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('テスト', 'これはテストです。', NOW(), NOW(), 1, 1);
+INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('テスト', 'これはテストです。', NOW(), NOW(), 1, 2);
+INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('テスト', 'これはテストです。', NOW(), NOW(), 2, 2);

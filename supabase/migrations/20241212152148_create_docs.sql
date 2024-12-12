@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS public.docs (
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
     user_id INT NOT NULL,
-    last_updated_user_id INT
+    last_updated_user_id INT NOT NULL
 );
