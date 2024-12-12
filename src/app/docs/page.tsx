@@ -10,7 +10,7 @@ interface Doc {
   created_at: string;
   updated_at: string;
   user_id: number;
-  last_updated_user_id: number | null;
+  last_updated_user_id: number;
 }
 
 const itemsPerPage = 1;
