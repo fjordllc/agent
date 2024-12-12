@@ -2,55 +2,48 @@
 -- For the circular dependencies, the order in which Schema Diff writes the objects is not very sophisticated
 -- and may require manual changes to the script to ensure changes are applied in the correct order.
 -- Please report an issue for any failure with the reproduction steps.
+
 CREATE TABLE IF NOT EXISTS public.users (
-    id uuid NOT NULL,
-    role text COLLATE pg_catalog."default" DEFAULT 'job_seeker' :: text,
-    email text COLLATE pg_catalog."default" NOT NULL,
-    first_name text COLLATE pg_catalog."default",
-    last_name text COLLATE pg_catalog."default",
-    first_name_kana text COLLATE pg_catalog."default",
-    last_name_kana text COLLATE pg_catalog."default",
-    date_of_birth date,
-    CONSTRAINT users_pkey PRIMARY KEY (id),
-    CONSTRAINT users_id_fkey FOREIGN KEY (id) REFERENCES auth.users (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
-) TABLESPACE pg_default;
+    id UUID PRIMARY KEY,
+    role TEXT DEFAULT 'job_seeker',
+    email TEXT NOT NULL,
+    first_name TEXT,
+    last_name TEXT,
+    first_name_kana TEXT,
+    last_name_kana TEXT,
+    date_of_birth DATE,
+    CONSTRAINT users_id_fkey FOREIGN KEY (id) REFERENCES auth.users (id) ON DELETE CASCADE
+);
 
-ALTER TABLE
-    IF EXISTS public.users OWNER to postgres;
+ALTER TABLE IF EXISTS public.users OWNER TO postgres;
+ALTER TABLE IF EXISTS public.users ENABLE ROW LEVEL SECURITY;
 
-ALTER TABLE
-    IF EXISTS public.users ENABLE ROW LEVEL SECURITY;
+GRANT ALL ON TABLE public.users TO anon, authenticated, postgres, service_role;
 
-GRANT ALL ON TABLE public.users TO anon;
+CREATE POLICY "Allow select for all authenticated users" 
+ON public.users 
+FOR SELECT 
+USING (auth.role() = 'authenticated');
 
-GRANT ALL ON TABLE public.users TO authenticated;
+CREATE POLICY "Allow update for users themselves" 
+ON public.users 
+FOR UPDATE 
+USING (auth.uid() = id);
 
-GRANT ALL ON TABLE public.users TO postgres;
-
-GRANT ALL ON TABLE public.users TO service_role;
-
-CREATE POLICY "Allow select for all authenticated users." ON public.users AS PERMISSIVE FOR
-SELECT
-    TO public USING ((auth.role() = 'authenticated' :: text));
-
-CREATE POLICY "Allow update for users themselves." ON public.users AS PERMISSIVE FOR
-UPDATE
-    TO public USING ((auth.uid() = id));
-
--- inserts a row into public.users
-create function public.handle_new_user()
-returns trigger
-language plpgsql
-security definer set search_path = public
-as $$
-begin
-  insert into public.users (id, role, email)
-  values (new.id, 'admin', new.email);
-  return new;
-end;
+CREATE FUNCTION public.handle_new_user()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER 
+SET search_path = public
+AS $$
+BEGIN
+  INSERT INTO public.users (id, role, email)
+  VALUES (NEW.id, 'admin', NEW.email);
+  RETURN NEW;
+END;
 $$;
 
--- trigger the function every time a user is created
-create trigger on_auth_user_created
-  after insert on auth.users
-  for each row execute procedure public.handle_new_user();
+CREATE TRIGGER on_auth_user_created
+AFTER INSERT ON auth.users
+FOR EACH ROW 
+EXECUTE FUNCTION public.handle_new_user();
