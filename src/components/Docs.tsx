@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import supabase from "..//lib/supabase";
+import supabase from "../lib/supabase";
+import Pagination from "./Pagination";
 
 interface Doc {
   body: string;
@@ -45,12 +46,6 @@ export default function Docs() {
     fetchDocs(currentPage);
   }, [currentPage]);
 
-  const handlePageChange = (page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-  };
-
   return (
     <div style={{ padding: "20px" }}>
       <h1>Docs</h1>
@@ -68,23 +63,11 @@ export default function Docs() {
         </ul>
       )}
 
-      <div style={{ marginTop: "20px" }}>
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          &lt;
-        </button>
-        <span style={{ margin: "0 10px" }}>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          &gt;
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 }
