@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import supabase from "..//lib/supabase";
 
 interface Doc {
-  id: number;
-  title: string;
   body: string;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
+  created_at: string | null;
+  id: number;
   last_updated_user_id: number;
+  title: string;
+  updated_at: string | null;
+  user_id: number;
 }
 
 const itemsPerPage = 1;
