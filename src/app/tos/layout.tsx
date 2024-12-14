@@ -1,6 +1,6 @@
 import SingleLayout from "@components/layouts/SingleLayout";
 
-export default function DashboardLayout({
+export default function TosLayout({
   children,
 }: {
   children: React.ReactNode;
