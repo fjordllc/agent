@@ -1,16 +1,9 @@
 import { useState, useEffect } from "react";
 import supabase from "../lib/supabase";
 import Pagination from "./Pagination";
+import { Tables } from "../../supabase/database.types";
 
-interface Doc {
-  body: string;
-  created_at: string | null;
-  id: number;
-  last_updated_user_id: number;
-  title: string;
-  updated_at: string | null;
-  user_id: number;
-}
+type Doc = Tables<"docs">;
 
 interface DocsProps {
   itemsPerPage: number;
