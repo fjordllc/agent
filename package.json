@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
-    "@supabase/ssr": "^0.4.0",
-    "@supabase/supabase-js": "^2.45.1",
+    "@supabase/ssr": "^0.4.1",
+    "@supabase/supabase-js": "^2.47.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "flowbite": "^2.5.2",
