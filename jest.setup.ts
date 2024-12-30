@@ -1,4 +1,4 @@
 import '@testing-library/jest-dom';
-import { config } from "dotenv";
+import dotenv from 'dotenv';
 
-config({ path: ".env.test" });
+dotenv.config({ path: '.env.test' });
