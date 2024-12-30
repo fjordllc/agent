@@ -5,4 +5,7 @@ module.exports = {
   },
   moduleFileExtensions: ["js", "jsx", "ts", "tsx"], // Recognize these extensions
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Ensure setup file is loaded after Jest environment is ready
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1", // Map @/ to src/
+  },
 };
