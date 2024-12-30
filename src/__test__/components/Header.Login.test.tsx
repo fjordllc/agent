@@ -12,7 +12,7 @@ jest.mock("@/utils/supabase/server", () => ({
   }),
 }));
 
-test("Header renders correctly for logged-out users", async () => {
+test("ログイン状態でヘッダーが正常に描写", async () => {
   render(await Header());
 
   await waitFor(() => {
