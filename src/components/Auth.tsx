@@ -1,3 +1,4 @@
+import React from "react";
 import { useForm } from "react-hook-form";
 import supabase from "../lib/supabase";
 import Image from "next/image";
