@@ -16,7 +16,7 @@ describe("Header コンポネントの描写テスト", () => {
     jest.clearAllMocks();
   });
 
-  const renderHeaderWithUser = async (user: AuthUser | null) => {
+  const renderHeaderWithUser = async (user?: AuthUser) => {
     createClient().auth.getUser.mockResolvedValueOnce({
       data: { user },
     });
@@ -24,7 +24,7 @@ describe("Header コンポネントの描写テスト", () => {
   };
 
   it("ユーザーが未ログインの場合の描写", async () => {
-    renderHeaderWithUser(null);
+    renderHeaderWithUser();
     await waitFor(() => {
       expect(screen.getAllByRole("listitem")).toHaveLength(5);
       expect(screen.getByText("ユーザー登録"));
