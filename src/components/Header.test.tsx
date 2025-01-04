@@ -11,12 +11,12 @@ jest.mock("@/utils/supabase/server", () => ({
 
 describe("Header コンポネントの描写テスト", () => {
   const { createClient } = require("@/utils/supabase/server");
-  
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  const renderHeaderWithUser = async (user: string | null) => {
+  const renderHeaderWithUser = async (user: AuthUser | null) => {
     createClient().auth.getUser.mockResolvedValueOnce({
       data: { user },
     });
@@ -33,7 +33,11 @@ describe("Header コンポネントの描写テスト", () => {
   });
 
   it("ユーザーがログインの場合の描写", async () => {
-    renderHeaderWithUser("admin@test.com");
+    const user: AuthUser = {
+      email: "test@test.com",
+      password: "test"
+    }
+    renderHeaderWithUser(user);
     await waitFor(() => {
       expect(screen.getAllByRole("listitem")).toHaveLength(4);
       expect(screen.getByText("ログアウト"));
