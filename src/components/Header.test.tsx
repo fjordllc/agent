@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import Header from "../../components/Header";
+import Header from "./Header";
 
 jest.mock("@/utils/supabase/server", () => ({
   createClient: jest.fn().mockReturnValue({
