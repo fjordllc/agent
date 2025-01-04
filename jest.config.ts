@@ -1,6 +1,7 @@
 import type { Config } from "jest";
 
 const config: Config = {
+  collectCoverage: true,
   testEnvironment: "jest-environment-jsdom",
   transform: {
     "^.+\\.[jt]sx?$": "babel-jest",
