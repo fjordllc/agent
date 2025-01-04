@@ -26,9 +26,6 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.26.0",
-    "@babel/preset-react": "^7.26.3",
-    "@babel/preset-typescript": "^7.26.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
@@ -39,7 +36,6 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
     "babel-jest": "^29.7.0",
-    "dotenv": "^16.4.7",
     "encoding": "^0.1.13",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.5",
