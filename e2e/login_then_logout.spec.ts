@@ -3,39 +3,53 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
 
-test("テストユーザーでログインのテストをしてログアウトをする", async ({
-  page,
-}) => {
-  const email =
+test.describe("ユーザー認証のテスト", () => {
+  const validEmail =
     process.env.EMAIL ??
     (() => {
       throw new Error("EMAIL is not defined");
     })();
-  const password =
+  const validPassword =
     process.env.PASSWORD ??
     (() => {
       throw new Error("PASSWORD is not defined");
     })();
 
-  await page.goto("http://localhost:3000/");
-  await page.getByRole("link", { name: "ログイン" }).click();
-  await page.getByPlaceholder("name@example.com").click();
-  await page.getByPlaceholder("name@example.com").fill(email);
-  await page.getByLabel("Password").click();
-  await page.getByLabel("Password").fill(password);
-  await page.getByRole("button", { name: "ログイン" }).click();
+  test("有効なユーザー情報でログインし、ログアウトできる", async ({ page }) => {
+    await page.goto("http://localhost:3000/");
+    await page.getByRole("link", { name: "ログイン" }).click();
 
-  const logoutButton = page.getByRole("link", { name: "ログアウト" });
-  await expect(logoutButton).toBeVisible();
+    await page.getByPlaceholder("name@example.com").fill(validEmail);
+    await page.getByLabel("Password").fill(validPassword);
+    await page.getByRole("button", { name: "ログイン" }).click();
 
-  await page.getByRole("link", { name: "ログアウト" }).click();
-  await page.goto("http://localhost:3000/");
+    const logoutButton = page.getByRole("link", { name: "ログアウト" });
+    await expect(logoutButton).toBeVisible();
 
-  /** 現在リロードしないと画面が更新されずログイン、サインインが表示されない **/
-  await page.reload();
+    /** 現在リロードしないと画面が更新されずログイン、サインインが表示されない **/
+    await logoutButton.click();
+    await page.waitForTimeout(1500);
 
-  const loginButton = page.getByRole("link", { name: "ログイン" });
-  const signInButton = page.getByRole("link", { name: "ユーザー登録" });
-  await expect(loginButton).toBeVisible();
-  await expect(signInButton).toBeVisible();
+    await page.reload();
+
+    const loginButton = page.getByRole("link", { name: "ログイン" });
+    const signInButton = page.getByRole("link", { name: "ユーザー登録" });
+
+    await expect(loginButton).toBeVisible();
+    await expect(signInButton).toBeVisible();
+  });
+
+  test("無効なユーザー情報でログインに失敗する", async ({ page }) => {
+    await page.goto("http://localhost:3000/");
+    await page.getByRole("link", { name: "ログイン" }).click();
+
+    await page.getByPlaceholder("name@example.com").fill("invalid@example.com");
+    await page.getByLabel("Password").fill("invalidpassword");
+    await page.getByRole("button", { name: "ログイン" }).click();
+
+    await expect(page).toHaveURL("http://localhost:3000/error");
+
+    const loginButton = page.getByRole("button", { name: "ログイン" });
+    await expect(loginButton).toBeVisible();
+  });
 });
