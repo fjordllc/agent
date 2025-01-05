@@ -44,7 +44,7 @@ describe("Rendering test for the Header component", () => {
     });
   });
 
-  it("getUser がエラーをスローする場合", async () => {
+  it("auth.getUser() throws error", async () => {
     createClient().auth.getUser.mockRejectedValueOnce(
       {
         error: "email_address_invalid"
