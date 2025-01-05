@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import { User } from "@/types/user";
 import Header from "./Header";
 
 jest.mock("@/utils/supabase/server", () => ({
@@ -16,7 +17,7 @@ describe("Rendering test for the Header component", () => {
     jest.clearAllMocks();
   });
 
-  const renderHeaderWithUser = async (user?: AuthUser) => {
+  const renderHeaderWithUser = async (user?: User) => {
     createClient().auth.getUser.mockResolvedValueOnce({
       data: { user },
     });
@@ -33,7 +34,7 @@ describe("Rendering test for the Header component", () => {
   });
 
   it("User is logged in with valied email and password", async () => {
-    const user: AuthUser = {
+    const user: User = {
       email: "test@test.com",
       password: "test",
     };
@@ -45,11 +46,9 @@ describe("Rendering test for the Header component", () => {
   });
 
   it("auth.getUser() throws error", async () => {
-    createClient().auth.getUser.mockRejectedValueOnce(
-      {
-        error: "email_address_invalid"
-      }
-    );
+    createClient().auth.getUser.mockRejectedValueOnce({
+      error: "email_address_invalid",
+    });
     render(await Header());
 
     await waitFor(() => {
@@ -58,5 +57,4 @@ describe("Rendering test for the Header component", () => {
       expect(screen.queryByText("ログアウト")).not.toBeInTheDocument();
     });
   });
-
 });
