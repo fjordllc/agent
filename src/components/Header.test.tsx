@@ -9,7 +9,7 @@ jest.mock("@/utils/supabase/server", () => ({
   }),
 }));
 
-describe("Header コンポネントの描写テスト", () => {
+describe("Rendering test for the Header component", () => {
   const { createClient } = require("@/utils/supabase/server");
 
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe("Header コンポネントの描写テスト", () => {
     render(await Header());
   };
 
-  it("ユーザーが未ログインの場合の描写", async () => {
+  it("User is NOT logged in", async () => {
     renderHeaderWithUser();
     await waitFor(() => {
       expect(screen.getAllByRole("listitem")).toHaveLength(5);
@@ -32,7 +32,7 @@ describe("Header コンポネントの描写テスト", () => {
     });
   });
 
-  it("ユーザーがログインの場合の描写", async () => {
+  it("User is logged in with valied email and password", async () => {
     const user: AuthUser = {
       email: "test@test.com",
       password: "test",
