@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { User } from "@/types/user";
+import { TestLoginCredentials } from "@/types/testLoginCredentials";
 import Header from "./Header";
 
 jest.mock("@/utils/supabase/server", () => ({
@@ -17,9 +17,9 @@ describe("Rendering test for the Header component", () => {
     jest.clearAllMocks();
   });
 
-  const renderHeaderWithUser = async (user?: User) => {
+  const renderHeaderWithUser = async (testLoginCredentials?: TestLoginCredentials) => {
     createClient().auth.getUser.mockResolvedValueOnce({
-      data: { user },
+      data: { testLoginCredentials },
     });
     render(await Header());
   };
@@ -34,11 +34,11 @@ describe("Rendering test for the Header component", () => {
   });
 
   it("User is logged in with valied email and password", async () => {
-    const user: User = {
+    const testUser: TestLoginCredentials = {
       email: "test@test.com",
       password: "test",
     };
-    renderHeaderWithUser(user);
+    renderHeaderWithUser(testUser);
     await waitFor(() => {
       expect(screen.getAllByRole("listitem")).toHaveLength(4);
       expect(screen.getByText("ログアウト"));
