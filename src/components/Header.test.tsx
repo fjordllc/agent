@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { TestLoginCredentials } from "@/types/testLoginCredentials";
+import { AuthCredential } from "@/types/authCredential";
 import Header from "./Header";
 
 jest.mock("@/utils/supabase/server", () => ({
@@ -17,9 +17,9 @@ describe("Rendering test for the Header component", () => {
     jest.clearAllMocks();
   });
 
-  const renderHeaderWithUser = async (testLoginCredentials?: TestLoginCredentials) => {
+  const renderHeaderWithUser = async (authCredential?: AuthCredential) => {
     createClient().auth.getUser.mockResolvedValueOnce({
-      data: { testLoginCredentials },
+      data: { authCredential },
     });
     render(await Header());
   };
@@ -34,7 +34,7 @@ describe("Rendering test for the Header component", () => {
   });
 
   it("User is logged in with valied email and password", async () => {
-    const testUser: TestLoginCredentials = {
+    const testUser: AuthCredential = {
       email: "test@test.com",
       password: "test",
     };
