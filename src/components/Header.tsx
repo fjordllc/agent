@@ -3,9 +3,13 @@ import { createClient } from "@/utils/supabase/server";
 
 export default async function Header() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data?.user;
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+  }
 
   return (
     <div className="navbar bg-neutral text-neutral-content">
