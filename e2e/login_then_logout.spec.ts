@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
+import dotenv from "dotenv";
 
-test.describe("ユーザー認証のテスト", () => {
+dotenv.config({ path: ".env.local" });
+
+test.describe("Log IN and Log OUT test", () => {
   const validEmail =
     process.env.EMAIL ??
     (() => {
@@ -12,7 +15,7 @@ test.describe("ユーザー認証のテスト", () => {
       throw new Error("PASSWORD is not defined");
     })();
 
-  test("有効なユーザー情報でログインし、ログアウトできる", async ({ page }) => {
+  test("Should Success Login with valid Email and Password then Logout", async ({ page }) => {
     await page.goto("http://localhost:3000/");
     await page.getByRole("link", { name: "ログイン" }).click();
 
@@ -36,7 +39,7 @@ test.describe("ユーザー認証のテスト", () => {
     await expect(signInButton).toBeVisible();
   });
 
-  test("無効なユーザー情報でログインに失敗する", async ({ page }) => {
+  test("Should Fail Login with Invalid Email and Password", async ({ page }) => {
     await page.goto("http://localhost:3000/");
     await page.getByRole("link", { name: "ログイン" }).click();
 
