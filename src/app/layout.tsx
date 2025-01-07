@@ -16,7 +16,7 @@ export default function RootLayout({
           rel="stylesheet"
           type="text/css"
         />
-        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com" async></script>
       </head>
       <body>{children}</body>
     </html>

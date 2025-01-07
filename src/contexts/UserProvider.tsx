@@ -36,14 +36,14 @@ export function UserProvider({ children }: Props) {
 
     supabase.auth.onAuthStateChange((event, session) => {
       console.log(event, session);
-      switch(event) {
-        case 'SIGNED_IN':
-          console.log('signed_in', session)
-          const user = session ? session.user : null
-          setUserSession(user)
+      switch (event) {
+        case "SIGNED_IN":
+          console.log("signed_in", session);
+          const user = session ? session.user : null;
+          setUserSession(user);
           break;
         default:
-          console.log('default', event)
+          console.log("default", event);
           break;
       }
     });

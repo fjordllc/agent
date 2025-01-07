@@ -22,4 +22,3 @@ function determinLayout({
 export default function App(props: AppPropsWithLayout) {
   return <UserProvider>{determinLayout(props)}</UserProvider>;
 }
-
