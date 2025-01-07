@@ -21,7 +21,7 @@ export default function Navbar() {
               href="https://demo.themesberg.com/windster/"
               className="text-xl font-bold flex items-center lg:ml-2.5"
             >
-              <Image src="pjord.svg" className="h-8 mr-2" alt="Logo" />
+              <Image src="pjord.svg" width="32" className="h-8 mr-2" alt="Logo" />
               <span className="self-center whitespace-nowrap">Fjord Agent</span>
             </a>
           </div>
