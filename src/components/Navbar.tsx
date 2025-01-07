@@ -1,6 +1,7 @@
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
 import supabase from "../lib/supabase";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function Navbar() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function Navbar() {
               href="https://demo.themesberg.com/windster/"
               className="text-xl font-bold flex items-center lg:ml-2.5"
             >
-              <img src="pjord.svg" className="h-8 mr-2" />
+              <Image src="pjord.svg" className="h-8 mr-2" alt="Logo" />
               <span className="self-center whitespace-nowrap">Fjord Agent</span>
             </a>
           </div>
