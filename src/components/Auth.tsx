@@ -13,7 +13,7 @@ export default function Auth() {
       email: email,
     });
 
-    console.log('email', email, 'data', data, 'error', error)
+    console.log("email", email, "data", data, "error", error);
 
     return data;
   }
@@ -21,7 +21,7 @@ export default function Auth() {
   const onSubmit = handleSubmit(async (data) => {
     await signIn(data["email"]);
     alert(
-      "ログインメールを送りました。メール内のリンクからログインしてください。"
+      "ログインメールを送りました。メール内のリンクからログインしてください。",
     );
   });
 

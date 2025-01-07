@@ -13,7 +13,7 @@ function Home() {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   const [session] = useSession();
-  const Layout = session ? Multi: Single;
+  const Layout = session ? Multi : Single;
   return <Layout>{page}</Layout>;
 };
 

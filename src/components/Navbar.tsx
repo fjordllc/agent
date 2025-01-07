@@ -6,7 +6,7 @@ export default function Navbar() {
   const router = useRouter();
   async function signOut() {
     await supabase.auth.signOut();
-    alert('ログアウトしました。')
+    alert("ログアウトしました。");
     router.push("/");
     router.reload();
   }
