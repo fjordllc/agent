@@ -50,48 +50,41 @@ export type Database = {
           website?: string | null
         }
         Update: {
-          created_at?: string
-          id?: number
-          memo?: string | null
-          name?: string
-          website?: string | null
-        }
-        Relationships: []
-      }
-      users: {
+          id?: number;
+          name?: string;
+          website?: string | null;
+          memo?: string | null;
+          created_at?: string;
+        };
+      };
+      docs: {
         Row: {
-          date_of_birth: string | null
-          email: string
-          first_name: string | null
-          first_name_kana: string | null
-          id: string
-          last_name: string | null
-          last_name_kana: string | null
-          role: string | null
-        }
+          id: number;
+          title: string;
+          body: string;
+          created_at: string;
+          updated_at: string;
+          user_id: number;
+          last_updated_user_id: number;
+        };
         Insert: {
-          date_of_birth?: string | null
-          email: string
-          first_name?: string | null
-          first_name_kana?: string | null
-          id: string
-          last_name?: string | null
-          last_name_kana?: string | null
-          role?: string | null
-        }
+          title: string;
+          body: string;
+          created_at?: string;
+          updated_at?: string;
+          user_id: number;
+          last_updated_user_id: number;
+        };
         Update: {
-          date_of_birth?: string | null
-          email?: string
-          first_name?: string | null
-          first_name_kana?: string | null
-          id?: string
-          last_name?: string | null
-          last_name_kana?: string | null
-          role?: string | null
-        }
-        Relationships: []
-      }
-    }
+          title?: string;
+          body?: string;
+          created_at?: string;
+          updated_at?: string;
+          user_id?: number;
+          last_updated_user_id?: number;
+        };
+      };
+    };
     Views: {
       [_ in never]: never
     }
