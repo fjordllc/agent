@@ -32,6 +32,33 @@ export interface Database {
           created_at?: string;
         };
       };
+      docs: {
+        Row: {
+          id: number;
+          title: string;
+          body: string;
+          created_at: string;
+          updated_at: string;
+          user_id: number;
+          last_updated_user_id: number;
+        };
+        Insert: {
+          title: string;
+          body: string;
+          created_at?: string;
+          updated_at?: string;
+          user_id: number;
+          last_updated_user_id: number;
+        };
+        Update: {
+          title?: string;
+          body?: string;
+          created_at?: string;
+          updated_at?: string;
+          user_id?: number;
+          last_updated_user_id?: number;
+        };
+      };
     };
     Views: {
       [_ in never]: never;
