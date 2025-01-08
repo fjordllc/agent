@@ -18,6 +18,7 @@
     "@supabase/supabase-js": "^2.47.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "flowbite": "^2.5.2",
     "geist": "^1.2.1",
     "lucide-react": "^0.462.0",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@playwright/test": "^1.49.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
