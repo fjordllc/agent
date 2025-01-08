@@ -10,7 +10,8 @@
     "lint:next": "next lint",
     "lint:prettier": "prettier -c 'src/**/*'",
     "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
-    "test": "true"
+    "test": "true",
+    "e2e": "dotenv -e .env.local -- playwright test"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
@@ -18,7 +19,6 @@
     "@supabase/supabase-js": "^2.47.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "dotenv": "^16.4.7",
     "flowbite": "^2.5.2",
     "geist": "^1.2.1",
     "lucide-react": "^0.462.0",
@@ -36,6 +36,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
+    "dotenv-cli": "^8.0.0",
     "encoding": "^0.1.13",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.5",
