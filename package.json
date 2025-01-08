@@ -6,17 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-<<<<<<< HEAD
     "lint": "run-s -c lint:*",
     "lint:next": "next lint",
     "lint:prettier": "prettier -c 'src/**/*'",
     "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
     "test": "true",
     "e2e": "dotenv -e .env.local -- playwright test"
-=======
-    "lint": "next lint",
-    "e2e": "playwright test"
->>>>>>> 26b2dd2 (dotenv を devDependencies に移動する)
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
