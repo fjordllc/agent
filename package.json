@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
+    "lint:prettier": "prettier -c 'src/**/*'",
+    "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
     "e2e": "playwright test"
   },
   "dependencies": {
