@@ -40,6 +40,7 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - run: npx playwright install --with-deps
       - run: npm run test
 
 
