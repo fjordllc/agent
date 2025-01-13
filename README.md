@@ -29,8 +29,6 @@ cp .env.local.example .env.local
 ```
 NEXT_PUBLIC_SUPABASE_URL=API URLを設定する
 NEXT_PUBLIC_SUPABASE_ANON_KEY=anon keyを設定する
-EMAIL=Wikiのローカル環境ユーザーの Email を設定する
-PASSWORD=Wikiのローカル環境ユーザーの Pass を設定する
 ```
 
 ## 実行
