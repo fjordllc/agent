@@ -11,7 +11,7 @@
     "lint:prettier": "prettier -c 'src/**/*'",
     "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
     "test": "true",
-    "e2e": "playwright test"
+    "e2e": "playwright test --reporter=list"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
