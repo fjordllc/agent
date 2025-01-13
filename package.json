@@ -10,7 +10,7 @@
     "lint:next": "next lint",
     "lint:prettier": "prettier -c 'src/**/*'",
     "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
-    "test": "true",
+    "test": "playwright test --reporter=list",
     "e2e": "playwright test --reporter=list"
   },
   "dependencies": {
