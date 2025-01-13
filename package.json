@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "jest",
-    "e2e": "playwright test"
+    "lint": "run-s -c lint:*",
+    "lint:next": "next lint",
+    "lint:prettier": "prettier -c 'src/**/*'",
+    "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
+    "test": "npx playwright test --reporter=list",
+    "e2e": "npx playwright test --reporter=list"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
