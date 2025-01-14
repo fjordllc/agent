@@ -9,9 +9,6 @@
     "lint": "next lint",
     "test": "npx jest"
   },
-  "jest": {
-    "testEnvironment": "jest-environment-jsdom"
-  },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
     "@supabase/ssr": "^0.5.2",
@@ -29,6 +26,10 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
@@ -37,6 +38,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
+    "babel-jest": "^29.7.0",
     "encoding": "^0.1.13",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.5",
