@@ -10,8 +10,8 @@
     "lint:next": "next lint",
     "lint:prettier": "prettier -c 'src/**/*'",
     "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
-    "test": "dotenv -e .env.local -- playwright test",
-    "e2e": "dotenv -e .env.local -- playwright test"
+    "test": "playwright test",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
@@ -41,7 +41,6 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
-    "dotenv-cli": "^8.0.0",
     "encoding": "^0.1.13",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.5",
