@@ -43,7 +43,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - run: npx playwright install --with-deps
       - run: npx supabase start
-      - run: npm run dev &
       - run: npm run test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
