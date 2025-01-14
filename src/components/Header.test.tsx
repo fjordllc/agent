@@ -33,7 +33,7 @@ describe("Rendering test for the Header component", () => {
     });
   });
 
-  it("User is logged in with valied email and password", async () => {
+  it("User is logged in with valid email and password", async () => {
     const testUser: AuthCredential = {
       email: "test@test.com",
       password: "test",
