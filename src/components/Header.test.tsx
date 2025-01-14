@@ -1,6 +1,10 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { AuthCredential } from "@/types/authCredential";
 import Header from "./Header";
+import {
+  AuthCredential,
+  mockAuthError,
+  mockUserLoggedIn,
+} from "@/mocks/supabase";
 
 jest.mock("@/utils/supabase/server", () => ({
   createClient: jest.fn().mockReturnValue({
@@ -11,18 +15,9 @@ jest.mock("@/utils/supabase/server", () => ({
 }));
 
 describe("Rendering test for the Header component", () => {
-  const { createClient } = require("@/utils/supabase/server");
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
-
-  const renderHeaderWithUser = async (authCredential?: AuthCredential) => {
-    createClient().auth.getUser.mockResolvedValueOnce({
-      data: { user: authCredential },
-    });
-    render(await Header());
-  };
 
   describe("When user is logged in", () => {
     test("Should display logout button", async () => {
@@ -30,7 +25,8 @@ describe("Rendering test for the Header component", () => {
         email: "test@test.com",
         password: "test",
       };
-      renderHeaderWithUser(testUser);
+      mockUserLoggedIn(testUser);
+      render(await Header());
       await waitFor(() => {
         expect(screen.getAllByRole("listitem")).toHaveLength(4);
         expect(screen.getByText("ログアウト"));
@@ -40,7 +36,8 @@ describe("Rendering test for the Header component", () => {
 
   describe("When user is logged out", () => {
     test("Should display signin and login button", async () => {
-      renderHeaderWithUser();
+      mockUserLoggedIn();
+      render(await Header());
       await waitFor(() => {
         expect(screen.getAllByRole("listitem")).toHaveLength(5);
         expect(screen.getByText("ユーザー登録"));
@@ -51,9 +48,7 @@ describe("Rendering test for the Header component", () => {
 
   describe("When user is failed to log in", () => {
     test("Should display error message", async () => {
-      createClient().auth.getUser.mockRejectedValueOnce({
-        error: "email_address_invalid",
-      });
+      mockAuthError("email_address_invalid");
       render(await Header());
       await waitFor(() => {
         expect(screen.getByText("ユーザー登録")).toBeInTheDocument();
