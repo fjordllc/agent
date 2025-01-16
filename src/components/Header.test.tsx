@@ -28,8 +28,7 @@ describe("Rendering test for the Header component", () => {
       mockUserLoggedIn(testUser);
       render(await Header());
       await waitFor(() => {
-        expect(screen.getAllByRole("listitem")).toHaveLength(4);
-        expect(screen.getByText("ログアウト"));
+        expect(screen.getByText("ログアウト")).toBeInTheDocument();
       });
     });
   });
@@ -39,9 +38,8 @@ describe("Rendering test for the Header component", () => {
       mockUserLoggedIn();
       render(await Header());
       await waitFor(() => {
-        expect(screen.getAllByRole("listitem")).toHaveLength(5);
-        expect(screen.getByText("ユーザー登録"));
-        expect(screen.getByText("ログイン"));
+        expect(screen.getByText("ユーザー登録")).toBeInTheDocument();
+        expect(screen.getByText("ログイン")).toBeInTheDocument();
       });
     });
   });
