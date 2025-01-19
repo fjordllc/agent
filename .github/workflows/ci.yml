@@ -69,7 +69,7 @@ jobs:
 
       - name: Reset Database After Tests
         run: |
-          psql "postgres://postgres:postgres@localhost:54322/postgres" -f ./src/supabase/seed.test.sql
+          psql "postgres://postgres:postgres@localhost:54322/postgres" -f ./supabase/seed.test.sql
 
 
 
