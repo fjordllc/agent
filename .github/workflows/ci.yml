@@ -67,6 +67,10 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
+      - name: Reset Database After Tests
+        run: |
+          psql "postgres://postgres:postgres@localhost:54322/postgres" -f ./src/supabase/seed.test.sql
+
 
 
 
