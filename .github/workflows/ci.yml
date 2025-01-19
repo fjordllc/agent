@@ -46,7 +46,7 @@ jobs:
       - run: npx supabase db reset
       - name: Seed Test Data for CI (seed-test.sql)
         run: |
-          psql "postgres://postgres:postgres@localhost:54322/postgres" -f supabase/seed-test.sql
+          psql "postgres://postgres:postgres@localhost:54322/postgres" -f ./src/supabase/seed-test.sql
       - name: Generate .env.local for test environment
         run: |
           STATUS_OUTPUT=$(npx supabase status)
