@@ -9,19 +9,20 @@ dotenv.config({ path: envPath });
 setup("create new database", async () => {
   console.log("creating new database...");
 
+  const email = "test@example.com";
+  const password = "testtest";
+
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SERVICE_ROLE_KEY!,
   );
 
-  const { error } = await supabase.auth.signUp({
-    email: "admin@example.com",
-    password: "123",
+  const { error } = await supabase.auth.admin.createUser({
+    email: email,
+    password: password,
+    email_confirm: true,
   });
-
   if (error) {
-    console.error("Signup failed:", error.message);
-  } else {
-    console.log("Signup successful");
+    console.error("Failed to create test user:", error);
   }
 });
