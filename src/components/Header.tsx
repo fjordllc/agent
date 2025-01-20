@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
+import { AuthError } from "@supabase/supabase-js";
 
 export default async function Header() {
   const supabase = await createClient();
@@ -8,7 +9,12 @@ export default async function Header() {
     const { data } = await supabase.auth.getUser();
     user = data?.user;
   } catch (error) {
-    console.error("Failed to fetch user:", error);
+    if (error instanceof AuthError) {
+      alert(error.message);
+      console.error("Authentication error:", error.message);
+    } else {
+      throw error;
+    }
   }
 
   return (

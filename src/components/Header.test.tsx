@@ -5,6 +5,7 @@ import {
   mockAuthError,
   mockUserLoggedIn,
 } from "@/mocks/supabase";
+import { AuthError } from "@supabase/supabase-js";
 
 jest.mock("@/utils/supabase/server", () => ({
   createClient: jest.fn().mockReturnValue({
@@ -46,12 +47,16 @@ describe("Rendering test for the Header component", () => {
 
   describe("When user is failed to log in", () => {
     test("Should display error message", async () => {
-      mockAuthError("email_address_invalid");
+      global.alert = jest.fn();
+      const authError = new AuthError("email_address_invalid", 400);
+      mockAuthError(authError);
       render(await Header());
       await waitFor(() => {
         expect(screen.getByText("ユーザー登録")).toBeInTheDocument();
         expect(screen.getByText("ログイン")).toBeInTheDocument();
         expect(screen.queryByText("ログアウト")).not.toBeInTheDocument();
+
+        expect(global.alert).toHaveBeenCalledWith(authError.message);
       });
     });
   });
