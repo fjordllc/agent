@@ -15,5 +15,5 @@ export const mockUserLoggedIn = async (user?: AuthCredential) => {
 
 export const mockAuthError = async (error: AuthError) => {
   const client = await createClient();
-  jest.spyOn(client.auth, "getUser").mockRejectedValue(error);
+  (client.auth.getUser as jest.Mock).mockRejectedValue(error);
 };
