@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Log IN and Log OUT test", () => {
   const validEmail = "admin@example.com";
-  const validPassword = "testtest";
+  const validPassword = "123";
 
   test("Should Success Login with valid Email and Password then Logout", async ({
     page,
