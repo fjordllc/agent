@@ -49,8 +49,10 @@ jobs:
           STATUS_OUTPUT=$(npx supabase status)
           API_URL=$(echo "$STATUS_OUTPUT" | grep "API URL:" | awk '{print $3}')
           ANON_KEY=$(echo "$STATUS_OUTPUT" | grep "anon key:" | awk '{print $3}')
+          SERVICE_ROLE_KEY=$(echo "$STATUS_OUTPUT" | grep "service_role key:" | awk '{print $3}')
           echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL" > .env.local
           echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY" >> .env.local
+          echo "NEXT_PUBLIC_SERVICE_ROLE_KEY=$SERVICE_ROLE_KEY" >> .env.local
       - run: npm run build
       - run: npm run start &
       - name: Wait Front Response
