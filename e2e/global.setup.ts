@@ -14,7 +14,7 @@ setup("create new database", async () => {
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SERVICE_ROLE_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!,
   );
 
   const { error } = await supabase.auth.admin.createUser({
