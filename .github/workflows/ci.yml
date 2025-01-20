@@ -44,9 +44,6 @@ jobs:
       - run: npx playwright install --with-deps
       - run: npx supabase start
       - run: npx supabase db reset
-      - name: Seed Test Data for CI (seed-test.sql)
-        run: |
-          psql "postgres://postgres:postgres@localhost:54322/postgres" -f ./supabase/seed.test.sql
       - name: Generate .env.local for test environment
         run: |
           STATUS_OUTPUT=$(npx supabase status)
@@ -66,10 +63,6 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-
-      - name: Reset Database After Tests
-        run: |
-          psql "postgres://postgres:postgres@localhost:54322/postgres" -f ./supabase/seed.test.sql
 
 
 
