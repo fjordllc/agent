@@ -57,6 +57,8 @@ jobs:
       - name: Wait Front Response
         run: |
           curl --retry 5 --max-time 5 http://localhost:3000
+      - name: Install PostgreSQL Client
+        run: sudo apt update && sudo apt install -y postgresql-client
       - run: npm run test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}

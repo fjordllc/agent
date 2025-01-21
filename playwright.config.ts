@@ -39,6 +39,7 @@ export default defineConfig({
       name: "setup db",
       testMatch: /global\.setup\.ts/,
       teardown: "cleanup db",
+      timeout: 90000,
     },
     {
       name: "cleanup db",
@@ -47,19 +48,19 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      dependencies: ['setup db'],
+      dependencies: ["setup db"],
     },
 
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
-      dependencies: ['setup db'],
+      dependencies: ["setup db"],
     },
 
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
-      dependencies: ['setup db'],
+      dependencies: ["setup db"],
     },
 
     /* Test against mobile viewports. */
