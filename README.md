@@ -29,7 +29,6 @@ cp .env.local.example .env.local
 ```
 NEXT_PUBLIC_SUPABASE_URL=API URLを設定する
 NEXT_PUBLIC_SUPABASE_ANON_KEY=anon keyを設定する
-NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=service role keyを設定する
 ```
 
 ## 実行
