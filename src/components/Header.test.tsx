@@ -21,12 +21,15 @@ describe("Rendering test for the Header component", () => {
   });
 
   describe("When user is logged in", () => {
-    test("Should display logout button", async () => {
+    beforeEach(async () => {
       const testUser: AuthCredential = {
         email: "test@test.com",
         password: "test",
       };
       mockUserLoggedIn(testUser);
+    });
+
+    test("Should display logout button", async () => {
       render(await Header());
       await waitFor(() => {
         expect(screen.getByText("ログアウト")).toBeInTheDocument();
@@ -35,8 +38,11 @@ describe("Rendering test for the Header component", () => {
   });
 
   describe("When user is logged out", () => {
-    test("Should display signin and login button", async () => {
+    beforeEach(async () => {
       mockUserLoggedIn();
+    });
+
+    test("Should display signin and login button", async () => {
       render(await Header());
       await waitFor(() => {
         expect(screen.getByText("ユーザー登録")).toBeInTheDocument();
