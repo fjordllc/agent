@@ -39,3 +39,6 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# supabase for E2E test
+supabase-e2e-test/supabase

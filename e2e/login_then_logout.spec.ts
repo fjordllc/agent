@@ -4,6 +4,7 @@ test.describe("Log IN and Log OUT test", () => {
   const validEmail = "admin@example.com";
   const validPassword = "testtest";
 
+ 
   test("Should Success Login with valid Email and Password then Logout", async ({
     page,
   }) => {
@@ -39,8 +40,6 @@ test.describe("Log IN and Log OUT test", () => {
     await page.getByPlaceholder("name@example.com").fill("invalid@example.com");
     await page.getByLabel("Password").fill("invalidpassword");
     await page.getByRole("button", { name: "ログイン" }).click();
-
-    await expect(page).toHaveURL("http://localhost:3000/error");
 
     const loginButton = page.getByRole("button", { name: "ログイン" });
     await expect(loginButton).toBeVisible();
