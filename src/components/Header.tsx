@@ -1,11 +1,21 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
+import { AuthError } from "@supabase/supabase-js";
 
 export default async function Header() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data?.user;
+  } catch (error) {
+    if (error instanceof AuthError) {
+      alert(error.message);
+      console.error("Authentication error:", error.message);
+    } else {
+      throw error;
+    }
+  }
 
   return (
     <div className="navbar bg-neutral text-neutral-content">
