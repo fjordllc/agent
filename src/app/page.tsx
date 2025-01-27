@@ -10,6 +10,9 @@ export default async function Index() {
         <li>
           <Link href="/dashboard">ダッシュボード</Link>
         </li>
+        <li>
+          <Link href="/companies">企業情報一覧</Link>
+        </li>
       </ul>
     </SingleLayout>
   );

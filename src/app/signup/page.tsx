@@ -70,11 +70,17 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="container max-w-md py-8 md:py-20">
-      <div className="flex flex-col items-center space-y-8">
-        <div className="flex items-center gap-3">
-          <Image src="/pjord.svg" width={32} height={32} alt="logo" />
-          <h1 className="text-2xl font-bold">Fjord Agent</h1>
+    <section className="bg-gray-50 dark:bg-gray-900">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+          <Image
+            className="w-8 h-8 mr-2"
+            src="pjord.svg"
+            width="32"
+            height="32"
+            alt="logo"
+          />
+          Fjord Agent
         </div>
 
         <Card className="w-full">

@@ -34,6 +34,7 @@ export default function Auth() {
             className="w-8 h-8 mr-2"
             src="pjord.svg"
             width="32"
+            height="32"
             alt="logo"
           />
           Fjord Agent
