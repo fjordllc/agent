@@ -24,6 +24,7 @@ export default function Navbar() {
               <Image
                 src="pjord.svg"
                 width="32"
+                height="32"
                 className="h-8 mr-2"
                 alt="Logo"
               />
