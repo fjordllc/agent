@@ -13,8 +13,15 @@ export default function Companies() {
   }, []);
 
   async function fetchCompanies() {
-    const { data } = await supabase.from("companies").select("*");
-    if (data) setCompanies(data);
+    const { data, error } = await supabase.from("companies").select("*");
+    console.log("Data:", data); // データを確認
+    console.log("Error:", error); // エラーを確認
+    if (error) {
+      console.error("Error fetching companies:", error);
+    }
+    if (data) {
+      setCompanies(data);
+    }
   }
 
   return (
@@ -39,30 +46,37 @@ export default function Companies() {
       <div className="overflow-x-auto">
         <div className="align-middle inline-block min-w-full">
           <div className="shadow overflow-hidden">
-            <table className="table-fixed min-w-full divide-y divide-gray-200">
+            <table
+              className="table-fixed min-w-full divide-y divide-gray-200"
+              style={{ borderCollapse: "collapse", width: "100%" }}
+            >
               <thead className="bg-gray-100">
                 <tr>
                   <th
                     scope="col"
                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
+                    style={{ border: "1px solid black", padding: "8px" }}
                   >
                     Id
                   </th>
                   <th
                     scope="col"
                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
+                    style={{ border: "1px solid black", padding: "8px" }}
                   >
                     Name
                   </th>
                   <th
                     scope="col"
                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
+                    style={{ border: "1px solid black", padding: "8px" }}
                   >
                     Website
                   </th>
                   <th
                     scope="col"
                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
+                    style={{ border: "1px solid black", padding: "8px" }}
                   >
                     Memo
                   </th>
@@ -89,16 +103,30 @@ type CompanyProps = {
 function Company({ company }: CompanyProps) {
   return (
     <tr className="hover:bg-gray-100">
-      <td className="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+      <td
+        className="p-4 whitespace-nowrap text-base font-medium text-gray-900"
+        style={{ border: "1px solid black", padding: "8px" }}
+      >
         {company.id}
       </td>
-      <td className="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+      <td
+        className="p-4 whitespace-nowrap text-base font-medium text-gray-900"
+        style={{ border: "1px solid black", padding: "8px" }}
+      >
         {company.name}
       </td>
-      <td className="p-4 whitespace-nowrap text-base font-medium text-gray-900">
-        {company.website}
+      <td
+        className="p-4 whitespace-nowrap text-base font-medium text-gray-900"
+        style={{ border: "1px solid black", padding: "8px" }}
+      >
+        <a href={company.website} target="_blank" rel="noopener noreferrer">
+          {company.website}
+        </a>
       </td>
-      <td className="p-4 whitespace-nowrap text-base font-medium text-gray-900">
+      <td
+        className="p-4 whitespace-nowrap text-base font-medium text-gray-900"
+        style={{ border: "1px solid black", padding: "8px" }}
+      >
         {company.memo}
       </td>
       <td className="p-4 whitespace-nowrap space-x-2">
