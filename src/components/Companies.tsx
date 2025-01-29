@@ -14,8 +14,8 @@ export default function Companies() {
 
   async function fetchCompanies() {
     const { data, error } = await supabase.from("companies").select("*");
-    console.log("Data:", data);
-    console.log("Error:", error);
+    console.log("Fetched Data:", data);
+    console.log("Fetch Error:", error);
     if (error) {
       console.error("Error fetching companies:", error);
     }
