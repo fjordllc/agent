@@ -10,7 +10,7 @@
     "lint:next": "next lint",
     "lint:prettier": "prettier -c 'src/**/*'",
     "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
-    "test": "dotenv -e .env.test -- playwright test",
+    "test": "dotenv -e .env.test -- npm run dev & dotenv -e .env.test -- playwright test",
     "e2e": "dotenv -e .env.test -- playwright test"
   },
   "dependencies": {
