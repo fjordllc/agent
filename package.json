@@ -10,8 +10,8 @@
     "lint:next": "next lint",
     "lint:prettier": "prettier -c 'src/**/*'",
     "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
-    "test": "dotenv -e .env.test -- npm run dev & dotenv -e .env.test -- playwright test",
-    "e2e": "dotenv -e .env.test -- playwright test"
+    "test": "playwright test",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
@@ -54,6 +54,7 @@
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "supabase": "^2.0.0",
+    "supawright": "^0.3.0",
     "tailwindcss": "^3.4.15",
     "typescript": "^5",
     "typescript-eslint": "^8.19.1",

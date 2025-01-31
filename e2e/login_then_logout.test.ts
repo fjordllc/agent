@@ -1,10 +1,23 @@
-import { test, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { withSupawright } from "supawright";
+import type { Database } from "./database.types";
+import { describe } from "node:test";
 
-test.describe("Log IN and Log OUT test", () => {
+const test = withSupawright<Database, "public">(["public"]);
+
+describe("Login and Logout E2E test", () => {
   const validEmail = "admin@example.com";
   const validPassword = "testtest";
 
- 
+  test("retrieve test user indicated in Wiki", async ({ supawright }) => {
+    const { data: testUsers } = await supawright
+      .supabase()
+      .from("users")
+      .select();
+    const testUser = testUsers?.[0] || null;
+    expect(testUser?.email, validEmail);
+  });
+
   test("Should Success Login with valid Email and Password then Logout", async ({
     page,
   }) => {
