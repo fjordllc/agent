@@ -17,36 +17,36 @@ export default function Companies() {
   }, []);
 
   async function loginTest() {
-    console.log("🔑 ログインを試行...");
+    console.log("ログインを試行...");
     const { data, error } = await supabase.auth.signInWithPassword({
       email: "admin@example.com",
       password: "testtest",
     });
 
-    console.log("🔑 ログイン結果:", data, error);
+    console.log("ログイン結果:", data, error);
     
     const { data: session, error: sessionError } = await supabase.auth.getSession();
-    console.log("🔑 セッション取得:", session, sessionError);
+    console.log("セッション取得:", session, sessionError);
   }
 
   async function fetchCompanies() {
-    console.log("🔍 認証ユーザーを確認...");
+    console.log("認証ユーザーを確認...");
     const { data: user, error: authError } = await supabase.auth.getUser();
-    console.log("👤 User:", user);
-    if (authError) console.error("❌ Auth Error:", authError.message);
+    console.log("User:", user);
+    if (authError) console.error("Auth Error:", authError.message);
 
-    console.log("🔍 認証セッションを確認...");
+    console.log("認証セッションを確認...");
     const { data: session, error: sessionError } = await supabase.auth.getSession();
-    console.log("🔑 Session:", session);
-    if (sessionError) console.error("❌ Session Error:", sessionError.message);
+    console.log("Session:", session);
+    if (sessionError) console.error("Session Error:", sessionError.message);
 
-    console.log("📡 会社情報を取得...");
+    console.log("会社情報を取得...");
     const { data, error } = await supabase.from("companies").select("*");
     console.log("Fetched Data:", data);
     console.log("Fetch Error:", error);
 
     if (error) {
-      console.error("❌ データ取得エラー:", error.message);
+      console.error("データ取得エラー:", error.message);
     }
     if (data) {
       setCompanies(data);
