@@ -16,11 +16,11 @@ ALTER TABLE
 ALTER TABLE
     IF EXISTS public.companies ENABLE ROW LEVEL SECURITY;
 
-GRANT ALL ON TABLE public.companies TO anon, authenticated, postgres, service_role;
+GRANT SELECT ON ALL TABLES IN SCHEMA "public" TO authenticated;
 
 CREATE POLICY "Authenticated users can access table data" ON public.companies FOR
 SELECT
-    USING (auth.role() = 'authenticated');
+    USING (true);
 
 CREATE POLICY "Admin users can update table data" ON public.companies FOR
 UPDATE
