@@ -9,6 +9,14 @@ describe("Login and Logout E2E test", () => {
   const validEmail = "admin@example.com";
   const validPassword = "testtest";
 
+  test.beforeEach(async ({ supawright }) => {
+    const user = await supawright.create("users", {
+      email: "some-email@supawrightmail.com",
+      id: "acfeb157-6c90-4d70-ad96-1d6361c1874e",
+    });
+    console.log(user);
+  });
+
   test("retrieve test user indicated in Wiki", async ({ supawright }) => {
     const { data: testUsers } = await supawright
       .supabase()
@@ -16,6 +24,7 @@ describe("Login and Logout E2E test", () => {
       .select();
     const testUser = testUsers?.[0] || null;
     expect(testUser?.email, validEmail);
+    console.log(testUser);
   });
 
   test("Should Success Login with valid Email and Password then Logout", async ({
