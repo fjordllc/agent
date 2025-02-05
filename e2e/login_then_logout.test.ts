@@ -1,30 +1,26 @@
+import { describe } from "node:test";
 import { expect } from "@playwright/test";
 import { withSupawright } from "supawright";
 import type { Database } from "./database.types";
-import { describe } from "node:test";
+
+function getRandomString(length: number): string {
+  return Array.from({ length }, () => Math.random().toString(36)[2]).join("");
+}
 
 const test = withSupawright<Database, "public">(["public"]);
 
 describe("Login and Logout E2E test", () => {
-  const validEmail = "admin@example.com";
-  const validPassword = "testtest";
+  let validEmail: string | undefined;
+  const e2ePassword = "e2e_password";
 
   test.beforeEach(async ({ supawright }) => {
-    const user = await supawright.create("users", {
-      email: "some-email@supawrightmail.com",
-      id: "acfeb157-6c90-4d70-ad96-1d6361c1874e",
-    });
-    console.log(user);
-  });
-
-  test("retrieve test user indicated in Wiki", async ({ supawright }) => {
-    const { data: testUsers } = await supawright
-      .supabase()
-      .from("users")
-      .select();
-    const testUser = testUsers?.[0] || null;
-    expect(testUser?.email, validEmail);
-    console.log(testUser);
+    const attributes = {
+      email: `${getRandomString(6)}@email.com`,
+      password: e2ePassword,
+      email_confirm: true,
+    };
+    const user = await supawright.createUser(attributes);
+    validEmail = user.email;
   });
 
   test("Should Success Login with valid Email and Password then Logout", async ({
@@ -33,8 +29,10 @@ describe("Login and Logout E2E test", () => {
     await page.goto("http://localhost:3000/");
     await page.getByRole("link", { name: "ログイン" }).click();
 
-    await page.getByPlaceholder("name@example.com").fill(validEmail);
-    await page.getByLabel("Password").fill(validPassword);
+    console.log(`valid email: ${validEmail}`);
+
+    await page.getByPlaceholder("name@example.com").fill(validEmail ?? "");
+    await page.getByLabel("Password").fill(e2ePassword);
     await page.getByRole("button", { name: "ログイン" }).click();
 
     const logoutButton = page.getByRole("link", { name: "ログアウト" });
