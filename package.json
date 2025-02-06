@@ -6,11 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "run-s -c lint:*",
-    "lint:next": "next lint",
-    "lint:prettier": "prettier -c 'src/**/*'",
-    "fix": "prettier --write 'src/**/*' &&  eslint --fix src/",
-    "test": "playwright test",
+    "lint": "next lint",
+    "test": "jest && playwright test",
     "e2e": "playwright test"
   },
   "dependencies": {
