@@ -1,12 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-console.log("Loaded ENV:", process.env);
-
-/**
  * See https://playwright.dev/docs/test-configuration.
  */
 

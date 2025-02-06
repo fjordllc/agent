@@ -1,7 +1,7 @@
 import { describe } from "node:test";
 import { expect } from "@playwright/test";
 import { withSupawright } from "supawright";
-import type { Database } from "./database.types";
+import type { Database } from "../src/lib/database.types";
 
 const test = withSupawright<Database, "public">(["public"]);
 
