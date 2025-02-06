@@ -3,10 +3,6 @@ import { expect } from "@playwright/test";
 import { withSupawright } from "supawright";
 import type { Database } from "./database.types";
 
-function getRandomString(length: number): string {
-  return Array.from({ length }, () => Math.random().toString(36)[2]).join("");
-}
-
 const test = withSupawright<Database, "public">(["public"]);
 
 describe("Login and Logout E2E test", () => {
@@ -15,7 +11,6 @@ describe("Login and Logout E2E test", () => {
 
   test.beforeEach(async ({ supawright }) => {
     const attributes = {
-      email: `${getRandomString(6)}@email.com`,
       password: e2ePassword,
       email_confirm: true,
     };
