@@ -13,22 +13,34 @@ jest.mock("../lib/supabase", () => ({
 
 jest.mock("../hooks/useDocs");
 
-const mockSetCurrentPage = jest.fn();
-
 const mockUseDocs = (override = {}) => {
   return {
     docs: [
-      { id: "1", title: "Doc 1", body: "Content 1" },
-      { id: "2", title: "Doc 2", body: "Content 2" },
-      { id: "3", title: "Doc 3", body: "Content 3" },
-      { id: "4", title: "Doc 4", body: "Content 4" },
-      { id: "5", title: "Doc 5", body: "Content 5" },
-      { id: "6", title: "Doc 6", body: "Content 6" },
+      {
+        title: "test 1",
+        body: "This is a sample note.",
+        created_at: "2025-02-07T10:00:00Z",
+        updated_at: "2025-02-07T12:00:00Z",
+        user_id: "123",
+        last_updated_user_id: "123",
+      },
+      {
+        title: "test 2",
+        body: "Another test note.",
+        created_at: "2025-02-06T14:30:00Z",
+        updated_at: "2025-02-07T09:45:00Z",
+        user_id: "456",
+        last_updated_user_id: "789",
+      },
+      {
+        title: "test 3",
+        body: "Third test note.",
+        created_at: "2025-02-06T14:30:00Z",
+        updated_at: "2025-02-07T09:45:00Z",
+        user_id: "555",
+        last_updated_user_id: "666",
+      },
     ],
-    currentPage: 1,
-    totalPages: 3,
-    loading: false,
-    setCurrentPage: mockSetCurrentPage,
     ...override,
   };
 };
@@ -44,8 +56,7 @@ describe("Rendering test for DocList component", () => {
   test("should render loading is false", () => {
     render(<DocList itemsPerPage={2} />);
 
-    expect(screen.getByText("Doc 1")).toBeInTheDocument();
-    expect(screen.getByText("Doc 2")).toBeInTheDocument();
-    expect(screen.getByText("Doc 3"))!.toBeInTheDocument();
+    expect(screen.getByText("test 1")).toBeInTheDocument();
+    expect(screen.getByText("test 2")).toBeInTheDocument();
   });
 });
