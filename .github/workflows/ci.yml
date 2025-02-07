@@ -34,16 +34,35 @@ jobs:
 
   test:
     needs: setup
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - run: npx playwright install --with-deps
+      - run: npx supabase start
+      - run: npx supabase db reset
+      - name: Generate .env.local for test environment
+        run: |
+          STATUS_OUTPUT=$(npx supabase status)
+          API_URL=$(echo "$STATUS_OUTPUT" | grep "API URL:" | awk '{print $3}')
+          ANON_KEY=$(echo "$STATUS_OUTPUT" | grep "anon key:" | awk '{print $3}')
+          echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL" > .env.local
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY" >> .env.local
+      - run: npm run build
+      - run: npm run start &
+      - name: Wait Front Response
+        run: |
+          curl --retry 5 --max-time 5 http://localhost:3000
+      - name: Install PostgreSQL Client
+        run: sudo apt update && sudo apt install -y postgresql-client
       - run: npm run test
-
-
-
-
-
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
       
