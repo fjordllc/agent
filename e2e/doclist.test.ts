@@ -11,6 +11,7 @@ describe("DocList E2E test", () => {
       title: "Test Document",
       body: "This is a test document.",
       created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
       user_id: 555,
       last_updated_user_id: 555,
     });

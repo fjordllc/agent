@@ -22,7 +22,7 @@ export function useDocs({ itemsPerPage = 20, currentPage = 1 }: UseDocsProps) {
     const { data, count, error } = await supabase
       .from("docs")
       .select("*", { count: "exact" })
-      .order("created_at", { ascending: false })
+      .order("updated_at", { ascending: false })
       .range(start, end);
 
     if (error) {
