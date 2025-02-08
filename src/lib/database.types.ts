@@ -7,35 +7,87 @@ export type Json =
   | Json[]
 
 export type Database = {
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          operationName?: string
+          query?: string
+          variables?: Json
+          extensions?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       companies: {
         Row: {
-          created_at: string | null
+          created_at: string
           id: number
           memo: string | null
           name: string
-          updated_at: string | null
-          user_id: string | null
           website: string | null
         }
         Insert: {
-          created_at?: string | null
-          id?: never
+          created_at?: string
+          id?: number
           memo?: string | null
           name: string
-          updated_at?: string | null
-          user_id?: string | null
           website?: string | null
         }
         Update: {
-          created_at?: string | null
-          id?: never
+          created_at?: string
+          id?: number
           memo?: string | null
           name?: string
-          updated_at?: string | null
-          user_id?: string | null
           website?: string | null
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          date_of_birth: string | null
+          email: string
+          first_name: string | null
+          first_name_kana: string | null
+          id: string
+          last_name: string | null
+          last_name_kana: string | null
+          role: string | null
+        }
+        Insert: {
+          date_of_birth?: string | null
+          email: string
+          first_name?: string | null
+          first_name_kana?: string | null
+          id: string
+          last_name?: string | null
+          last_name_kana?: string | null
+          role?: string | null
+        }
+        Update: {
+          date_of_birth?: string | null
+          email?: string
+          first_name?: string | null
+          first_name_kana?: string | null
+          id?: string
+          last_name?: string | null
+          last_name_kana?: string | null
+          role?: string | null
         }
         Relationships: []
       }

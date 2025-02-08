@@ -34,3 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+full_backup.sql
+src/__tests__/.env.test
+src/test-companies.mjs
+src/utils/checkAuth.mjs
