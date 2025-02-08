@@ -5,16 +5,6 @@ export type AuthCredential = {
   password: string;
 };
 
-export type Document = {
-  id: string;
-  title: string;
-  body: string;
-  created_at: string;
-  updated_at: string;
-  user_id: string;
-  last_updated_user_id: string;
-};
-
 export const mockUserLoggedIn = async (user?: AuthCredential) => {
   const client = await createClient();
   (client.auth.getUser as jest.Mock).mockResolvedValueOnce({
@@ -29,10 +19,38 @@ export const mockAuthError = async (error: AuthError) => {
   (client.auth.getUser as jest.Mock).mockRejectedValue(error);
 };
 
-export const mockDocs = async (docs: Document[]) => {
-  const client = await createClient();
-  (client.from as jest.Mock).mockReturnValue({
-    select: jest.fn().mockResolvedValueOnce({ data: docs, error: null }),
-  });
+export const mockUseDocs = (override = {}) => {
+  return {
+    docs: [
+      {
+        id: "acfeb157-6c90-4d70-ad96-1d6361c1874e",
+        title: "test 1",
+        body: "This is a sample note.",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        user_id: "123",
+        last_updated_user_id: "123",
+      },
+      {
+        id: "acfeb157-6c90-4d70-ad96-1d6361c1874a",
+        title: "test 2",
+        body: "Another test note.",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        user_id: "456",
+        last_updated_user_id: "789",
+      },
+      {
+        id: "bcfeb157-6c90-4d70-ad96-1d6361c1874e",
+        title: "test 3",
+        body: "Third test note.",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        user_id: "555",
+        last_updated_user_id: "666",
+      },
+    ],
+    ...override,
+  };
 };
 >>>>>>> d9d6952 (Docs のモック関数を mocks/supabase.ts に切り分ける)
