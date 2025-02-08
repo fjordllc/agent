@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import DocList from "../components/DocList";
 import useDocs from "../hooks/useDocs";
@@ -53,10 +53,10 @@ describe("Rendering test for DocList component", () => {
     jest.clearAllMocks();
   });
 
-  test("should render loading is false", () => {
+  test("should show proper doc items", () => {
     render(<DocList itemsPerPage={2} />);
 
-    expect(screen.getByText("test 1")).toBeInTheDocument();
-    expect(screen.getByText("test 2")).toBeInTheDocument();
+    expect(screen.getByText("1")).toBeInTheDocument();
+    expect(screen.getByText("2")).toBeInTheDocument();
   });
 });

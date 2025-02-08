@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import supabase from "../lib/supabase";
-import { Tables } from "../../supabase/database.types";
+import supabase from "@/lib/supabase";
+import { Tables } from "@/lib/database.types";
 
 type Doc = Tables<"docs">;
 
