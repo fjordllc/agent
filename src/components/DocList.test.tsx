@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import DocList from "@/components/DocList";
 import useDocs from "@/hooks/useDocs";
+import { mockUseDocs } from "@/mocks/supabase";
 
 jest.mock("@/lib/supabase", () => ({
   createClient: jest.fn().mockReturnValue({
@@ -11,41 +12,6 @@ jest.mock("@/lib/supabase", () => ({
 }));
 
 jest.mock("../hooks/useDocs");
-
-const mockUseDocs = (override = {}) => {
-  return {
-    docs: [
-      {
-        id: "acfeb157-6c90-4d70-ad96-1d6361c1874e",
-        title: "test 1",
-        body: "This is a sample note.",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        user_id: "123",
-        last_updated_user_id: "123",
-      },
-      {
-        id: "acfeb157-6c90-4d70-ad96-1d6361c1874a",
-        title: "test 2",
-        body: "Another test note.",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        user_id: "456",
-        last_updated_user_id: "789",
-      },
-      {
-        id: "bcfeb157-6c90-4d70-ad96-1d6361c1874e",
-        title: "test 3",
-        body: "Third test note.",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        user_id: "555",
-        last_updated_user_id: "666",
-      },
-    ],
-    ...override,
-  };
-};
 
 describe("Rendering test for DocList and Pagination components", () => {
   beforeEach(() => {
