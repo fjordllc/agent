@@ -14,7 +14,7 @@
     "@heroicons/react": "^2.1.5",
     "@supabase/postgrest-js": "^1.17.9",
     "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.48.1",
+    "@supabase/supabase-js": "^2.47.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "flowbite": "^2.5.2",
