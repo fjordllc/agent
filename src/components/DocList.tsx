@@ -1,4 +1,4 @@
-import useDocs from "../hooks/useDocs";
+import useDocs from "@/hooks/useDocs";
 import Pagination from "./Pagination";
 
 interface DocsProps {
