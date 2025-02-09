@@ -17,20 +17,24 @@ export default async function DocDetails({
   if (!doc) notFound();
 
   return (
-    <div>
-      <h1>{doc.title}</h1>
-      <p>{doc.body}</p>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">{doc.title}</h1>
+      <p className="mb-4">{doc.body}</p>
       <p>
-        <strong>User ID:</strong> {doc.user_id}
+        <span className="font-semibold text-gray-700">User ID:</span>{" "}
+        {doc.user_id}
       </p>
       <p>
-        <strong>Last Updated By:</strong> {doc.last_updated_user_id}
+        <span className="font-semibold text-gray-700">Last Updated By:</span>{" "}
+        {doc.last_updated_user_id}
       </p>
       <p>
-        <strong>Created At:</strong> {new Date(doc.created_at).toLocaleString()}
+        <span className="font-semibold text-gray-700">Created At:</span>{" "}
+        {new Date(doc.created_at).toLocaleString()}
       </p>
       <p>
-        <strong>Updated At:</strong> {new Date(doc.updated_at).toLocaleString()}
+        <span className="font-semibold text-gray-700">Updated At:</span>{" "}
+        {new Date(doc.updated_at).toLocaleString()}
       </p>
     </div>
   );
