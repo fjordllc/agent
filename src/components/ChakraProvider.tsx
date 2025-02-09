@@ -1,6 +1,6 @@
 import { ChakraProvider as Provider } from '@chakra-ui/react'
 import { ReactNode } from 'react'
-import { Providers } from './Providers'
+import { ChakraClientProvider } from './ChakraClientProvider'
 
 interface Props {
   children: ReactNode
@@ -9,7 +9,7 @@ interface Props {
 export function ChakraProvider({ children }: Props) {
   return (
     <Provider>
-      <Providers>{children}</Providers>
+      <ChakraClientProvider>{children}</ChakraClientProvider>
     </Provider>
   )
 }

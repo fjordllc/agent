@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode
 }
 
-export function Providers({ children }: Props) {
+export function ChakraClientProvider({ children }: Props) {
   return (
     <>
       {children}
