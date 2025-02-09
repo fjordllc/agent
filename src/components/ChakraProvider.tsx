@@ -1,8 +1,22 @@
 'use client'
 
-import React from 'react'
-import { ChakraProvider as ChakraUIProvider } from '@chakra-ui/react'
+import { ChakraProvider as Provider } from '@chakra-ui/react'
+import { ReactNode } from 'react'
+import { createStandaloneToast } from '@chakra-ui/toast'
 
-export function ChakraProvider({ children }: { children: React.ReactNode }) {
-  return <ChakraUIProvider>{children}</ChakraUIProvider>
+const { ToastContainer } = createStandaloneToast()
+
+interface Props {
+  children: ReactNode
+}
+
+export function ChakraProvider({ children }: Props) {
+  return (
+    <>
+      <Provider>
+        {children}
+      </Provider>
+      <ToastContainer />
+    </>
+  )
 }
