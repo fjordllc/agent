@@ -10,14 +10,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/daisyui@4.12.19/dist/full.min.css"
-          rel="stylesheet"
-          type="text/css"
-        />
-        <script src="https://cdn.tailwindcss.com" async></script>
-      </head>
       <body>{children}</body>
     </html>
   );
