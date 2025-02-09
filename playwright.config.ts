@@ -22,13 +22,9 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-<<<<<<< HEAD
       use: {
         ...devices["Desktop Chrome"],
       },
-=======
-      use: { ...devices["Desktop Chrome"], timezoneId: "UTC" },
->>>>>>> 98e03d6 (ドキュメント詳細のE2Eテストですべての値が表示されるか修正する)
     },
 
     // {
