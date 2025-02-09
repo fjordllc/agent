@@ -2,7 +2,6 @@ import { describe } from "node:test";
 import { expect } from "@playwright/test";
 import { withSupawright } from "supawright";
 import type { Database } from "@/lib/database.types";
-import { waitFor } from "@testing-library/dom";
 
 const test = withSupawright<Database, "public">(["public"]);
 
@@ -11,8 +10,8 @@ describe("DocList E2E test", () => {
     await supawright.create("public", "docs", {
       title: "Test Document",
       body: "This is a test document.",
-      user_id: 555,
-      last_updated_user_id: 555,
+      user_id: "dcfeb157-6c90-4d70-ad96-1d6361c1874e",
+      last_updated_user_id: "dcfeb157-6c90-4d70-ad96-1d6361c1874e",
     });
   });
 
@@ -24,7 +23,7 @@ describe("DocList E2E test", () => {
       await page.getByRole("link", { name: "Test Document" }).first().click();
       await page.waitForLoadState("networkidle");
       await expect(
-        page.locator('p:has-text("This is a test document.")'),
+        page.locator('p:has-text("This is a test document.")').first(),
       ).toBeVisible();
       await expect(page.locator('p:has-text("User ID:")')).toBeVisible();
       await expect(page.locator('p:has-text("Created At:")')).toBeVisible();

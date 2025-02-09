@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS public.docs (
     body TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
-    user_id INT NOT NULL,
-    last_updated_user_id INT NOT NULL
+    user_id UUID NOT NULL,
+    last_updated_user_id UUID NOT NULL
 );
