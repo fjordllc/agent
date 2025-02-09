@@ -7,8 +7,8 @@ INSERT INTO companies (name, website, memo) VALUES ('株式会社リンゴ', 'ht
 INSERT INTO companies (name, website, memo) VALUES ('株式会社バナナ', 'https://example.com/banana', 'バナナは良い会社');
 INSERT INTO companies (name, website, memo) VALUES ('株式会社オレンジ', 'https://example.com/orange', 'オレンジは良い会社');
 
-INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc1', 'これは Doc1 です。', NOW(), NOW(), 1, 1);
-INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc2', 'これは Doc2 です。', NOW(), NOW(), 1, 2);
-INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc3', 'これは Doc3 です。', NOW(), NOW(), 2, 2);
-INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc4', 'これは Doc4 です。', NOW(), NOW(), 3, 3);
-INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc5', 'これは Doc5 です。', NOW(), NOW(), 2, 2);
+INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc1', 'これは Doc1 です。', NOW(), NOW(), 'dcfeb157-6c90-4d70-ad96-1d6361c1874e', 'dcfeb157-6c90-4d70-ad96-1d6361c1874e');
+INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc2', 'これは Doc2 です。', NOW(), NOW(), 'dcfeb157-6c90-4d70-ad96-1d6361c1874e', 'dcfeb157-6c90-4d70-ad96-1d6361c1874e');
+INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc3', 'これは Doc3 です。', NOW(), NOW(), 'dcfeb157-6c90-4d70-ad96-1d6361c1874e', 'dcfeb157-6c90-4d70-ad96-1d6361c1874e');
+INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc4', 'これは Doc4 です。', NOW(), NOW(), 'dcfeb157-6c90-4d70-ad96-1d6361c1874e', 'dcfeb157-6c90-4d70-ad96-1d6361c1874e');
+INSERT INTO docs (title, body, created_at, updated_at, user_id, last_updated_user_id) VALUES ('Doc5', 'これは Doc5 です。', NOW(), NOW(), 'dcfeb157-6c90-4d70-ad96-1d6361c1874e', 'dcfeb157-6c90-4d70-ad96-1d6361c1874e');
