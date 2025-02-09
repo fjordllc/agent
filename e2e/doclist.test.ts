@@ -25,7 +25,7 @@ describe("DocList E2E test", () => {
       await expect(
         page.locator('p:has-text("This is a test document.")').first(),
       ).toBeVisible();
-      await expect(page.locator('p:has-text("User ID:")')).toBeVisible();
+      await expect(page.locator('p:has-text("User:")')).toBeVisible();
       await expect(page.locator('p:has-text("Created At:")')).toBeVisible();
       await expect(page.locator('p:has-text("Updated At:")')).toBeVisible();
     });
