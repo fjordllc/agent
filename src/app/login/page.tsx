@@ -1,8 +1,6 @@
-'use client'
-
-import { login } from "@/app/login/actions"
-import { Box, Button, Container, FormControl, FormLabel, Heading, Input, VStack, HStack, Text } from "@chakra-ui/react"
+import { Box, Container, Heading, HStack, Text, VStack } from "@chakra-ui/react"
 import Image from "next/image"
+import { LoginForm } from "@/components/LoginForm"
 
 export default function LoginPage() {
   return (
@@ -26,41 +24,7 @@ export default function LoginPage() {
               <Heading as="h1" size="lg">
                 ログイン
               </Heading>
-
-              <form style={{ width: '100%' }}>
-                <VStack spacing={4} align="stretch">
-                  <FormControl>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="name@example.com"
-                      required
-                    />
-                  </FormControl>
-
-                  <FormControl>
-                    <FormLabel htmlFor="password">Password</FormLabel>
-                    <Input
-                      id="password"
-                      name="password"
-                      type="password"
-                      required
-                    />
-                  </FormControl>
-
-                  <Button
-                    type="submit"
-                    colorScheme="blue"
-                    size="lg"
-                    width="full"
-                    formAction={login}
-                  >
-                    ログイン
-                  </Button>
-                </VStack>
-              </form>
+              <LoginForm />
             </VStack>
           </Box>
         </VStack>

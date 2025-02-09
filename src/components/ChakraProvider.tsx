@@ -1,10 +1,6 @@
-'use client'
-
 import { ChakraProvider as Provider } from '@chakra-ui/react'
 import { ReactNode } from 'react'
-import { createStandaloneToast } from '@chakra-ui/toast'
-
-const { ToastContainer } = createStandaloneToast()
+import { Providers } from './Providers'
 
 interface Props {
   children: ReactNode
@@ -12,11 +8,8 @@ interface Props {
 
 export function ChakraProvider({ children }: Props) {
   return (
-    <>
-      <Provider>
-        {children}
-      </Provider>
-      <ToastContainer />
-    </>
+    <Provider>
+      <Providers>{children}</Providers>
+    </Provider>
   )
 }
