@@ -13,14 +13,14 @@ export default defineConfig({
   use: {
     trace: "on-first-retry",
     headless: true,
-    timezoneId: "UTC",
+    timezoneId: "JST",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"], timezoneId: "UTC" },
+      use: { ...devices["Desktop Chrome"], timezoneId: "JST" },
     },
 
     // {
