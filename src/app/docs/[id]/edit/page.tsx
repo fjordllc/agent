@@ -28,7 +28,6 @@ export default function EditDoc({
         .single();
 
       if (data) {
-        setDoc(data);
         setTitle(data.title);
         setBody(data.body);
       }
