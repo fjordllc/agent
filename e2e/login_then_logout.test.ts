@@ -2,6 +2,7 @@ import { describe } from "node:test";
 import { expect } from "@playwright/test";
 import { withSupawright } from "supawright";
 import type { Database } from "../src/lib/database.types";
+import { E2E_CONFIG } from "./constants";
 
 const test = withSupawright<Database, "public">(["public"]);
 
@@ -21,7 +22,7 @@ describe("Login and Logout E2E test", () => {
   test("Should Success Login with valid Email and Password then Logout", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/");
+    await page.goto(E2E_CONFIG.BASE_URL);
     await page.getByRole("link", { name: "ログイン" }).click();
 
     console.log(`valid email: ${validEmail}`);
@@ -49,7 +50,7 @@ describe("Login and Logout E2E test", () => {
   test("Should Fail Login with Invalid Email and Password", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/");
+    await page.goto(E2E_CONFIG.BASE_URL);
     await page.getByRole("link", { name: "ログイン" }).click();
 
     await page.getByPlaceholder("name@example.com").fill("invalid@example.com");

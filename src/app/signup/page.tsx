@@ -1,9 +1,10 @@
-'use client'
+"use client";
 
-import { signup } from "@/app/signup/actions"
-import { signupSchema, type SignupFormData } from "@/schemas/auth"
-import { SignupErrorCode } from "./types"
-import Image from "next/image"
+import { signup } from "@/app/signup/actions";
+import { useRouter } from "next/navigation";
+import { signupSchema, type SignupFormData } from "@/schemas/auth";
+import { SignupErrorCode } from "./types";
+import Image from "next/image";
 import {
   Box,
   Button,
@@ -16,11 +17,12 @@ import {
   VStack,
   Flex,
   useToast,
-} from '@chakra-ui/react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function SignupPage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -28,17 +30,17 @@ export default function SignupPage() {
     formState: { errors, isSubmitting },
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
-  })
+  });
 
-  const toast = useToast()
+  const toast = useToast();
 
   const onSubmit = handleSubmit(async (data) => {
-    const formData = new FormData()
-    formData.append('email', data.email)
-    formData.append('password', data.password)
-    
-    const response = await signup(formData)
-    
+    const formData = new FormData();
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+
+    const response = await signup(formData);
+
     if (response.error) {
       switch (response.error.code) {
         case SignupErrorCode.ValidationError:
@@ -46,9 +48,9 @@ export default function SignupPage() {
           if (response.error.field) {
             setError(response.error.field as keyof SignupFormData, {
               message: response.error.message,
-            })
+            });
           }
-          break
+          break;
         case SignupErrorCode.ServerError:
           toast({
             title: "エラー",
@@ -57,23 +59,30 @@ export default function SignupPage() {
             duration: 5000,
             isClosable: true,
             position: "top",
-          })
-          break
+          });
+          break;
       }
-      return
+      return;
     }
-  })
+
+    toast({
+      title: "認証メール送付",
+      description:
+        "認証メールを送りました。メール内のURLをクリックし、サインアップを完了してください。",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+
+    router.push("/");
+  });
 
   return (
     <Container maxW="md" py={{ base: 8, md: 20 }}>
       <VStack spacing={8}>
         <Flex align="center" gap={3}>
-          <Image
-            src="/pjord.svg"
-            width={32}
-            height={32}
-            alt="logo"
-          />
+          <Image src="/pjord.svg" width={32} height={32} alt="logo" />
           <Heading size="lg">Fjord Agent</Heading>
         </Flex>
 
@@ -83,7 +92,7 @@ export default function SignupPage() {
               サインアップ
             </Heading>
 
-            <form onSubmit={onSubmit} style={{ width: '100%' }}>
+            <form onSubmit={onSubmit} style={{ width: "100%" }}>
               <VStack spacing={4}>
                 <FormControl isInvalid={!!errors.email}>
                   <FormLabel>Email</FormLabel>
@@ -91,11 +100,9 @@ export default function SignupPage() {
                     type="email"
                     placeholder="name@example.com"
                     autoComplete="email"
-                    {...register('email')}
+                    {...register("email")}
                   />
-                  <FormErrorMessage>
-                    {errors.email?.message}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
                 </FormControl>
 
                 <FormControl isInvalid={!!errors.password}>
@@ -103,7 +110,7 @@ export default function SignupPage() {
                   <Input
                     type="password"
                     autoComplete="new-password"
-                    {...register('password')}
+                    {...register("password")}
                   />
                   <FormErrorMessage>
                     {errors.password?.message}
@@ -124,5 +131,5 @@ export default function SignupPage() {
         </Box>
       </VStack>
     </Container>
-  )
+  );
 }
