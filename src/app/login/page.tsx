@@ -1,73 +1,101 @@
-import { login } from '@/app/login/actions'
-import Image from 'next/image'
+"use client";
+
+import { login } from "@/app/login/actions";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
-  Box,
-  Button,
-  Container,
+  Form,
   FormControl,
+  FormField,
+  FormItem,
   FormLabel,
-  Heading,
-  Input,
-  VStack,
-  Flex,
-} from '@chakra-ui/react'
+} from "@/components/ui/form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1, "パスワードを入力してください"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
+    const formData = new FormData();
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    await login(formData);
+  };
+
   return (
-    <Container maxW="md" py={{ base: 8, md: 20 }}>
-      <VStack spacing={8}>
-        <Flex align="center" gap={3}>
-          <Image
-            src="/pjord.svg"
-            width={32}
-            height={32}
-            alt="logo"
-          />
-          <Heading size="lg">Fjord Agent</Heading>
-        </Flex>
+    <div className="container max-w-md py-8 md:py-20">
+      <div className="flex flex-col items-center space-y-8">
+        <div className="flex items-center gap-3">
+          <Image src="/pjord.svg" width={32} height={32} alt="logo" />
+          <h1 className="text-2xl font-bold">Fjord Agent</h1>
+        </div>
 
-        <Box w="full" bg="white" p={8} borderRadius="lg" boxShadow="sm">
-          <VStack spacing={6}>
-            <Heading size="md" w="full">
-              ログイン
-            </Heading>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>ログイン</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="name@example.com"
+                          autoComplete="email"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
 
-            <form style={{ width: '100%' }}>
-              <VStack spacing={4}>
-                <FormControl>
-                  <FormLabel>Email</FormLabel>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="name@example.com"
-                    autoComplete="email"
-                    required
-                  />
-                </FormControl>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          autoComplete="current-password"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
 
-                <FormControl>
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    name="password"
-                    autoComplete="current-password"
-                    required
-                  />
-                </FormControl>
-
-                <Button
-                  type="submit"
-                  colorScheme="blue"
-                  w="full"
-                  formAction={login}
-                >
+                <Button type="submit" className="w-full">
                   ログイン
                 </Button>
-              </VStack>
-            </form>
-          </VStack>
-        </Box>
-      </VStack>
-    </Container>
-  )
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 }

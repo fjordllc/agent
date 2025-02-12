@@ -5,36 +5,30 @@ import { useRouter } from "next/navigation";
 import { signupSchema, type SignupFormData } from "@/schemas/auth";
 import { SignupErrorCode } from "./types";
 import Image from "next/image";
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Heading,
-  Input,
-  VStack,
-  Flex,
-  useToast,
-} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 
 export default function SignupPage() {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
-  } = useForm<SignupFormData>({
+  const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
   });
 
-  const toast = useToast();
+  const { toast } = useToast();
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = async (data: SignupFormData) => {
     const formData = new FormData();
     formData.append("email", data.email);
     formData.append("password", data.password);
@@ -46,7 +40,7 @@ export default function SignupPage() {
         case SignupErrorCode.ValidationError:
         case SignupErrorCode.EmailTaken:
           if (response.error.field) {
-            setError(response.error.field as keyof SignupFormData, {
+            form.setError(response.error.field as keyof SignupFormData, {
               message: response.error.message,
             });
           }
@@ -55,10 +49,7 @@ export default function SignupPage() {
           toast({
             title: "エラー",
             description: response.error.message,
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-            position: "top",
+            variant: "destructive",
           });
           break;
       }
@@ -69,67 +60,78 @@ export default function SignupPage() {
       title: "認証メール送付",
       description:
         "認証メールを送りました。メール内のURLをクリックし、サインアップを完了してください。",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-      position: "top",
     });
 
     router.push("/");
-  });
+  };
 
   return (
-    <Container maxW="md" py={{ base: 8, md: 20 }}>
-      <VStack spacing={8}>
-        <Flex align="center" gap={3}>
+    <div className="container max-w-md py-8 md:py-20">
+      <div className="flex flex-col items-center space-y-8">
+        <div className="flex items-center gap-3">
           <Image src="/pjord.svg" width={32} height={32} alt="logo" />
-          <Heading size="lg">Fjord Agent</Heading>
-        </Flex>
+          <h1 className="text-2xl font-bold">Fjord Agent</h1>
+        </div>
 
-        <Box w="full" bg="white" p={8} borderRadius="lg" boxShadow="sm">
-          <VStack spacing={6}>
-            <Heading size="md" w="full">
-              サインアップ
-            </Heading>
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle>サインアップ</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="name@example.com"
+                          autoComplete="email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <form onSubmit={onSubmit} style={{ width: "100%" }}>
-              <VStack spacing={4}>
-                <FormControl isInvalid={!!errors.email}>
-                  <FormLabel>Email</FormLabel>
-                  <Input
-                    type="email"
-                    placeholder="name@example.com"
-                    autoComplete="email"
-                    {...register("email")}
-                  />
-                  <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-                </FormControl>
-
-                <FormControl isInvalid={!!errors.password}>
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    autoComplete="new-password"
-                    {...register("password")}
-                  />
-                  <FormErrorMessage>
-                    {errors.password?.message}
-                  </FormErrorMessage>
-                </FormControl>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          autoComplete="new-password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 <Button
                   type="submit"
-                  colorScheme="blue"
-                  w="full"
-                  isLoading={isSubmitting}
+                  className="w-full"
+                  disabled={form.formState.isSubmitting}
                 >
                   サインアップ
                 </Button>
-              </VStack>
-            </form>
-          </VStack>
-        </Box>
-      </VStack>
-    </Container>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }
