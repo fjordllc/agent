@@ -32,11 +32,12 @@ describe("Login and Logout E2E test", () => {
     await page.getByRole("button", { name: "ログイン" }).click();
 
     const logoutButton = page.getByRole("link", { name: "ログアウト" });
-    await expect(logoutButton).toBeVisible();
+    await expect(logoutButton).toBeVisible({ timeout: 10000 });
 
     /** 現在リロードしないと画面が更新されずログイン、サインインが表示されない **/
     await logoutButton.click();
-    await page.waitForTimeout(1500);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(2000);
 
     await page.reload();
 

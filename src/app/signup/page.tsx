@@ -24,6 +24,10 @@ export default function SignupPage() {
   const router = useRouter();
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const { toast } = useToast();
