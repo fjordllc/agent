@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { AuthError } from "@supabase/supabase-js";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { Button } from "@/components/ui/button";
 
 export default async function Header() {
   const supabase = await createClient();
@@ -10,7 +18,6 @@ export default async function Header() {
     user = data?.user;
   } catch (error) {
     if (error instanceof AuthError) {
-      alert(error.message);
       console.error("Authentication error:", error.message);
     } else {
       throw error;
@@ -18,43 +25,40 @@ export default async function Header() {
   }
 
   return (
-    <div className="navbar bg-neutral text-neutral-content">
-      <div className="flex-1">
-        <Link href="/" className="btn btn-ghost text-xl">
-          Fjord Agent
+    <header className="border-b">
+      <div className="container flex h-16 items-center px-4">
+        <Link href="/" className="mr-6 flex items-center space-x-2">
+          <span className="text-xl font-bold">Fjord Agent</span>
         </Link>
+        <NavigationMenu className="ml-auto">
+          <NavigationMenuList>
+            {user ? (
+              <NavigationMenuItem>
+                <Link href="/logout" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    ログアウト
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            ) : (
+              <>
+                <NavigationMenuItem>
+                  <Link href="/signup" legacyBehavior passHref>
+                    <Button variant="ghost" className="mr-2">
+                      ユーザー登録
+                    </Button>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/login" legacyBehavior passHref>
+                    <Button>ログイン</Button>
+                  </Link>
+                </NavigationMenuItem>
+              </>
+            )}
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
-          {user ? (
-            <li>
-              <Link href="/logout">ログアウト</Link>
-            </li>
-          ) : (
-            <>
-              <li>
-                <Link href="/signup">ユーザー登録</Link>
-              </li>
-              <li>
-                <Link href="/login">ログイン</Link>
-              </li>
-            </>
-          )}
-          <li>
-            <details>
-              <summary>ダミー</summary>
-              <ul className="bg-base-100 rounded-t-none p-2">
-                <li>
-                  <a>Link 1</a>
-                </li>
-                <li>
-                  <a>Link 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-      </div>
-    </div>
+    </header>
   );
 }
