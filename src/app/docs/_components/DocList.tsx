@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useDocs } from "@/hooks/useDocs";
 import { usePagination } from "@/hooks/usePagination";
 import Pagination from "@/components/Pagination";
@@ -12,6 +13,11 @@ interface DocsProps {
 export default function DocList({ itemsPerPage }: DocsProps) {
   const { currentPage, setCurrentPage } = usePagination({ initialPage: 1 });
   const { docs, totalPages, loading } = useDocs({ itemsPerPage, currentPage });
+  const router = useRouter();
+
+  const handleCardClick = (id: number) => {
+    router.push(`/docs/${id}`);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -30,7 +36,8 @@ export default function DocList({ itemsPerPage }: DocsProps) {
           {docs.map((doc) => (
             <Card
               key={doc.id}
-              className="w-full hover:shadow-lg transition-shadow"
+              className="w-full hover:shadow-lg transition-shadow cursor-pointer"
+              onClick={() => handleCardClick(doc.id)}
             >
               <CardHeader>
                 <CardTitle>{doc.title}</CardTitle>
