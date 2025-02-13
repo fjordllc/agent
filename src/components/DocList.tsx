@@ -1,4 +1,5 @@
-import useDocs from "@/hooks/useDocs";
+import { useDocs } from "@/hooks/useDocs";
+import { usePagination } from "@/hooks/usePagination";
 import Pagination from "./Pagination";
 
 interface DocsProps {
@@ -6,9 +7,8 @@ interface DocsProps {
 }
 
 export default function DocList({ itemsPerPage }: DocsProps) {
-  const { docs, currentPage, totalPages, loading, setCurrentPage } = useDocs({
-    itemsPerPage,
-  });
+  const { currentPage, setCurrentPage } = usePagination({ initialPage: 1 });
+  const { docs, totalPages, loading } = useDocs({ itemsPerPage, currentPage });
 
   return (
     <div>
@@ -28,7 +28,7 @@ export default function DocList({ itemsPerPage }: DocsProps) {
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={(page) => setCurrentPage(page)}
+        onPageChange={setCurrentPage}
       />
     </div>
   );
