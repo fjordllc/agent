@@ -10,13 +10,15 @@ jest.mock("@/lib/supabase", () => ({
   }),
 }));
 
-jest.mock("@/hooks/useDocs");
+jest.mock("@/hooks/useDocs", () => ({
+  useDocs: jest.fn(),
+}));
 
 const mockUseDocs = (override = {}) => {
   return {
     docs: [
       {
-        id: "acfeb157-6c90-4d70-ad96-1d6361c1874e",
+        id: 1,
         title: "test 1",
         body: "This is a sample note.",
         created_at: "2025-02-07T10:00:00Z",
@@ -25,7 +27,7 @@ const mockUseDocs = (override = {}) => {
         last_updated_user_id: "123",
       },
       {
-        id: "acfeb157-6c90-4d70-ad96-1d6361c1874a",
+        id: 2,
         title: "test 2",
         body: "Another test note.",
         created_at: "2025-02-06T14:30:00Z",
@@ -34,7 +36,7 @@ const mockUseDocs = (override = {}) => {
         last_updated_user_id: "789",
       },
       {
-        id: "bcfeb157-6c90-4d70-ad96-1d6361c1874e",
+        id: 3,
         title: "test 3",
         body: "Third test note.",
         created_at: "2025-02-06T14:30:00Z",
@@ -43,6 +45,8 @@ const mockUseDocs = (override = {}) => {
         last_updated_user_id: "666",
       },
     ],
+    totalPages: 1,
+    loading: false,
     ...override,
   };
 };
