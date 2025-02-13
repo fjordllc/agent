@@ -1,6 +1,6 @@
 import { useDocs } from "@/hooks/useDocs";
 import { usePagination } from "@/hooks/usePagination";
-import Pagination from "./Pagination";
+import Pagination from "../../../components/Pagination";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 interface DocsProps {
