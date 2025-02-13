@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import supabase from "@/lib/supabase";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 export default async function DocDetails({
   params,
@@ -10,7 +11,7 @@ export default async function DocDetails({
 
   const { data: doc, error } = await supabase
     .from("docs")
-    .select("body, user_id, created_at, updated_at")
+    .select("title,body, user_id, created_at, updated_at")
     .eq("id", Number(id))
     .single();
 
@@ -22,19 +23,27 @@ export default async function DocDetails({
   if (!doc) notFound();
 
   return (
-    <div className="p-6">
-      <p className="mb-4">{doc.body}</p>
-      <p>
-        <span className="font-semibold text-gray-700">User:</span> {doc.user_id}
-      </p>
-      <p>
-        <span className="font-semibold text-gray-700">Created At:</span>{" "}
-        {new Date(doc.created_at).toLocaleString()}
-      </p>
-      <p>
-        <span className="font-semibold text-gray-700">Updated At:</span>{" "}
-        {new Date(doc.updated_at).toLocaleString()}
-      </p>
-    </div>
+    <Card className="p-6 max-w-2xl mx-auto my-6">
+      <CardHeader>
+        <div className="text-2xl font-bold">{doc.title}</div>
+      </CardHeader>
+      <CardContent>
+        <p className="mb-4 text-lg">{doc.body}</p>
+        <div className="space-y-2">
+          <p>
+            <span className="font-semibold text-gray-700">User:</span>{" "}
+            {doc.user_id}
+          </p>
+          <p>
+            <span className="font-semibold text-gray-700">Created At:</span>{" "}
+            {new Date(doc.created_at).toLocaleString()}
+          </p>
+          <p>
+            <span className="font-semibold text-gray-700">Updated At:</span>{" "}
+            {new Date(doc.updated_at).toLocaleString()}
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
