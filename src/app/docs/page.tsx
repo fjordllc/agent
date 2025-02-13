@@ -1,6 +1,6 @@
 "use client";
 
-import Docs from "@/components/Docs";
+import Docs from "@/app/docs/_components/Docs";
 
 export default function DocsPage() {
   return (

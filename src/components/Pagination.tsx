@@ -41,8 +41,6 @@ const Pagination: React.FC<PaginationProps> = ({
     return pages;
   };
 
-  const pageNumbers = getPageNumbers();
-
   return (
     <nav
       role="navigation"
@@ -66,7 +64,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <ChevronLeft className="h-4 w-4" />
       </Button>
 
-      {pageNumbers.map((page) => (
+      {getPageNumbers().map((page) => (
         <Button
           key={page}
           variant={page === currentPage ? "default" : "ghost"}

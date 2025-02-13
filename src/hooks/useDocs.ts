@@ -9,7 +9,7 @@ interface UseDocsProps {
   currentPage: number;
 }
 
-export function useDocs({ itemsPerPage, currentPage }: UseDocsProps) {
+export function useDocs({ itemsPerPage = 20, currentPage = 1 }: UseDocsProps) {
   const [docs, setDocs] = useState<Doc[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
