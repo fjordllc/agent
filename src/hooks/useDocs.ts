@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import supabase from "@/lib/supabase";
-import { Tables } from "@/lib/database.types";
+import type { Tables } from "@/lib/database.types";
 
 type Doc = Tables<"docs">;
 
