@@ -10,12 +10,11 @@ export default async function DocDetails({
 
   const { data: doc, error } = await supabase
     .from("docs")
-    .select("*")
+    .select("body, user_id, created_at, updated_at")
     .eq("id", Number(id))
     .single();
 
   if (error) {
-    alert(`ドキュメントの取得に失敗しました。\n${error.code} ${error.message}`);
     console.error(
       `ドキュメントの取得に失敗しました。\n${error.code} ${error.message}`,
     );
