@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "jest && playwright test",
     "e2e": "playwright test",
-    "component-test": "jest"
+    "unit-test": "jest"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",

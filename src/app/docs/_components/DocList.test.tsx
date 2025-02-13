@@ -1,9 +1,6 @@
-import {
-  render,
-  screen,
-} from "@testing-library/react";
-import DocList from "@/components/DocList";
-import useDocs from "@/hooks/useDocs";
+import { render, screen } from "@testing-library/react";
+import DocList from "@/app/docs/_components/DocList";
+import { useDocs } from "@/hooks/useDocs";
 
 jest.mock("@/lib/supabase", () => ({
   createClient: jest.fn().mockReturnValue({
@@ -13,7 +10,7 @@ jest.mock("@/lib/supabase", () => ({
   }),
 }));
 
-jest.mock("../hooks/useDocs");
+jest.mock("@/hooks/useDocs");
 
 const mockUseDocs = (override = {}) => {
   return {
@@ -58,7 +55,7 @@ describe("Rendering test for DocList and Pagination components", () => {
   describe("render DocList Component", () => {
     test("should show proper doc items", () => {
       (useDocs as jest.Mock).mockReturnValue(mockUseDocs());
-      render(<DocList itemsPerPage={2} />);
+      render(<DocList itemsPerPage={20} />);
 
       expect(screen.getByText("test 1")).toBeInTheDocument();
       expect(screen.getByText("test 2")).toBeInTheDocument();
