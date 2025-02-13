@@ -10,8 +10,8 @@ describe("DocList E2E test", () => {
     await supawright.create("public", "docs", {
       title: "Test Document",
       body: "This is a test document.",
-      user_name: "fjord (フィヨルド)",
-      last_updated_user_name: "fjord (フィヨルド)",
+      user_id: "fjord (フィヨルド)",
+      last_updated_user_id: "fjord (フィヨルド)",
     });
   });
 

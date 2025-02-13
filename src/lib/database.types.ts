@@ -65,24 +65,24 @@ export type Database = {
           body: string;
           created_at: string;
           updated_at: string;
-          user_name: string;
-          last_updated_user_name: string;
+          user_id: string;
+          last_updated_user_id: string;
         };
         Insert: {
           title: string;
           body: string;
           created_at?: string;
           updated_at?: string;
-          user_name: string;
-          last_updated_user_name: string;
+          user_id: string;
+          last_updated_user_id: string;
         };
         Update: {
           title?: string;
           body?: string;
           created_at?: string;
           updated_at?: string;
-          user_name?: string;
-          last_updated_user_name?: string;
+          user_id?: string;
+          last_updated_user_id?: string;
         };
         Relationships: [];
       };

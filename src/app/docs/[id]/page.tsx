@@ -8,7 +8,7 @@ export default async function DocDetails({
 }) {
   const { data: doc } = await supabase
     .from("docs")
-    .select("body, user_name, created_at, updated_at")
+    .select("body, user_id, created_at, updated_at")
     .eq("id", Number(params.id))
     .single();
 
@@ -19,7 +19,7 @@ export default async function DocDetails({
       <p className="mb-4">{doc.body}</p>
       <p>
         <span className="font-semibold text-gray-700">User:</span>{" "}
-        {doc.user_name}
+        {doc.user_id}
       </p>
       <p>
         <span className="font-semibold text-gray-700">Created At:</span>{" "}
