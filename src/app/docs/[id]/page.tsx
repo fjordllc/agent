@@ -4,22 +4,29 @@ import supabase from "@/lib/supabase";
 export default async function DocDetails({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { data: doc } = await supabase
+  const { id } = await params;
+
+  const { data: doc, error } = await supabase
     .from("docs")
-    .select("body, user_id, created_at, updated_at")
-    .eq("id", Number(params.id))
+    .select("*")
+    .eq("id", Number(id))
     .single();
 
+  if (error) {
+    alert(`ドキュメントの取得に失敗しました。\n${error.code} ${error.message}`);
+    console.error(
+      `ドキュメントの取得に失敗しました。\n${error.code} ${error.message}`,
+    );
+  }
   if (!doc) notFound();
 
   return (
     <div className="p-6">
       <p className="mb-4">{doc.body}</p>
       <p>
-        <span className="font-semibold text-gray-700">User:</span>{" "}
-        {doc.user_id}
+        <span className="font-semibold text-gray-700">User:</span> {doc.user_id}
       </p>
       <p>
         <span className="font-semibold text-gray-700">Created At:</span>{" "}
