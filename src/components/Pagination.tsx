@@ -13,6 +13,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
+/** BootCamp のドキュメント一覧のページネーションは１番目が選択されていると 1 ~ 5 **/
 const MAX_PAGES_SHOW_TO_SHOW = 5;
 
 const Pagination: React.FC<PaginationProps> = ({
