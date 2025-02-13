@@ -1,4 +1,11 @@
-import React from "react";
+import * as React from "react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface PaginationProps {
   currentPage: number;
@@ -6,90 +13,87 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
+const MAX_PAGES_SHOW_TO_SHOW = 5;
+
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
 }) => {
-  const maxPagesToShow = 6;
-
   const getPageNumbers = () => {
     const pages = [];
-    const half = Math.floor(maxPagesToShow / 2);
+    const half = Math.floor(MAX_PAGES_SHOW_TO_SHOW / 2);
 
     let start = Math.max(currentPage - half, 1);
-    const end = Math.min(start + maxPagesToShow - 1, totalPages);
+    let end = Math.min(start + MAX_PAGES_SHOW_TO_SHOW - 1, totalPages);
 
-    if (end - start + 1 < maxPagesToShow) {
-      start = Math.max(end - maxPagesToShow + 1, 1);
+    if (currentPage >= totalPages - half) {
+      start = Math.max(totalPages - MAX_PAGES_SHOW_TO_SHOW + 1, 1);
+      end = totalPages;
+    } else if (currentPage > half) {
+      start = currentPage - half;
+      end = Math.min(start + MAX_PAGES_SHOW_TO_SHOW - 1, totalPages);
     }
 
     for (let i = start; i <= end; i++) {
       pages.push(i);
     }
-
     return pages;
   };
 
   const pageNumbers = getPageNumbers();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "8px",
-        marginTop: "20px",
-      }}
+    <nav
+      role="navigation"
+      aria-label="pagination"
+      className="flex justify-center mt-4 space-x-2"
     >
-      <button
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={() => onPageChange(1)}
         disabled={currentPage === 1}
-        title="First Page"
       >
-        ⏮️
-      </button>
-      <button
+        <ChevronsLeft className="h-4 w-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        title="Previous Page"
       >
-        ◀️
-      </button>
+        <ChevronLeft className="h-4 w-4" />
+      </Button>
 
       {pageNumbers.map((page) => (
-        <button
+        <Button
           key={page}
+          variant={page === currentPage ? "default" : "ghost"}
           onClick={() => onPageChange(page)}
-          style={{
-            padding: "6px 12px",
-            backgroundColor: page === currentPage ? "#007bff" : "#f8f9fa",
-            color: page === currentPage ? "#fff" : "#000",
-            border: "1px solid #ddd",
-            borderRadius: "4px",
-            cursor: page === currentPage ? "default" : "pointer",
-          }}
-          disabled={page === currentPage}
+          className="px-3 py-1"
         >
           {page}
-        </button>
+        </Button>
       ))}
 
-      <button
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        title="Next Page"
       >
-        ▶️
-      </button>
-      <button
+        <ChevronRight className="h-4 w-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={() => onPageChange(totalPages)}
         disabled={currentPage === totalPages}
-        title="Last Page"
       >
-        ⏭️
-      </button>
-    </div>
+        <ChevronsRight className="h-4 w-4" />
+      </Button>
+    </nav>
   );
 };
 
