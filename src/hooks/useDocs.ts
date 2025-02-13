@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import supabase from "@/lib/supabase";
 import { Tables } from "@/lib/database.types";
 
@@ -14,7 +14,7 @@ export function useDocs({ itemsPerPage, currentPage }: UseDocsProps) {
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const fetchDocs = async () => {
+  const fetchDocs = useCallback(async () => {
     setLoading(true);
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage - 1;
@@ -33,11 +33,11 @@ export function useDocs({ itemsPerPage, currentPage }: UseDocsProps) {
     setDocs(data || []);
     setTotalPages(Math.ceil((count || 0) / itemsPerPage));
     setLoading(false);
-  };
+  }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
     fetchDocs();
-  }, [currentPage, itemsPerPage]);
+  }, [fetchDocs]);
 
   return { docs, totalPages, loading };
 }
