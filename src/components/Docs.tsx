@@ -4,7 +4,7 @@ export default function Docs() {
   return (
     <div style={{ padding: "20px" }}>
       <h1>Docs</h1>
-      <DocList itemsPerPage={2} />
+      <DocList itemsPerPage={20} />
     </div>
   );
 }

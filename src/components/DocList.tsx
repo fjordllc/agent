@@ -1,6 +1,7 @@
 import { useDocs } from "@/hooks/useDocs";
 import { usePagination } from "@/hooks/usePagination";
 import Pagination from "./Pagination";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 interface DocsProps {
   itemsPerPage: number;
@@ -11,18 +12,25 @@ export default function DocList({ itemsPerPage }: DocsProps) {
   const { docs, totalPages, loading } = useDocs({ itemsPerPage, currentPage });
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center min-h-screen">
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
+        <div className="flex flex-col gap-4 w-full max-w-xl">
           {docs.map((doc) => (
-            <li key={doc.id}>
-              <h3>{doc.title}</h3>
-              <p>{doc.body}</p>
-            </li>
+            <Card
+              key={doc.id}
+              className="w-full hover:shadow-lg transition-shadow"
+            >
+              <CardHeader>
+                <CardTitle>{doc.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>公開: {doc.created_at}</p>
+              </CardContent>
+            </Card>
           ))}
-        </ul>
+        </div>
       )}
 
       <Pagination
