@@ -6,18 +6,17 @@ type Doc = Tables<"docs">;
 
 interface UseDocsProps {
   itemsPerPage: number;
+  currentPage: number;
 }
 
-export default function useDocs({ itemsPerPage }: UseDocsProps) {
+export function useDocs({ itemsPerPage, currentPage }: UseDocsProps) {
   const [docs, setDocs] = useState<Doc[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const fetchDocs = async (page: number) => {
+  const fetchDocs = async () => {
     setLoading(true);
-
-    const start = (page - 1) * itemsPerPage;
+    const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage - 1;
 
     const { data, count, error } = await supabase
@@ -37,8 +36,8 @@ export default function useDocs({ itemsPerPage }: UseDocsProps) {
   };
 
   useEffect(() => {
-    fetchDocs(currentPage);
+    fetchDocs();
   }, [currentPage, itemsPerPage]);
 
-  return { docs, currentPage, totalPages, loading, setCurrentPage };
+  return { docs, totalPages, loading };
 }
