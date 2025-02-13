@@ -13,11 +13,13 @@ export default function DocList({ itemsPerPage }: DocsProps) {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+      <div className="mb-4">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      </div>
 
       {loading ? (
         <p>Loading...</p>
