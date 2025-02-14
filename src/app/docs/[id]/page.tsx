@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import supabase from "@/lib/supabase";
+import { createSupabaseServerClient } from "@/lib/supabaseServer";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
 
@@ -16,8 +17,7 @@ export default async function DocDetails({
     .eq("id", Number(id))
     .single();
 
-  console.log(`doc: ${doc?.user_id}`);
-  const { data: user, error: userError } = await supabase
+  const { data: user, error: userError } = await createSupabaseServerClient()
     .from("users")
     .select("last_name")
     .eq("id", doc?.user_id ?? "")
@@ -35,8 +35,6 @@ export default async function DocDetails({
     );
   }
   if (!doc) notFound();
-
-  console.log(`user: ${user}`);
 
   return (
     <SingleLayout>
