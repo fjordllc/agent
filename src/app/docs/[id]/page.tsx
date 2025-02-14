@@ -42,6 +42,8 @@ export default async function DocDetails({
 
   if (!doc) notFound();
 
+  console.log(`user: ${user}`);
+
   return (
     <SingleLayout>
       {(docError || userError) && (
