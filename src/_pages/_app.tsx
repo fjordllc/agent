@@ -4,7 +4,7 @@ import Multi from "../components/layouts/MulitLayout";
 import { UserProvider, useUser } from "../contexts/UserProvider";
 import { ReactElement } from "react";
 
-function determinLayout({
+function determineLayout({
   Component,
   pageProps,
 }: AppPropsWithLayout): ReactElement {
@@ -20,5 +20,5 @@ function determinLayout({
 }
 
 export default function App(props: AppPropsWithLayout) {
-  return <UserProvider>{determinLayout(props)}</UserProvider>;
+  return <UserProvider>{determineLayout(props)}</UserProvider>;
 }
