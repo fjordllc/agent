@@ -20,10 +20,15 @@ describe("DocList E2E test", () => {
       await page.goto("http://localhost:3000/");
 
       await page.getByRole("link", { name: "Docs" }).click();
-      await page.getByRole("link", { name: "Test Document" }).first().click();
+      await page.waitForLoadState("networkidle");
+      await expect(page.getByText("Test Document")).toBeVisible();
+      await page.getByText("Test Document").click();
       await page.waitForLoadState("networkidle");
       await expect(
-        page.locator('p:has-text("This is a test document.")').first(),
+        page.locator('div:has-text("Test Document")').first(),
+      ).toBeVisible();
+      await expect(
+        page.locator('p:has-text("This is a test document.")'),
       ).toBeVisible();
       await expect(page.locator('p:has-text("User:")')).toBeVisible();
       await expect(page.locator('p:has-text("Created At:")')).toBeVisible();
