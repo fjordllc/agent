@@ -14,7 +14,6 @@ export default function EditDoc({
   params: Promise<{ id: string }>;
 }) {
   const router = useRouter();
-  const [, setDoc] = useState<{ title: string; body: string } | null>(null);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -72,7 +71,7 @@ export default function EditDoc({
           />
         </CardContent>
         <div className="mb-4 flex justify-center items-center">
-        <Button onClick={handleSave}>内容を更新</Button>
+          <Button onClick={handleSave}>内容を更新</Button>
           <Button
             variant="link"
             onClick={async () => router.push(`/docs/${(await params).id}`)}
