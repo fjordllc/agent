@@ -41,12 +41,11 @@ export default async function DocDetails({
 
   return (
     <SingleLayout>
-      <DocDeleteButton id={id} />
-      <Card className="p-6 max-w-2xl mx-auto my-6">
+      <Card className="p-6 max-w-2xl mx-auto my-6 flex flex-col h-full">
         <CardHeader>
           <div className="text-2xl font-bold">{doc.title}</div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-grow">
           <p className="mb-4 text-lg">{doc.body}</p>
           <div className="space-y-2">
             <p>
@@ -63,6 +62,9 @@ export default async function DocDetails({
             </p>
           </div>
         </CardContent>
+        <div className="flex justify-end mt-4">
+          <DocDeleteButton id={id} />
+        </div>
       </Card>
     </SingleLayout>
   );
