@@ -1,18 +1,19 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import supabase from "@/lib/supabase";
 
 export default function DocDeleteButton({ id }: { id: string }) {
   const router = useRouter();
 
   const onDelete = async () => {
-    if (!confirm("Are you sure you want to delete this document?")) return;
+    if (!confirm("本当によろしいですか？")) return;
 
     const { error } = await supabase.from("docs").delete().eq("id", Number(id));
 
     if (error) {
-      console.error("Error deleting document:", error);
+      console.error(`Error deleting document: ${error.code} ${error.message}`);
       return;
     }
 
@@ -20,11 +21,12 @@ export default function DocDeleteButton({ id }: { id: string }) {
   };
 
   return (
-    <button
+    <Button
       onClick={onDelete}
-      className="bg-red-500 text-white px-4 py-2 rounded"
+      variant="ghost"
+      className="text-gray-500 underline hover:text-red-500"
     >
-      ドキュメントを削除する
-    </button>
+      削除する
+    </Button>
   );
 }
