@@ -7,12 +7,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
-export default async function EditDoc({ params }: { params: { id: string } }) {
+export default async function EditDoc({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const supabase = await createClient();
   const { data } = await supabase
     .from("docs")
     .select("title, body")
-    .eq("id", Number(params.id))
+    .eq("id", Number(id))
     .single();
 
   if (!data) {
@@ -28,7 +33,7 @@ export default async function EditDoc({ params }: { params: { id: string } }) {
           </CardHeader>
           <CardContent>
             <form action={updateDoc}>
-              <input type="hidden" name="id" value={params.id} />
+              <input type="hidden" name="id" value={id} />
               <p className="mb-2">タイトル</p>
               <Input
                 type="text"
@@ -49,7 +54,7 @@ export default async function EditDoc({ params }: { params: { id: string } }) {
 
               <div className="mb-4 flex justify-center items-center">
                 <Button type="submit">内容を更新</Button>
-                <Link href={`/docs/${params.id}`} replace className="ml-4">
+                <Link href={`/docs/${id}`} replace className="ml-4">
                   <Button
                     variant="link"
                     className="text-gray-500 underline hover:text-red-500"
