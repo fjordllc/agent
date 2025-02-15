@@ -49,7 +49,7 @@ export default async function EditDoc({ params }: { params: { id: string } }) {
 
               <div className="mb-4 flex justify-center items-center">
                 <Button type="submit">内容を更新</Button>
-                <Link href={`/docs/${params.id}`} className="ml-4">
+                <Link href={`/docs/${params.id}`} replace className="ml-4">
                   <Button
                     variant="link"
                     className="text-gray-500 underline hover:text-red-500"
