@@ -5,6 +5,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
 import DocDeleteButton from "@/app/docs/_components/DocDeleteButton";
 import ClientErrorToaster from "@/components/toast/ClientErrorToaster";
+import Link from "next/link";
 
 export default async function DocDetails({
   params,
@@ -75,7 +76,16 @@ export default async function DocDetails({
             </p>
           </div>
         </CardContent>
-        <div className="flex justify-end mt-4">
+
+        <div className="mt-6 flex justify-between items-center">
+          <div className="flex-1 flex justify-center">
+            <Link
+              href={`/docs/${id}/edit`}
+              className="border border-black bg-white text-gray-800 px-6 py-1 rounded-md transition-colors hover:bg-gray-100 hover:text-black"
+            >
+              内容修正
+            </Link>
+          </div>
           <DocDeleteButton id={id} />
         </div>
       </Card>
