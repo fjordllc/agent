@@ -3,6 +3,7 @@ import supabase from "@/lib/supabase";
 import { createClient } from "@/lib/supabaseServer";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
+import DocDeleteButton from "@/app/docs/_components/DocDeleteButton";
 
 export default async function DocDetails({
   params,
@@ -17,7 +18,9 @@ export default async function DocDetails({
     .eq("id", Number(id))
     .single();
 
-  const { data: user, error: userError } = await (await createClient())
+  const { data: user, error: userError } = await (
+    await createClient()
+  )
     .from("users")
     .select("last_name")
     .eq("id", doc?.user_id ?? "")
@@ -38,11 +41,11 @@ export default async function DocDetails({
 
   return (
     <SingleLayout>
-      <Card className="p-6 max-w-2xl mx-auto my-6">
+      <Card className="p-6 max-w-2xl mx-auto my-6 flex flex-col h-full">
         <CardHeader>
           <div className="text-2xl font-bold">{doc.title}</div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-grow">
           <p className="mb-4 text-lg">{doc.body}</p>
           <div className="space-y-2">
             <p>
@@ -59,6 +62,9 @@ export default async function DocDetails({
             </p>
           </div>
         </CardContent>
+        <div className="flex justify-end mt-4">
+          <DocDeleteButton id={id} />
+        </div>
       </Card>
     </SingleLayout>
   );
