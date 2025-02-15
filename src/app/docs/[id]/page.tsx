@@ -83,7 +83,7 @@ export default async function DocDetails({
               href={`/docs/${id}/edit`}
               className="border border-black bg-white text-gray-800 px-6 py-1 rounded-md transition-colors hover:bg-gray-100 hover:text-black"
             >
-              内容修正
+              内容変更
             </Link>
           </div>
           <DocDeleteButton id={id} />
