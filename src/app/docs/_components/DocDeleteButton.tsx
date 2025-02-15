@@ -17,7 +17,7 @@ export default function DocDeleteButton({ id }: { id: string }) {
       return;
     }
 
-    router.push("/docs");
+    router.replace("/docs");
   };
 
   return (

@@ -3,7 +3,7 @@ import supabase from "@/lib/supabase";
 import { createClient } from "@/lib/supabaseServer";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
-import DocDeleteButton from "@/components/DocDeleteButton";
+import DocDeleteButton from "@/app/docs/_components/DocDeleteButton";
 
 export default async function DocDetails({
   params,
