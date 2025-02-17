@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   const footerItems = [
     { text: "利用規約", url: "/tos" },
@@ -5,40 +7,24 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="footer footer-center bg-base-300 text-base-content p-4">
-      <ul
-        style={{
-          listStyle: "none",
-          padding: 0,
-          margin: 0,
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "15px",
-        }}
-      >
-        {footerItems.map((item, index) => (
-          <li key={index} style={{ margin: "0" }}>
-            <a
+    <footer className="border-t py-6 md:py-0">
+      <div className="container flex flex-col items-center gap-4 md:h-24 md:flex-row md:justify-between md:gap-0">
+        <div className="flex flex-wrap justify-center gap-4">
+          {footerItems.map((item, index) => (
+            <Link
+              key={index}
               href={item.url}
-              style={{
-                textDecoration: "none",
-                color: "#007bff",
-                padding: "5px 10px",
-              }}
+              className="text-sm text-muted-foreground hover:text-foreground"
             >
               {item.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      <aside>
-        <p>
+            </Link>
+          ))}
+        </div>
+        <div className="text-center text-sm text-muted-foreground md:text-right">
           Copyright © {new Date().getFullYear()} - All right reserved by Lokka,
           inc.
-        </p>
-      </aside>
+        </div>
+      </div>
     </footer>
   );
 }

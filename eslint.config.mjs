@@ -1,19 +1,26 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
+import { FlatCompat } from '@eslint/eslintrc';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-/** @type {import('eslint').Linter.Config[]} */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+/** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
-  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
-  { languageOptions: { globals: globals.browser } },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
   {
-    ...pluginReact.configs.flat.recommended,
-    rules: {
-      ...pluginReact.configs.flat.recommended.rules,
-      "react/react-in-jsx-scope": "off",
+    ignores: ['**/node_modules/**', '.next/**', 'out/**'],
+  },
+  ...compat.extends('next'),
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parserOptions: {
+        project: './tsconfig.json',
+      },
     },
   },
 ];

@@ -48,6 +48,7 @@ export const mockUserLoggedIn = async (user?: AuthCredential) => {
     data: { user },
   });
 };
+<<<<<<< HEAD
 
 // 認証エラーを発生させるモック関数
 export const mockAuthError = async (error: AuthError) => {
@@ -55,3 +56,5 @@ export const mockAuthError = async (error: AuthError) => {
   (client.auth.getUser as jest.Mock).mockRejectedValue(error);
 };
 
+=======
+>>>>>>> origin/main
