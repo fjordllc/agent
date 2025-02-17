@@ -4,23 +4,26 @@ import { Database } from "@/lib/database.types";
 
 type ICompany = Database["public"]["Tables"]["companies"]["Row"];
 
-// サーバーコンポーネント
 export default async function Companies() {
   const supabase = createSupabaseServerClient();
 
   const { data: user, error: userError } = await supabase.auth.getUser();
-  if (!user) {
-    return <p>ログインしてください。</p>;
+  if (userError) {
+    console.error("ユーザー認証エラー:", userError.message);
+    return <p>ユーザー認証に失敗しました。</p>;
   }
 
-  // 企業データを取得
   const { data: companies, error } = await supabase.from("companies").select("*");
 
   if (error) {
     console.error("企業データの取得に失敗:", error.message);
     return <p>データの取得に失敗しました。</p>;
   }
-
+  
+  if (!user?.user) {
+    return <p>ログインしてください。</p>;
+  }
+  
   return (
     <div className="py-6 px-4 bg-white">
       <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">企業一覧</h1>
@@ -69,9 +72,13 @@ function Company({ company }: { company: ICompany }) {
         {company.name}
       </td>
       <td className="p-4 whitespace-nowrap text-base font-medium text-gray-900 border border-black">
+      {company.website ? (
         <a href={company.website} target="_blank" rel="noopener noreferrer">
           {company.website}
         </a>
+      ) : (
+        <span>No Website</span>
+      )}
       </td>
       <td className="p-4 whitespace-nowrap text-base font-medium text-gray-900 border border-black">
         {company.memo}
