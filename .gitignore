@@ -39,3 +39,7 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+full_backup.sql
+src/__tests__/.env.test
+src/test-companies.mjs
+src/utils/checkAuth.mjs
