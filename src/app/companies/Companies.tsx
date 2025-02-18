@@ -5,13 +5,17 @@ import { Database } from "@/lib/database.types";
 type ICompany = Database["public"]["Tables"]["companies"]["Row"];
 
 export default async function Companies() {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
 
-  const { data: user, error: userError } = await supabase.auth.getUser();
-  if (userError) {
-    console.error("ユーザー認証エラー:", userError.message);
-    return <p>ユーザー認証に失敗しました。</p>;
+  // `getUser()` ではなく `getSession()` を使う
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+
+  if (sessionError || !sessionData.session) {
+    console.error("ユーザー認証エラー:", sessionError?.message || "Auth session missing!");
+    return <p>ログインしてください。</p>;
   }
+
+  const user = sessionData.session.user; // セッションからユーザーを取得
 
   const { data: companies, error } = await supabase.from("companies").select("*");
 
@@ -19,11 +23,7 @@ export default async function Companies() {
     console.error("企業データの取得に失敗:", error.message);
     return <p>データの取得に失敗しました。</p>;
   }
-  
-  if (!user?.user) {
-    return <p>ログインしてください。</p>;
-  }
-  
+
   return (
     <div className="py-6 px-4 bg-white">
       <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">企業一覧</h1>
