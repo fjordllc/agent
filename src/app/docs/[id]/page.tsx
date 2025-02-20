@@ -80,7 +80,7 @@ export default async function DocDetails({
         <div className="mt-6 flex justify-between items-center">
           <div className="flex-1 flex justify-center">
             <Link
-              href={`/docs/edit`}
+              href={`/docs/edit?id=${id}`}
               className="border border-black bg-white text-gray-800 px-6 py-1 rounded-md transition-colors hover:bg-gray-100 hover:text-black"
             >
               内容変更
