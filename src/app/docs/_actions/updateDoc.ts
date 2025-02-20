@@ -4,22 +4,22 @@ import { createClient } from "@/lib/supabaseServer";
 import { redirect } from "next/navigation";
 
 export async function updateDoc(formData: FormData) {
-  const titleRaw = formData.get("title");
-  const bodyRaw = formData.get("body");
-  const idRaw = formData.get("id");
+  const title = formData.get("title");
+  const body = formData.get("body");
+  const id = formData.get("id");
 
   if (
-    typeof titleRaw !== "string" ||
-    typeof bodyRaw !== "string" ||
-    typeof idRaw !== "string"
+    typeof title !== "string" ||
+    typeof body !== "string" ||
+    typeof id !== "string"
   ) {
     throw new Error("Invalid form data");
   }
   const supabase = await createClient();
   await supabase
     .from("docs")
-    .update({ titleRaw, bodyRaw })
-    .eq("id", Number(idRaw));
+    .update({ title, body })
+    .eq("id", Number(id));
 
-  redirect(`/docs/${idRaw}`);
+  redirect(`/docs/${id}`);
 }
