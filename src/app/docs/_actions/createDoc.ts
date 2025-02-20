@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabaseServer";
 
 export async function createDoc(formData: FormData) {
-  const titleRaw = formData.get("title");
-  const bodyRaw = formData.get("body");
+  const title = formData.get("title");
+  const body = formData.get("body");
 
-  if (typeof titleRaw !== "string" || typeof bodyRaw !== "string") {
-    throw new Error("Invalid form data");
+  if (typeof title !== "string" || typeof body !== "string") {
+    return { error: "Invalid form data" };
   }
 
   const supabase = await createClient();
@@ -17,16 +17,15 @@ export async function createDoc(formData: FormData) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    console.error(`ログインが必要です`);
-    return;
+    return { error: "ログインが必要です" };
   }
 
   const { error } = await supabase
     .from("docs")
     .insert([
       {
-        titleRaw,
-        bodyRaw,
+        title,
+        body,
         user_id: user.id,
         last_updated_user_id: user.id,
       },
@@ -35,10 +34,9 @@ export async function createDoc(formData: FormData) {
     .single();
 
   if (error) {
-    console.error(
-      `ドキュメントの新規作成に失敗しました。 ${error.code} ${error.message}`,
-    );
-    return;
+    return {
+      error: `ドキュメントの新規作成に失敗しました。 ${error.code} ${error.message}`,
+    };
   }
 
   redirect("/docs");
