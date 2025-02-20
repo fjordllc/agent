@@ -14,7 +14,7 @@ interface PaginationProps {
 }
 
 /** BootCamp のドキュメント一覧のページネーションは１番目が選択されていると 1 ~ 5 **/
-const MAX_PAGES_SHOW_TO_SHOW = 5;
+const PAGE_DISPLAY_LIMIT = 5;
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
@@ -23,17 +23,17 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const getPageNumbers = () => {
     const pages = [];
-    const half = Math.floor(MAX_PAGES_SHOW_TO_SHOW / 2);
+    const half = Math.floor(PAGE_DISPLAY_LIMIT / 2);
 
     let start = Math.max(currentPage - half, 1);
-    let end = Math.min(start + MAX_PAGES_SHOW_TO_SHOW - 1, totalPages);
+    let end = Math.min(start + PAGE_DISPLAY_LIMIT - 1, totalPages);
 
     if (currentPage >= totalPages - half) {
-      start = Math.max(totalPages - MAX_PAGES_SHOW_TO_SHOW + 1, 1);
+      start = Math.max(totalPages - PAGE_DISPLAY_LIMIT + 1, 1);
       end = totalPages;
     } else if (currentPage > half) {
       start = currentPage - half;
-      end = Math.min(start + MAX_PAGES_SHOW_TO_SHOW - 1, totalPages);
+      end = Math.min(start + PAGE_DISPLAY_LIMIT - 1, totalPages);
     }
 
     for (let i = start; i <= end; i++) {
