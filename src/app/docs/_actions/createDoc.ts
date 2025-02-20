@@ -4,8 +4,12 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabaseServer";
 
 export async function createDoc(formData: FormData) {
-  const title = formData.get("title") as string;
-  const body = formData.get("body") as string;
+  const titleRaw = formData.get("title");
+  const bodyRaw = formData.get("body");
+
+  if (typeof titleRaw !== "string" || typeof bodyRaw !== "string") {
+    throw new Error("Invalid form data");
+  }
 
   const supabase = await createClient();
   const {
@@ -21,8 +25,8 @@ export async function createDoc(formData: FormData) {
     .from("docs")
     .insert([
       {
-        title,
-        body,
+        titleRaw,
+        bodyRaw,
         user_id: user.id,
         last_updated_user_id: user.id,
       },
