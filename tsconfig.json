@@ -39,7 +39,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/app/docs/_form/newDocForm.tss"  ],
   "exclude": [
     "node_modules"
   ]
