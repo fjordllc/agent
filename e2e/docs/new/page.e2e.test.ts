@@ -8,10 +8,10 @@ const test = withSupawright<Database, "public">(["public"]);
 
 describe("test to create new document", () => {
   let validEmail: string | undefined;
-  const e2ePassword = "e2e_password";
+  const password = "e2e_password";
   test.beforeEach(async ({ supawright }) => {
     const attributes = {
-      password: e2ePassword,
+      password: password,
       email_confirm: true,
     };
     const user = await supawright.createUser(attributes);
@@ -23,7 +23,7 @@ describe("test to create new document", () => {
       await page.goto(E2E_CONFIG.BASE_URL);
       await page.getByRole("link", { name: "ログイン" }).click();
       await page.getByPlaceholder("name@example.com").fill(validEmail ?? "");
-      await page.getByLabel("Password").fill(e2ePassword);
+      await page.getByLabel("Password").fill(password);
       await page.getByRole("button", { name: "ログイン" }).click();
 
       await page.getByRole("link", { name: "Docs" }).click();
@@ -48,6 +48,10 @@ describe("test to create new document", () => {
       });
 
       await page.getByRole("button", { name: "削除する" }).click();
+
+      await expect(
+        page.getByText(`this is test title with ${validEmail}`),
+      ).not.toBeVisible();
     });
   });
 });
