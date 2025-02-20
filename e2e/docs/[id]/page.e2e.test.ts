@@ -5,7 +5,7 @@ import type { Database } from "@/lib/database.types";
 
 const test = withSupawright<Database, "public">(["public"]);
 
-describe("DocList E2E test", () => {
+describe("Document page test", () => {
   test.describe.serial("document detail", () => {
     test.beforeEach(async ({ supawright }) => {
       await supawright.create("public", "docs", {
