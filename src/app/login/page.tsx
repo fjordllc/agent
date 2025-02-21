@@ -10,6 +10,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
@@ -17,7 +18,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email({ message: "有効なメールアドレスを入力してください" }),
   password: z.string().min(1, "パスワードを入力してください"),
 });
 
@@ -40,29 +41,25 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          <Image
-            className="w-8 h-8 mr-2"
-            src="pjord.svg"
-            width="32"
-            height="32"
-            alt="logo"
-          />
-          Fjord Agent
-        </div>
-
-        <Card className="w-full">
+    <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md">
+        <Card className="bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
           <CardHeader>
-            <CardTitle>ログイン</CardTitle>
+            <div className="flex items-center justify-center">
+              <Image
+                className="w-8 h-8 mr-2"
+                src="/pjord.svg"
+                width={32}
+                height={32}
+                alt="logo"
+              />
+              <CardTitle>Fjord Agent</CardTitle>
+            </div>
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                {/* Email Field */}
                 <FormField
                   control={form.control}
                   name="email"
@@ -77,10 +74,12 @@ export default function LoginPage() {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
 
+                {/* Password Field */}
                 <FormField
                   control={form.control}
                   name="password"
@@ -94,11 +93,13 @@ export default function LoginPage() {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                <Button type="submit" className="w-full">
+                {/* Submit Button */}
+                <Button type="submit" className="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg px-5 py-2.5">
                   ログイン
                 </Button>
               </form>
@@ -106,6 +107,6 @@ export default function LoginPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </section>
   );
 }
