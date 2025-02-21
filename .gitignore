@@ -39,3 +39,4 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+full_backup.sql
