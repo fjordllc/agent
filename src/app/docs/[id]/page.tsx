@@ -61,29 +61,29 @@ export default async function DocDetails({
         />
       )}
 
-      <Card className="p-6 max-w-2xl mx-auto my-6 flex flex-col h-full">
+      <Card className="p-6 max-w-6xl mx-auto my-6 flex flex-col h-full">
         <CardHeader>
-          <div className="text-2xl font-bold">{doc.title}</div>
+          <div className="text-5xl font-bold">{doc.title}</div>
         </CardHeader>
-        <CardContent className="flex-grow">
-          <div className="space-y-2">
+        <CardContent>
+          <div className="flex flex-row">
             <p>
-              <span className="font-semibold text-gray-700">User:</span>{" "}
+              <span className="font-semibold text-gray-700">公開:</span>{" "}
+              {new Date(doc.created_at).toLocaleString()}
+            </p>
+            <p className="mr-5 ml-5">
+              <span className="font-semibold text-gray-700"></span>{" "}
               {user?.last_name}
             </p>
             <p>
-              <span className="font-semibold text-gray-700">Created At:</span>{" "}
-              {new Date(doc.created_at).toLocaleString()}
-            </p>
-            <p>
-              <span className="font-semibold text-gray-700">Updated At:</span>{" "}
+              <span className="font-semibold text-gray-700">更新:</span>{" "}
               {new Date(doc.updated_at).toLocaleString()}
             </p>
           </div>
 
           <div className="prose lg:prose-xl mt-6">
             <Markdown
-              remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
+              remarkPlugins={[remarkGfm]}
               components={{
                 code({ node, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || "");
