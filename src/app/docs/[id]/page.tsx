@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import supabase from "@/lib/supabase";
 import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
 import DocDeleteButton from "@/app/docs/_components/DocDeleteButton";
 import ClientErrorToaster from "@/components/toast/ClientErrorToaster";
-import Link from "next/link";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default async function DocDetails({
   params,
@@ -62,7 +64,6 @@ export default async function DocDetails({
           <div className="text-2xl font-bold">{doc.title}</div>
         </CardHeader>
         <CardContent className="flex-grow">
-          <p className="mb-4 text-lg">{doc.body}</p>
           <div className="space-y-2">
             <p>
               <span className="font-semibold text-gray-700">User:</span>{" "}
@@ -76,6 +77,12 @@ export default async function DocDetails({
               <span className="font-semibold text-gray-700">Updated At:</span>{" "}
               {new Date(doc.updated_at).toLocaleString()}
             </p>
+          </div>
+
+          <div className="prose lg:prose-xl mt-6">
+            <Markdown remarkPlugins={[[remarkGfm, { singleTilde: false }]]}>
+              {doc.body}
+            </Markdown>
           </div>
         </CardContent>
 
