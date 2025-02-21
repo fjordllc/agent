@@ -18,7 +18,7 @@ jest.mock("@/lib/supabase", () => ({
       ),
       signInWithPassword: jest.fn(),
       signOut: jest.fn(),
-      onAuthStateChange: jest.fn().mockImplementation((callback) => {
+      onAuthStateChange: jest.fn().mockImplementation((callback: (event: string, session: any) => void) => {
         callback("SIGNED_IN", { user: { id: "test-user" } });
         return { unsubscribe: jest.fn() };
       }),
@@ -43,11 +43,11 @@ jest.mock("@/lib/supabase", () => ({
 export const mockUserLoggedIn = async (user?: AuthCredential) => {
   const client = await createClient();
   (client.auth.getUser as jest.Mock).mockResolvedValueOnce({
-    data: { user },
+    data: user ? { user: { id: "test-user", email: user.email } } : { user: null },
   });
 };
 
 export const mockAuthError = async (error: AuthError) => {
   const client = await createClient();
-  (client.auth.getUser as jest.Mock).mockRejectedValue(error);
+  (client.auth.getUser as jest.Mock).mockRejectedValueOnce(error); 
 };
