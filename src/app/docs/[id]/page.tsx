@@ -4,10 +4,12 @@ import supabase from "@/lib/supabase";
 import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
-import DocDeleteButton from "@/app/docs/_components/DocDeleteButton";
 import ClientErrorToaster from "@/components/toast/ClientErrorToaster";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import DocDeleteButton from "../_components/DocDeleteButton";
 
 export default async function DocDetails({
   params,
@@ -80,7 +82,25 @@ export default async function DocDetails({
           </div>
 
           <div className="prose lg:prose-xl mt-6">
-            <Markdown remarkPlugins={[[remarkGfm, { singleTilde: false }]]}>
+            <Markdown
+              remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
+              components={{
+                code({ node, className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  return match ? (
+                    <SyntaxHighlighter
+                      style={atomDark}
+                      language={match[1]}
+                      PreTag="div"
+                    >
+                      {String(children).replace(/\n$/, "")}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code {...props}>{children}</code>
+                  );
+                },
+              }}
+            >
               {doc.body}
             </Markdown>
           </div>
