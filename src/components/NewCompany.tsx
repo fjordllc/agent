@@ -1,29 +1,29 @@
-import { useForm } from "react-hook-form";
-import supabase from "../lib/supabase";
-import { useRouter } from "next/router";
+import { useForm } from 'react-hook-form'
+import supabase from '../lib/supabase'
+import { useRouter } from 'next/router'
 
 type Input = {
-  name: string;
-  website: string;
-};
+  name: string
+  website: string
+}
 
 export default function NewCompany() {
-  const router = useRouter();
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Input>();
+  } = useForm<Input>()
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
+    console.log(data)
 
-    const { error } = await supabase.from("companies").insert(data);
-    console.log(error);
-    reset();
-    router.push("/companies");
-  });
+    const { error } = await supabase.from('companies').insert(data)
+    console.log(error)
+    reset()
+    router.push('/companies')
+  })
 
   return (
     <div className="bg-white">
@@ -42,11 +42,11 @@ export default function NewCompany() {
               </label>
               <input
                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
-                  errors.name ? "border-rose-600 border-1" : ""
+                  errors.name ? 'border-rose-600 border-1' : ''
                 }`}
                 type="text"
                 placeholder="株式会社ロッカ"
-                {...register("name", { required: "入力してください" })}
+                {...register('name', { required: '入力してください' })}
               />
               <p>{errors.name?.message}</p>
             </div>
@@ -59,11 +59,11 @@ export default function NewCompany() {
               </label>
               <input
                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
-                  errors.website ? "border-rose-600 border-1" : ""
+                  errors.website ? 'border-rose-600 border-1' : ''
                 }`}
                 type="text"
                 placeholder="https://lokka.jp"
-                {...register("website", { required: "入力してください" })}
+                {...register('website', { required: '入力してください' })}
               />
               <p>{errors.website?.message}</p>
             </div>
@@ -89,5 +89,5 @@ export default function NewCompany() {
         </form>
       </section>
     </div>
-  );
+  )
 }

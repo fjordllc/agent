@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export default function Footer() {
   const footerItems = [
-    { text: "利用規約", url: "/tos" },
-    { text: "プライバシーポリシー", url: "/privacy" },
-  ];
+    { text: '利用規約', url: '/tos' },
+    { text: 'プライバシーポリシー', url: '/privacy' },
+  ]
 
   return (
     <footer className="border-t py-6 md:py-0">
@@ -26,5 +26,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

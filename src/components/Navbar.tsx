@@ -1,15 +1,15 @@
-import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
-import supabase from "../lib/supabase";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid'
+import supabase from '../lib/supabase'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 export default function Navbar() {
-  const router = useRouter();
+  const router = useRouter()
   async function signOut() {
-    await supabase.auth.signOut();
-    alert("ログアウトしました。");
-    router.push("/");
-    router.reload();
+    await supabase.auth.signOut()
+    alert('ログアウトしました。')
+    router.push('/')
+    router.reload()
   }
 
   return (
@@ -24,6 +24,7 @@ export default function Navbar() {
               <Image
                 src="pjord.svg"
                 width="32"
+                height="32"
                 className="h-8 mr-2"
                 alt="Logo"
               />
@@ -38,5 +39,5 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
-  );
+  )
 }

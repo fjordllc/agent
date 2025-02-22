@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import { signup } from "@/app/signup/actions";
-import { useRouter } from "next/navigation";
-import { signupSchema, type SignupFormData } from "@/schemas/auth";
-import { SignupErrorCode } from "./types";
-import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { signup } from '@/app/signup/actions'
+import { useRouter } from 'next/navigation'
+import { signupSchema, type SignupFormData } from '@/schemas/auth'
+import { SignupErrorCode } from './types'
+import Image from 'next/image'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Form,
   FormControl,
@@ -16,28 +16,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/form'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useToast } from '@/hooks/use-toast'
 
 export default function SignupPage() {
-  const router = useRouter();
+  const router = useRouter()
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-  });
+  })
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
   const onSubmit = async (data: SignupFormData) => {
-    const formData = new FormData();
-    formData.append("email", data.email);
-    formData.append("password", data.password);
+    const formData = new FormData()
+    formData.append('email', data.email)
+    formData.append('password', data.password)
 
-    const response = await signup(formData);
+    const response = await signup(formData)
 
     if (response.error) {
       switch (response.error.code) {
@@ -46,40 +46,44 @@ export default function SignupPage() {
           if (response.error.field) {
             form.setError(response.error.field as keyof SignupFormData, {
               message: response.error.message,
-            });
+            })
           }
-          break;
+          break
         case SignupErrorCode.ServerError:
           toast({
-            title: "エラー",
+            title: 'エラー',
             description: response.error.message,
-            variant: "destructive",
-          });
-          break;
+            variant: 'destructive',
+          })
+          break
       }
-      return;
+      return
     }
 
     toast({
-      title: "認証メール送付",
+      title: '認証メール送付',
       description:
-        "認証メールを送りました。メール内のURLをクリックし、サインアップを完了してください。",
-    });
+        '認証メールを送りました。メール内のURLをクリックし、サインアップを完了してください。',
+    })
 
-    router.push("/");
-  };
+    router.push('/')
+  }
 
   return (
-    <div className="container max-w-md py-8 md:py-20">
-      <div className="flex flex-col items-center space-y-8">
-        <div className="flex items-center gap-3">
-          <Image src="/pjord.svg" width={32} height={32} alt="logo" />
-          <h1 className="text-2xl font-bold">Fjord Agent</h1>
-        </div>
-
-        <Card className="w-full">
+    <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md">
+        <Card className="bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
           <CardHeader>
-            <CardTitle>サインアップ</CardTitle>
+            <div className="flex items-center justify-center">
+              <Image
+                className="w-8 h-8 mr-2"
+                src="/pjord.svg"
+                width={32}
+                height={32}
+                alt="logo"
+              />
+              <CardTitle>Fjord Agent</CardTitle>
+            </div>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -126,7 +130,7 @@ export default function SignupPage() {
 
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg px-5 py-2.5"
                   disabled={form.formState.isSubmitting}
                 >
                   サインアップ
@@ -136,6 +140,6 @@ export default function SignupPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </section>
+  )
 }

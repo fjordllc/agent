@@ -1,9 +1,19 @@
-import { createClient } from "@supabase/supabase-js";
-import { Database } from "./database.types";
+import { createClient } from '@supabase/supabase-js'
+import { Database } from './database.types'
 
-const supabase = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
-);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-export default supabase;
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Supabase の環境変数が正しく設定されていません！')
+}
+
+const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: false,
+  },
+})
+
+export default supabase

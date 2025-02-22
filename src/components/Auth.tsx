@@ -1,30 +1,30 @@
-import { useForm } from "react-hook-form";
-import supabase from "../lib/supabase";
-import Image from "next/image";
+import { useForm } from 'react-hook-form'
+import supabase from '../lib/supabase'
+import Image from 'next/image'
 
 export default function Auth() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   async function signIn(email: string) {
     const { data, error } = await supabase.auth.signInWithOtp({
       email: email,
-    });
+    })
 
-    console.log("email", email, "data", data, "error", error);
+    console.log('email', email, 'data', data, 'error', error)
 
-    return data;
+    return data
   }
 
   const onSubmit = handleSubmit(async (data) => {
-    await signIn(data["email"]);
+    await signIn(data['email'])
     alert(
-      "ログインメールを送りました。メール内のリンクからログインしてください。",
-    );
-  });
+      'ログインメールを送りました。メール内のリンクからログインしてください。'
+    )
+  })
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -34,6 +34,7 @@ export default function Auth() {
             className="w-8 h-8 mr-2"
             src="pjord.svg"
             width="32"
+            height="32"
             alt="logo"
           />
           Fjord Agent
@@ -53,11 +54,11 @@ export default function Auth() {
                 </label>
                 <input
                   className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
-                    errors.email ? "border-rose-600 border-1" : ""
+                    errors.email ? 'border-rose-600 border-1' : ''
                   }`}
                   type="email"
                   placeholder="name@example.com"
-                  {...register("email", { required: "入力してください" })}
+                  {...register('email', { required: '入力してください' })}
                 />
               </div>
               <button
@@ -71,5 +72,5 @@ export default function Auth() {
         </div>
       </div>
     </section>
-  );
+  )
 }

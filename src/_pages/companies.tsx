@@ -1,5 +1,5 @@
-import Companies from "../components/Companies";
+import Companies from '../app/companies/Companies'
 
 export default function CompaniesPage() {
-  return <Companies />;
+  return <Companies />
 }
