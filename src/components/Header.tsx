@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import {
@@ -8,11 +9,18 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 
-export default async function Header() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+export default function Header() {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const supabase = await createClient()
+      const { data } = await supabase.auth.getUser()
+      setUser(data?.user)
+    }
+
+    fetchUser()
+  }, [])
 
   return (
     <header className="border-b">

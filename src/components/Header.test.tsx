@@ -21,11 +21,11 @@ describe('Rendering test for the Header component', () => {
         email: 'test@test.com',
         password: 'test',
       }
-      mockUserLoggedIn(testUser)
+      await mockUserLoggedIn(testUser)
     })
 
     test('Should display logout button', async () => {
-      render(await Header())
+      render(<Header />)
       await waitFor(() => {
         expect(screen.getByText('ログアウト')).toBeInTheDocument()
       })
@@ -34,11 +34,11 @@ describe('Rendering test for the Header component', () => {
 
   describe('When user is logged out', () => {
     beforeEach(async () => {
-      mockUserLoggedIn()
+      await mockUserLoggedIn()
     })
 
     test('Should display signin and login button', async () => {
-      render(await Header())
+      render(<Header />)
       await waitFor(() => {
         expect(screen.getByText('ユーザー登録')).toBeInTheDocument()
         expect(screen.getByText('ログイン')).toBeInTheDocument()
