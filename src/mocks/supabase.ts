@@ -1,3 +1,5 @@
+// src/mocks/supabase.ts
+
 import { createClient } from '@/utils/supabase/server'
 import {
   AuthError,
@@ -123,7 +125,7 @@ export const mockUserLoggedIn = async (user?: AuthCredential) => {
       () => Promise<{ data: { user: User } | null; error: null }>
     >
   ).mockResolvedValueOnce({
-    data: user ? { user: { ...mockUser, email: user.email } } : null, // ✅ `null` を直接渡す
+    data: user ? { user: { ...mockUser, email: user.email } } : null,
     error: null,
   })
 }
