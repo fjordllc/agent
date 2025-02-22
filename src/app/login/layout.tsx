@@ -1,9 +1,9 @@
-import SingleLayout from "@components/layouts/SingleLayout";
+import SingleLayout from '@components/layouts/SingleLayout'
 
 export default function LoginLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  return SingleLayout({ children });
+  return SingleLayout({ children })
 }

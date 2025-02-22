@@ -1,11 +1,11 @@
-import Header from "@components/Header";
-import Footer from "@components/Footer";
-import Link from "next/link";
+import Header from '@components/Header'
+import Footer from '@components/Footer'
+import Link from 'next/link'
 
 export default function MultiLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -33,5 +33,5 @@ export default function MultiLayout({
 
       <Footer />
     </>
-  );
+  )
 }

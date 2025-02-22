@@ -1,13 +1,13 @@
-import { ReactElement } from "react";
-import Auth from "../components/Auth";
-import Single from "../components/layouts/SingleLayout";
+import { ReactElement } from 'react'
+import Auth from '../components/Auth'
+import Single from '../components/layouts/SingleLayout'
 
 function Login() {
-  return <Auth />;
+  return <Auth />
 }
 
 Login.getLayout = function getLayout(page: ReactElement) {
-  return <Single>{page}</Single>;
-};
+  return <Single>{page}</Single>
+}
 
-export default Login;
+export default Login

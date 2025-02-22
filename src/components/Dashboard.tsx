@@ -5,5 +5,5 @@ export default function Dashboard() {
         ダッシュボード
       </h1>
     </div>
-  );
+  )
 }

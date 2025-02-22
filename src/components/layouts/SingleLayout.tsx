@@ -1,10 +1,10 @@
-import Header from "@components/Header";
-import Footer from "@components/Footer";
+import Header from '@components/Header'
+import Footer from '@components/Footer'
 
 export default function SingleLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <>
@@ -12,5 +12,5 @@ export default function SingleLayout({
       {children}
       <Footer />
     </>
-  );
+  )
 }

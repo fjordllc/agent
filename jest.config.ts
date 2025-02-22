@@ -1,34 +1,32 @@
-import type { Config } from "jest";
-import nextJest from "next/jest.js";
+import type { Config } from 'jest'
+import nextJest from 'next/jest.js'
 
 const createJestConfig = nextJest({
-  dir: "./",
-});
+  dir: './',
+})
 
 const config: Config = {
-  coverageProvider: "v8",
-  testEnvironment: "jsdom",
+  coverageProvider: 'v8',
+  testEnvironment: 'jsdom',
   transform: {
-    "^.+\\.[jt]sx?$": "babel-jest",
+    '^.+\\.[jt]sx?$': 'babel-jest',
   },
   moduleFileExtensions: [
-    "ts",
-    "tsx",
-    "js",
-    "mjs",
-    "cjs",
-    "jsx",
-    "json",
-    "node",
+    'ts',
+    'tsx',
+    'js',
+    'mjs',
+    'cjs',
+    'jsx',
+    'json',
+    'node',
   ],
-  setupFilesAfterEnv: [
-    "<rootDir>/jest.setup.ts",
-  ],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1",
-    "^@/app/(.*)$": "<rootDir>/src/app/$1", 
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/app/(.*)$': '<rootDir>/src/app/$1',
   },
-  testPathIgnorePatterns: ["/e2e/"],
-};
+  testPathIgnorePatterns: ['/e2e/'],
+}
 
-export default createJestConfig(config);
+export default createJestConfig(config)

@@ -1,6 +1,6 @@
-import "@/app/globals.css";
-import Link from "next/link";
-import SingleLayout from "@components/layouts/SingleLayout";
+import '@/app/globals.css'
+import Link from 'next/link'
+import SingleLayout from '@components/layouts/SingleLayout'
 
 export default async function Index() {
   return (
@@ -15,5 +15,5 @@ export default async function Index() {
         </li>
       </ul>
     </SingleLayout>
-  );
+  )
 }

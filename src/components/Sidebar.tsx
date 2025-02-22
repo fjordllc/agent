@@ -1,10 +1,10 @@
-import Link from "next/link";
+import Link from 'next/link'
 import {
   ChartPieIcon,
   BuildingOfficeIcon,
   UserGroupIcon,
   LifebuoyIcon,
-} from "@heroicons/react/24/solid";
+} from '@heroicons/react/24/solid'
 
 export default function Sidebar() {
   return (
@@ -58,5 +58,5 @@ export default function Sidebar() {
         </div>
       </div>
     </aside>
-  );
+  )
 }

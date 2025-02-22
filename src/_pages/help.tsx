@@ -5,5 +5,5 @@ export default function Help() {
         ヘルプ
       </h1>
     </div>
-  );
+  )
 }

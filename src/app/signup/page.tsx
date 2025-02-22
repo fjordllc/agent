@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import { signup } from "@/app/signup/actions";
-import { useRouter } from "next/navigation";
-import { signupSchema, type SignupFormData } from "@/schemas/auth";
-import { SignupErrorCode } from "./types";
-import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { signup } from '@/app/signup/actions'
+import { useRouter } from 'next/navigation'
+import { signupSchema, type SignupFormData } from '@/schemas/auth'
+import { SignupErrorCode } from './types'
+import Image from 'next/image'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Form,
   FormControl,
@@ -16,28 +16,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/form'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useToast } from '@/hooks/use-toast'
 
 export default function SignupPage() {
-  const router = useRouter();
+  const router = useRouter()
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-  });
+  })
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
   const onSubmit = async (data: SignupFormData) => {
-    const formData = new FormData();
-    formData.append("email", data.email);
-    formData.append("password", data.password);
+    const formData = new FormData()
+    formData.append('email', data.email)
+    formData.append('password', data.password)
 
-    const response = await signup(formData);
+    const response = await signup(formData)
 
     if (response.error) {
       switch (response.error.code) {
@@ -46,28 +46,28 @@ export default function SignupPage() {
           if (response.error.field) {
             form.setError(response.error.field as keyof SignupFormData, {
               message: response.error.message,
-            });
+            })
           }
-          break;
+          break
         case SignupErrorCode.ServerError:
           toast({
-            title: "エラー",
+            title: 'エラー',
             description: response.error.message,
-            variant: "destructive",
-          });
-          break;
+            variant: 'destructive',
+          })
+          break
       }
-      return;
+      return
     }
 
     toast({
-      title: "認証メール送付",
+      title: '認証メール送付',
       description:
-        "認証メールを送りました。メール内のURLをクリックし、サインアップを完了してください。",
-    });
+        '認証メールを送りました。メール内のURLをクリックし、サインアップを完了してください。',
+    })
 
-    router.push("/");
-  };
+    router.push('/')
+  }
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
@@ -87,7 +87,10 @@ export default function SignupPage() {
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={form.control}
                   name="email"
@@ -138,5 +141,5 @@ export default function SignupPage() {
         </Card>
       </div>
     </section>
-  );
+  )
 }

@@ -1,17 +1,26 @@
-"use client";
-import Link from "next/link";
-import { Database } from "@/lib/database.types";
+'use client'
+import Link from 'next/link'
+import { Database } from '@/lib/database.types'
 
-type ICompany = Database["public"]["Tables"]["companies"]["Row"];
+type ICompany = Database['public']['Tables']['companies']['Row']
 
-export default function CompaniesList({ companies }: { companies: ICompany[] }) {
+export default function CompaniesList({
+  companies,
+}: {
+  companies: ICompany[]
+}) {
   return (
     <div className="py-6 px-4 bg-white">
-      <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">企業一覧</h1>
+      <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
+        企業一覧
+      </h1>
 
       <div className="sm:flex">
         <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
-          <Link href="/companies/new" className="text-white bg-cyan-600 px-3 py-2 rounded">
+          <Link
+            href="/companies/new"
+            className="text-white bg-cyan-600 px-3 py-2 rounded"
+          >
             追加
           </Link>
         </div>
@@ -23,11 +32,21 @@ export default function CompaniesList({ companies }: { companies: ICompany[] }) 
             <table className="table-fixed min-w-full border border-black">
               <thead className="bg-gray-100 border border-black">
                 <tr className="border border-black">
-                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">Id</th>
-                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">Name</th>
-                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">Website</th>
-                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">Memo</th>
-                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">Actions</th>
+                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">
+                    Id
+                  </th>
+                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">
+                    Name
+                  </th>
+                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">
+                    Website
+                  </th>
+                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">
+                    Memo
+                  </th>
+                  <th className="p-4 text-left text-xs font-medium text-gray-500 uppercase border border-black">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-black">
@@ -40,7 +59,7 @@ export default function CompaniesList({ companies }: { companies: ICompany[] }) 
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 function Company({ company }: { company: ICompany }) {
@@ -65,13 +84,19 @@ function Company({ company }: { company: ICompany }) {
         {company.memo}
       </td>
       <td className="p-4 whitespace-nowrap space-x-2 border border-black">
-        <button type="button" className="text-white bg-cyan-600 px-3 py-2 rounded hover:bg-cyan-700">
+        <button
+          type="button"
+          className="text-white bg-cyan-600 px-3 py-2 rounded hover:bg-cyan-700"
+        >
           編集
         </button>
-        <button type="button" className="text-white bg-red-600 px-3 py-2 rounded hover:bg-red-800">
+        <button
+          type="button"
+          className="text-white bg-red-600 px-3 py-2 rounded hover:bg-red-800"
+        >
           削除
         </button>
       </td>
     </tr>
-  );
+  )
 }

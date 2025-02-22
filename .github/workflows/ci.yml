@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  NODE_VERSION: "22.12.0"
+  NODE_VERSION: '22.12.0'
 
 jobs:
   setup:
@@ -65,4 +65,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-      
