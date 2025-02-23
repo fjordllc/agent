@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import supabase from "@/lib/supabase";
-import { createClient } from "@/lib/supabaseServer";
+import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
 import DocDeleteButton from "@/app/docs/_components/DocDeleteButton";
