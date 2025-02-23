@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabaseServer";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
 import DocDeleteButton from "@/app/docs/_components/DocDeleteButton";
+import ClientErrorToaster from "@/components/toast/ClientErrorToaster";
 
 export default async function DocDetails({
   params,
@@ -24,7 +25,7 @@ export default async function DocDetails({
     .from("users")
     .select("last_name")
     .eq("id", doc?.user_id ?? "")
-    .maybeSingle();
+    .single();
 
   if (docError) {
     console.error(
@@ -34,13 +35,25 @@ export default async function DocDetails({
 
   if (userError) {
     console.error(
-      `ユーザーの名前の取得に失敗しました。\n${userError.code} ${userError.message}`,
+      `ドキュメントを作成したユーザーの取得に失敗しました。\n${userError.code} ${userError.message}`,
     );
   }
+
   if (!doc) notFound();
 
   return (
     <SingleLayout>
+      {(docError || userError) && (
+        <ClientErrorToaster
+          errors={[docError, userError]}
+          title={
+            userError
+              ? "ドキュメントを作成したユーザーの取得に失敗しました。"
+              : "ドキュメントの取得に失敗しました。"
+          }
+        />
+      )}
+
       <Card className="p-6 max-w-2xl mx-auto my-6 flex flex-col h-full">
         <CardHeader>
           <div className="text-2xl font-bold">{doc.title}</div>
