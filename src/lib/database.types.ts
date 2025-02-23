@@ -50,11 +50,11 @@ export type Database = {
           website?: string | null;
         };
         Update: {
+          created_at?: string;
           id?: number;
+          memo?: string | null;
           name?: string;
           website?: string | null;
-          memo?: string | null;
-          created_at?: string;
         };
         Relationships: [];
       };
@@ -83,6 +83,39 @@ export type Database = {
           updated_at?: string;
           user_id?: string;
           last_updated_user_id?: string;
+        };
+        Relationships: [];
+      };
+      users: {
+        Row: {
+          date_of_birth: string | null;
+          email: string;
+          first_name: string | null;
+          first_name_kana: string | null;
+          id: string;
+          last_name: string | null;
+          last_name_kana: string | null;
+          role: string | null;
+        };
+        Insert: {
+          date_of_birth?: string | null;
+          email: string;
+          first_name?: string | null;
+          first_name_kana?: string | null;
+          id: string;
+          last_name?: string | null;
+          last_name_kana?: string | null;
+          role?: string | null;
+        };
+        Update: {
+          date_of_birth?: string | null;
+          email?: string;
+          first_name?: string | null;
+          first_name_kana?: string | null;
+          id?: string;
+          last_name?: string | null;
+          last_name_kana?: string | null;
+          role?: string | null;
         };
         Relationships: [];
       };
