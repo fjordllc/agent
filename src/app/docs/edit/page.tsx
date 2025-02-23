@@ -1,5 +1,5 @@
 import { updateDoc } from "../_actions/updateDoc";
-import { createClient } from "@/lib/supabaseServer";
+import { createClient } from "@/utils/supabase/server";
 import SingleLayout from "@/components/layouts/SingleLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

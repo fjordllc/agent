@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "@/lib/supabaseServer";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export async function updateDoc(formData: FormData) {
@@ -16,10 +16,7 @@ export async function updateDoc(formData: FormData) {
     throw new Error("Invalid form data");
   }
   const supabase = await createClient();
-  await supabase
-    .from("docs")
-    .update({ title, body })
-    .eq("id", Number(id));
+  await supabase.from("docs").update({ title, body }).eq("id", Number(id));
 
   redirect(`/docs/${id}`);
 }
