@@ -31,9 +31,8 @@ describe("Document page test", () => {
         await expect(
           page.locator('p:has-text("This is a test document.")'),
         ).toBeVisible();
-        await expect(page.locator('p:has-text("User:")')).toBeVisible();
-        await expect(page.locator('p:has-text("Created At:")')).toBeVisible();
-        await expect(page.locator('p:has-text("Updated At:")')).toBeVisible();
+        await expect(page.locator('p:has-text("公開:")')).toBeVisible();
+        await expect(page.locator('p:has-text("更新:")')).toBeVisible();
       });
     });
 
