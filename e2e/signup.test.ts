@@ -18,7 +18,7 @@ describe("Signup", () => {
 
     await clearMailbox(testEmail);
 
-    await page.goto(E2E_CONFIG.BASE_URL);
+    await page.goto(`${E2E_CONFIG.BASE_URL}/`);
     await page.getByRole("link", { name: "ユーザー登録" }).click();
 
     await page.getByPlaceholder("name@example.com").fill(testEmail);
@@ -52,7 +52,7 @@ describe("Signup", () => {
       email_confirm: true,
     });
 
-    await page.goto(E2E_CONFIG.BASE_URL);
+    await page.goto(`${E2E_CONFIG.BASE_URL}/`);
     await page.getByRole("link", { name: "ユーザー登録" }).click();
 
     await page.getByPlaceholder("name@example.com").fill(testEmail);
