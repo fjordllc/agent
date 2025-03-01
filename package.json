@@ -11,7 +11,7 @@
     "format": "run-s format:*",
     "lint": "next lint",
     "test:component": "jest",
-    "test:p2p": "playwright test",
+    "test:e2e": "playwright test",
     "test": "run-s test:*"
   },
   "dependencies": {
