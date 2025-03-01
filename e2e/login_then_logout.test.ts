@@ -1,12 +1,11 @@
-import { describe } from "node:test";
-import { expect, test as baseTest } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { withSupawright } from "supawright";
 import type { Database } from "../src/lib/database.types";
 import { E2E_CONFIG } from "./constants";
 
 const test = withSupawright<Database, "public">(["public"]);
 
-describe("Login and Logout E2E test", () => {
+test.describe("Login and Logout", () => {
   let validEmail: string | undefined;
   const e2ePassword = "e2e_password";
 
@@ -24,8 +23,6 @@ describe("Login and Logout E2E test", () => {
   }) => {
     await page.goto(`${E2E_CONFIG.BASE_URL}/`);
     await page.getByRole("link", { name: "ログイン" }).click();
-
-    console.log(`valid email: ${validEmail}`);
 
     await page.getByPlaceholder("name@example.com").fill(validEmail ?? "");
     await page.getByLabel("Password").fill(e2ePassword);
