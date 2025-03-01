@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format:eslint": "eslint src --fix",
+    "format:prettier": "prettier src -w",
+    "format": "run-s format:*",
     "lint": "next lint",
-    "test": "jest && playwright test",
-    "e2e": "playwright test"
+    "test:component": "jest",
+    "test:p2p": "playwright test",
+    "test": "run-s test:*"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
