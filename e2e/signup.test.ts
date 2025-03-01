@@ -1,4 +1,3 @@
-import { describe } from "node:test";
 import { expect } from "@playwright/test";
 import { withSupawright } from "supawright";
 import type { Database } from "../src/lib/database.types";
@@ -7,7 +6,7 @@ import { clearMailbox, getConfirmationLink } from "./helpers/inbucket";
 
 const test = withSupawright<Database, "public">(["public"]);
 
-describe("Signup", () => {
+test.describe("Signup", () => {
   const testPassword = "test_password";
   const generateTestEmail = () => `test${Date.now()}@example.com`;
 
