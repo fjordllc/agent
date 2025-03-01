@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import { translateAuthError } from "@/i18n";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -16,7 +17,11 @@ export async function login(formData: FormData) {
 
   const { error } = await supabase.auth.signInWithPassword(data);
   if (error) {
-    redirect("/error");
+    const errorMessage = translateAuthError(error.message);
+    
+    return {
+      error: errorMessage
+    };
   }
 
   revalidatePath("/", "layout");

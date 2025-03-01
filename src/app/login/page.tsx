@@ -10,11 +10,13 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -24,6 +26,8 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -33,10 +37,17 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginFormData) => {
+    setErrorMessage(null);
     const formData = new FormData();
     formData.append("email", data.email);
     formData.append("password", data.password);
-    await login(formData);
+    const result = await login(formData);
+    
+    console.log("Login result:", result);
+    
+    if (result?.error) {
+      setErrorMessage(result.error);
+    }
   };
 
   return (
@@ -92,6 +103,12 @@ export default function LoginPage() {
                   )}
                 />
 
+                {errorMessage && (
+                  <div className="p-3 text-sm text-white bg-red-500 rounded">
+                    {errorMessage}
+                  </div>
+                )}
+                
                 <Button type="submit" className="w-full">
                   ログイン
                 </Button>
