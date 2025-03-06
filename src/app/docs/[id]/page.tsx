@@ -86,6 +86,7 @@ export default async function DocDetails({
               remarkPlugins={[remarkGfm]}
               components={{
                 code({ node, className, children, ...props }) {
+                  /* 正規表現を使って className から言語名を抽出する */
                   const match = /language-(\w+)/.exec(className || "");
                   return match ? (
                     <SyntaxHighlighter
