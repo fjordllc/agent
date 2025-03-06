@@ -1,4 +1,4 @@
-import { updateDoc } from "../_actions/updateDoc";
+import { updateDoc } from "../../_actions/updateDoc";
 import { createClient } from "@/utils/supabase/server";
 import SingleLayout from "@/components/layouts/SingleLayout";
 import { Button } from "@/components/ui/button";
@@ -8,11 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 export default async function EditDoc({
-  searchParams,
+  params,
 }: {
-  searchParams: Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }) {
-  const id = (await searchParams).id;
+  const { id } = await params;
   const supabase = await createClient();
   const { data } = await supabase
     .from("docs")
