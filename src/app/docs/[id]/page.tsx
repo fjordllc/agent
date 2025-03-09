@@ -1,11 +1,15 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import supabase from "@/lib/supabase";
 import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
-import DocDeleteButton from "@/app/docs/_components/DocDeleteButton";
 import ClientErrorToaster from "@/components/toast/ClientErrorToaster";
-import Link from "next/link";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import DocDeleteButton from "../_components/DocDeleteButton";
 
 export default async function DocDetails({
   params,
@@ -57,25 +61,49 @@ export default async function DocDetails({
         />
       )}
 
-      <Card className="p-6 max-w-2xl mx-auto my-6 flex flex-col h-full">
+      <Card className="p-6 max-w-6xl mx-auto my-6 flex flex-col h-full">
         <CardHeader>
-          <div className="text-2xl font-bold">{doc.title}</div>
+          <div className="text-5xl font-bold">{doc.title}</div>
         </CardHeader>
-        <CardContent className="flex-grow">
-          <p className="mb-4 text-lg">{doc.body}</p>
-          <div className="space-y-2">
+        <CardContent>
+          <div className="flex flex-row">
             <p>
-              <span className="font-semibold text-gray-700">User:</span>{" "}
+              <span className="font-semibold text-gray-700">公開:</span>{" "}
+              {new Date(doc.created_at).toLocaleString()}
+            </p>
+            <p className="mr-5 ml-5">
+              <span className="font-semibold text-gray-700"></span>{" "}
               {user?.last_name}
             </p>
             <p>
-              <span className="font-semibold text-gray-700">Created At:</span>{" "}
-              {new Date(doc.created_at).toLocaleString()}
-            </p>
-            <p>
-              <span className="font-semibold text-gray-700">Updated At:</span>{" "}
+              <span className="font-semibold text-gray-700">更新:</span>{" "}
               {new Date(doc.updated_at).toLocaleString()}
             </p>
+          </div>
+
+          <div className="prose lg:prose-xl mt-6">
+            <Markdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code({ node, className, children, ...props }) {
+                  /* 正規表現を使って className から言語名を抽出する */
+                  const match = /language-(\w+)/.exec(className || "");
+                  return match ? (
+                    <SyntaxHighlighter
+                      style={atomDark}
+                      language={match[1]}
+                      PreTag="div"
+                    >
+                      {String(children).replace(/\n$/, "")}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code {...props}>{children}</code>
+                  );
+                },
+              }}
+            >
+              {doc.body}
+            </Markdown>
           </div>
         </CardContent>
 
