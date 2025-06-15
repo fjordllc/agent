@@ -1,26 +1,28 @@
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { createClient } from '@/utils/supabase/server'
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
+} from "@/components/ui/navigation-menu";
 
 export default function Header() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const supabase = await createClient()
-      const { data } = await supabase.auth.getUser()
-      setUser(data?.user)
-    }
+      const supabase = await createClient();
+      const { data } = await supabase.auth.getUser();
+      setUser(data?.user);
+    };
 
-    fetchUser()
-  }, [])
+    fetchUser();
+  }, []);
 
   return (
     <header className="border-b">
@@ -62,5 +64,5 @@ export default function Header() {
         </NavigationMenu>
       </div>
     </header>
-  )
+  );
 }
