@@ -4,6 +4,7 @@ export default function Footer() {
   const footerItems = [
     { text: "利用規約", url: "/tos" },
     { text: "プライバシーポリシー", url: "/privacy" },
+    { text: "運営企業", url: "https://lokka.jp" },
   ];
 
   return (
