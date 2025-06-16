@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import Link from "next/link";
-import SingleLayout from "@components/layouts/SingleLayout";
+import WelcomeLayout from "@components/layouts/WelcomeLayout";
+import WelcomeBody from "@/app/welcome/_components/WelcomeBody";
 
 const links = [
   { href: "/dashboard", text: "ダッシュボード" },
@@ -9,15 +10,21 @@ const links = [
 
 export default async function Index() {
   return (
-    <SingleLayout>
-      <h2>トップページ</h2>
-      <ul>
-        {links.map((link, index) => (
-          <li className="nav-menu-item" key={index}>
-            <Link href={link.href}>{link.text}</Link>
-          </li>
-        ))}
-      </ul>
-    </SingleLayout>
+    <>
+      <WelcomeLayout>
+        <div id="welcome-page">
+          <WelcomeBody />
+          <div className="container">
+            <ul>
+              {links.map((link, index) => (
+                <li className="nav-menu-item" key={index}>
+                  <Link href={link.href}>{link.text}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </WelcomeLayout>
+    </>
   );
 }

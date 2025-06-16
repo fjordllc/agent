@@ -23,7 +23,8 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          //DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#4f39f6", // indigo-600
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {

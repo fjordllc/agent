@@ -1,13 +1,18 @@
+'use client';
+
+import * as React from "react";
 import { useForm } from "react-hook-form";
-import supabase from "../lib/supabase";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import supabase from '@/lib/supabase';
+import { Button } from "@/components/ui/button";
 
 type Input = {
   name: string;
   website: string;
+  memo: string;
 };
 
-export default function NewCompany() {
+export default function NewCompanyForm() {
   const router = useRouter();
   const {
     register,
@@ -16,22 +21,31 @@ export default function NewCompany() {
     formState: { errors },
   } = useForm<Input>();
 
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
+
   const onSubmit = handleSubmit(async (data) => {
+    setSubmitError(null);
     console.log(data);
 
     const { error } = await supabase.from("companies").insert(data);
-    console.log(error);
+    if (error) {
+      setSubmitError(error.message);
+      console.log(error);
+      return;
+    }
     reset();
-    router.push("/companies");
   });
 
   return (
-    <div className="bg-white">
+    <div id="new-company-form" className="bg-white">
       <section className="py-6 px-4 mx-auto max-w-2xl">
         <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 pb-6">
           新規企業追加
         </h1>
         <form onSubmit={onSubmit}>
+          {submitError && (
+            <div className="text-red-600 mb-4">{submitError}</div>
+          )}
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div className="sm:col-span-2">
               <label
@@ -80,12 +94,9 @@ export default function NewCompany() {
               ></textarea>
             </div>
           </div>
-          <button
-            type="submit"
-            className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
-          >
+          <Button type="submit">
             追加
-          </button>
+          </Button>
         </form>
       </section>
     </div>

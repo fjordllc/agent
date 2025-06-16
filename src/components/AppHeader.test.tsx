@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import Header from "./Header";
+import Header from "./AppHeader";
 import { AuthCredential, mockUserLoggedIn } from "@/mocks/supabase";
 
 jest.mock("@/utils/supabase/server", () => ({

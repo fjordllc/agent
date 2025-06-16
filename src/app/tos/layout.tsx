@@ -1,5 +1,5 @@
-import SingleLayout from "@components/layouts/SingleLayout";
+import WelcomeLayout from "@components/layouts/WelcomeLayout";
 
 export default function TosLayout({ children }: { children: React.ReactNode }) {
-  return SingleLayout({ children });
+  return WelcomeLayout({ children });
 }

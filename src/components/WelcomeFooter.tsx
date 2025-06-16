@@ -1,13 +1,13 @@
 import Link from "next/link";
 
-export default function Footer() {
+export default function WelcomeFooter() {
   const footerItems = [
     { text: "利用規約", url: "/tos" },
     { text: "プライバシーポリシー", url: "/privacy" },
   ];
 
   return (
-    <footer className="border-t py-6 md:py-0">
+    <footer id="welcome-footer" className="border-t py-6 md:py-0">
       <div className="container flex flex-col items-center gap-4 md:h-24 md:flex-row md:justify-between md:gap-0">
         <div className="flex flex-wrap justify-center gap-4">
           {footerItems.map((item, index) => (
@@ -20,10 +20,10 @@ export default function Footer() {
             </Link>
           ))}
         </div>
-        <div className="text-center text-sm text-muted-foreground md:text-right">
+        <small className="block text-center text-sm text-muted-foreground md:text-right">
           Copyright © {new Date().getFullYear()} - All right reserved by Lokka,
           inc.
-        </div>
+        </small>
       </div>
     </footer>
   );
