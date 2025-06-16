@@ -1,19 +1,57 @@
-import Link from "next/link";
-import DocList from "./DocList";
-import { Button } from "@/components/ui/button";
+"use client";
 
-export default function Docs() {
+import { useRouter } from "next/navigation";
+import { useDocs } from "@/hooks/useDocs";
+import { usePagination } from "@/hooks/usePagination";
+import Pagination from "@/components/Pagination";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
+interface DocsProps {
+  itemsPerPage: number;
+}
+
+export default function DocList({ itemsPerPage }: DocsProps) {
+  const { currentPage, setCurrentPage } = usePagination({ initialPage: 1 });
+  const { docs, totalPages, loading } = useDocs({ itemsPerPage, currentPage });
+  const router = useRouter();
+
+  const handleCardClick = (id: number) => {
+    router.push(`/docs/${id}`);
+  };
+
   return (
-    <div className="p-5">
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold">Docs</h1>
-        <Link href="/docs/new">
-          <Button className="mr-12 border border-black bg-white text-gray-800 px-6 py-1 rounded-md">
-            Doc作成
-          </Button>
-        </Link>
-      </div>
-      <DocList itemsPerPage={20} />
+    <div className="flex flex-col items-center py-8 gap-6">
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="flex flex-col gap-4 w-full max-w-3xl">
+          {docs.map((doc) => (
+            <Card
+              key={doc.id}
+              className="w-full cursor-pointer"
+              onClick={() => handleCardClick(doc.id)}
+            >
+              <CardHeader>
+                <CardTitle>{doc.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>公開: {doc.created_at}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { updateDoc } from "../../_actions/updateDoc";
 import { createClient } from "@/utils/supabase/server";
-import SingleLayout from "@/components/layouts/SingleLayout";
+import WelcomeLayout from "@/components/layouts/WelcomeLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,7 +25,7 @@ export default async function EditDoc({
   }
 
   return (
-    <SingleLayout>
+    <WelcomeLayout>
       <div className="flex justify-center items-center min-h-screen p-6 relative">
         <Card className="w-full max-w-xl">
           <CardHeader>
@@ -67,6 +67,6 @@ export default async function EditDoc({
           </CardContent>
         </Card>
       </div>
-    </SingleLayout>
+    </WelcomeLayout>
   );
 }

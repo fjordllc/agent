@@ -1,10 +1,20 @@
+import "@/app/globals.css";
+import AppPageHeader from "@/components/AppPageHeader";
+import { Button } from "@/components/ui/button";
 import Docs from "@/app/docs/_components/Docs";
-import SingleLayout from "@/components/layouts/SingleLayout";
+import Link from "next/link";
 
-export default function DocsPage() {
+export default async function DocsPage() {
   return (
-    <SingleLayout>
-      <Docs />
-    </SingleLayout>
+    <div id="app-docs-index">
+      <AppPageHeader title="Docs">
+        <Button asChild>
+          <Link href="/docs/new">Doc作成</Link>
+        </Button>
+      </AppPageHeader>
+      <div id="app-page-body">
+        <Docs itemsPerPage={20} />
+      </div>
+    </div>
   );
 }

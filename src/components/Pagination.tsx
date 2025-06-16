@@ -46,7 +46,7 @@ const Pagination: React.FC<PaginationProps> = ({
     <nav
       role="navigation"
       aria-label="pagination"
-      className="flex justify-center mt-4 space-x-2"
+      className="flex justify-center space-x-2"
     >
       <Button
         variant="ghost"

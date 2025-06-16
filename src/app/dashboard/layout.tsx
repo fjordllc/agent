@@ -1,9 +1,9 @@
-import MultiLayout from "@components/layouts/MulitLayout";
+import AppLayout from "@components/layouts/AppLayout";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return MultiLayout({ children });
+  return AppLayout({ children });
 }
