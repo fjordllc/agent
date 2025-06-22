@@ -4,6 +4,7 @@ export default function Footer() {
   const footerItems = [
     { text: "利用規約", url: "/tos" },
     { text: "プライバシーポリシー", url: "/privacy" },
+    { text: "運営企業", url: "https://lokka.jp" },
   ];
 
   return (
@@ -15,6 +16,10 @@ export default function Footer() {
               key={index}
               href={item.url}
               className="text-sm text-muted-foreground hover:text-foreground"
+              target={item.url.startsWith("http") ? "_blank" : undefined}
+              rel={
+                item.url.startsWith("http") ? "noopener noreferrer" : undefined
+              }
             >
               {item.text}
             </Link>
