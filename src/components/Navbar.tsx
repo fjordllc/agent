@@ -9,7 +9,6 @@ export default function Navbar() {
     await supabase.auth.signOut();
     alert("ログアウトしました。");
     router.push("/");
-    router.refresh();
   }
 
   return (
