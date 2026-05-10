@@ -45,11 +45,10 @@ jobs:
       - run: npx supabase db reset
       - name: Generate .env.local for test environment
         run: |
-          STATUS_OUTPUT=$(npx supabase status)
-          API_URL=$(echo "$STATUS_OUTPUT" | grep "API URL:" | awk '{print $3}')
-          ANON_KEY=$(echo "$STATUS_OUTPUT" | grep "anon key:" | awk '{print $3}')
-          echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL" > .env.local
-          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY" >> .env.local
+          npx supabase status -o env \
+            --override-name api.url=NEXT_PUBLIC_SUPABASE_URL \
+            --override-name auth.anon_key=NEXT_PUBLIC_SUPABASE_ANON_KEY \
+            | grep -E '^NEXT_PUBLIC_' > .env.local
       - run: npm run build
       - run: npm run test
       - uses: actions/upload-artifact@v4
