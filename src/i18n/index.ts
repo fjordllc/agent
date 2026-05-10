@@ -16,15 +16,18 @@ export function getMessage(path: string | string[], locale = 'ja'): string | und
   const pathArray = typeof path === 'string' ? path.split('.') : path;
   
   // パスに従ってメッセージオブジェクトを探索
-  let result: any = messages;
+  let result: unknown = messages;
   for (const key of pathArray) {
     if (result === undefined || result === null) {
       return undefined;
     }
-    result = result[key];
+    if (typeof result !== "object") {
+      return undefined;
+    }
+    result = (result as Record<string, unknown>)[key];
   }
-  
-  return result;
+
+  return typeof result === "string" ? result : undefined;
 }
 
 /**

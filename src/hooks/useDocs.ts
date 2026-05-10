@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import supabase from "@/lib/supabase";
 import type { Tables } from "@/lib/database.types";
 
@@ -14,31 +14,36 @@ export function useDocs({ itemsPerPage = 20, currentPage = 1 }: UseDocsProps) {
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const fetchDocs = useCallback(async () => {
-    setLoading(true);
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage - 1;
-
-    const { data, count, error } = await supabase
-      .from("docs")
-      .select("*", { count: "exact" })
-      .order("updated_at", { ascending: false })
-      .range(start, end);
-
-    if (error) {
-      console.error("Error fetching docs:", error.message);
-      setLoading(false);
-      return;
-    }
-
-    setDocs(data || []);
-    setTotalPages(Math.ceil((count || 0) / itemsPerPage));
-    setLoading(false);
-  }, [currentPage, itemsPerPage]);
-
   useEffect(() => {
-    fetchDocs();
-  }, [fetchDocs]);
+    let cancelled = false;
+
+    (async () => {
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage - 1;
+
+      const { data, count, error } = await supabase
+        .from("docs")
+        .select("*", { count: "exact" })
+        .order("updated_at", { ascending: false })
+        .range(start, end);
+
+      if (cancelled) return;
+
+      if (error) {
+        console.error("Error fetching docs:", error.message);
+        setLoading(false);
+        return;
+      }
+
+      setDocs(data || []);
+      setTotalPages(Math.ceil((count || 0) / itemsPerPage));
+      setLoading(false);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [currentPage, itemsPerPage]);
 
   return { docs, totalPages, loading };
 }
