@@ -1,26 +1,15 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-/** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   {
     ignores: ['**/node_modules/**', '.next/**', 'out/**'],
   },
-  ...compat.extends('next'),
+  ...nextCoreWebVitals,
   {
-    files: ['**/*.ts', '**/*.tsx'],
-    languageOptions: {
-      parserOptions: {
-        project: './tsconfig.json',
-      },
+    rules: {
+      // react-hooks v7 で追加された新ルール。既存コードの修正は別 PR で対応。
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/immutability': 'off',
     },
   },
 ];
