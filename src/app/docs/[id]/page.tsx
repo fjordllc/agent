@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import supabase from "@/lib/supabase";
 import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
@@ -17,6 +16,7 @@ export default async function DocDetails({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const supabase = await createClient();
 
   const { data: doc, error: docError } = await supabase
     .from("docs")
@@ -24,9 +24,7 @@ export default async function DocDetails({
     .eq("id", Number(id))
     .single();
 
-  const { data: user, error: userError } = await (
-    await createClient()
-  )
+  const { data: user, error: userError } = await supabase
     .from("users")
     .select("last_name")
     .eq("id", doc?.user_id ?? "")
