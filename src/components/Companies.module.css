@@ -1,0 +1,347 @@
+/* ===================================================================
+ * Companies — Fjord direction
+ * Scoped via CSS Modules. Tokens / classes are local-only;
+ * they do not affect any other page.
+ * =================================================================== */
+
+.wrapper {
+  --ink:        #0B2426;
+  --ink-2:      #2B4448;
+  --ink-3:      #5E7679;
+  --ink-4:      #8FA2A4;
+
+  --glacier:    #F4F8F8;
+  --glacier-2:  #EAF1F1;
+  --paper:      #FFFFFF;
+
+  --fjord:      #0E4A50;
+  --fjord-2:    #0A363B;
+  --mist:       #6FA8AC;
+  --moss:       #2D6E5A;
+  --amber:      #B5772E;
+  --berry:      #9B3247;
+
+  --line:       #D7E1E2;
+  --line-soft:  #E5ECEC;
+  --focus:      #6FA8AC;
+
+  --r-sm: 4px;
+  --r:    6px;
+  --r-lg: 8px;
+
+  --shadow-2: 0 1px 2px rgba(11,36,38,0.05), 0 12px 32px -16px rgba(11,36,38,0.16);
+
+  font-family: var(--font-zen-maru), var(--font-mplus-rounded), -apple-system,
+               "Hiragino Sans", "Yu Gothic UI", Meiryo, system-ui, sans-serif;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--glacier);
+  line-height: 1.6;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 56px 96px;
+}
+
+/* ---- Page header ------------------------------------------------- */
+.pageHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.tag {
+  font-family: var(--font-mplus-rounded), monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--fjord);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.pageHead h1 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.sub {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+  color: var(--ink-3);
+  line-height: 1.8;
+  max-width: 48ch;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ---- Buttons ----------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: var(--r);
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btnPrimary {
+  background: var(--fjord);
+  color: #fff;
+  box-shadow: 0 6px 14px -8px rgba(14, 74, 80, 0.6);
+}
+.btnPrimary:hover {
+  background: var(--fjord-2);
+}
+.btnGhost {
+  background: var(--paper);
+  border-color: var(--line);
+  color: var(--ink-2);
+}
+.btnGhost:hover {
+  border-color: var(--ink-4);
+  color: var(--ink);
+}
+
+/* ---- Toolbar (search + filter chips) ----------------------------- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.search {
+  max-width: 360px;
+  flex: 1;
+  position: relative;
+}
+.search input {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px 0 38px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink);
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+.search input::placeholder {
+  color: var(--ink-4);
+}
+.search input:focus {
+  outline: none;
+  border-color: var(--mist);
+  box-shadow: 0 0 0 4px rgba(111, 168, 172, 0.18);
+}
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-4);
+}
+.filterChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-family: inherit;
+}
+.filterChip:hover {
+  border-color: var(--ink-4);
+  color: var(--ink);
+}
+.chipCaret {
+  color: var(--ink-4);
+}
+
+/* ---- Panel + table ----------------------------------------------- */
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.list {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13.5px;
+}
+.list thead th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  background: var(--glacier-2);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mplus-rounded), monospace;
+}
+.list thead th:first-child {
+  border-top-left-radius: var(--r-lg);
+  padding-left: 24px;
+}
+.list thead th:last-child {
+  border-top-right-radius: var(--r-lg);
+  padding-right: 24px;
+}
+.list tbody td {
+  padding: 16px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink);
+  vertical-align: middle;
+}
+.list tbody td:first-child {
+  padding-left: 24px;
+}
+.list tbody td:last-child {
+  padding-right: 24px;
+}
+.list tbody tr:hover td {
+  background: var(--glacier);
+}
+.list tbody tr:last-child td {
+  border-bottom: 0;
+}
+.muted {
+  color: var(--ink-3);
+  font-size: 12.5px;
+}
+.right {
+  text-align: right;
+}
+.num {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mplus-rounded), monospace;
+  font-weight: 700;
+}
+
+/* ---- Company cell ------------------------------------------------ */
+.coCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.coCell .logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r);
+  background: linear-gradient(135deg, var(--fjord), var(--mist));
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-family: var(--font-zen-maru), sans-serif;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.coName {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.coSub {
+  font-size: 12px;
+  color: var(--ink-4);
+  margin-top: 1px;
+}
+
+/* ---- Status badge ------------------------------------------------ */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-family: var(--font-zen-maru), sans-serif;
+}
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.statusOpen {
+  background: rgba(45, 110, 90, 0.1);
+  color: var(--moss);
+}
+.statusOpen .statusDot {
+  background: var(--moss);
+}
+.statusPaused {
+  background: rgba(181, 119, 46, 0.12);
+  color: var(--amber);
+}
+.statusPaused .statusDot {
+  background: var(--amber);
+}
+.statusDraft {
+  background: var(--glacier-2);
+  color: var(--ink-3);
+}
+.statusDraft .statusDot {
+  background: var(--ink-4);
+}
+
+/* ---- Row icon button -------------------------------------------- */
+.rowActions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+.iconBtn {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r);
+  cursor: pointer;
+  color: var(--ink-2);
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+.iconBtn:hover {
+  background: var(--paper);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+/* ---- Focus ring -------------------------------------------------- */
+.wrapper :where(a, button, input):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
