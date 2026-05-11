@@ -41,7 +41,7 @@ DB スキーマを変更したら `supabase/database.types.ts` の再生成が�
 
 ## 環境セットアップ
 
-- Node.js は `.tool-versions` / `.mise.toml` で固定 (22.22.2)。mise 推奨。
+- Node.js は `.tool-versions` / `.mise.toml` で固定 (24.15.0)。mise 推奨。
 - `.env.local.example` を `.env.local` にコピーし、`npx supabase status` の値で埋める。
   - **Publishable key** (Supabase CLI 2.86以降のラベル) を `NEXT_PUBLIC_SUPABASE_ANON_KEY` に設定する。JWT 形式は従来の anon key と互換のため変数名はそのまま。
 
