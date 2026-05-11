@@ -23,11 +23,12 @@ export default async function Header() {
           <NavigationMenuList>
             {user ? (
               <NavigationMenuItem>
-                <Link href="/logout" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    ログアウト
-                  </NavigationMenuLink>
-                </Link>
+                <NavigationMenuLink
+                  asChild
+                  className={navigationMenuTriggerStyle()}
+                >
+                  <Link href="/logout">ログアウト</Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             ) : (
               <>

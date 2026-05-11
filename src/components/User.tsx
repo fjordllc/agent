@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import supabase from "../lib/supabase";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 type Input = {
   name: string;

@@ -9,13 +9,17 @@ export default function Companies() {
   const [companies, setCompanies] = useState<ICompany[]>();
 
   useEffect(() => {
-    fetchCompanies();
-  }, []);
+    let cancelled = false;
 
-  async function fetchCompanies() {
-    const { data } = await supabase.from("companies").select("*");
-    if (data) setCompanies(data);
-  }
+    (async () => {
+      const { data } = await supabase.from("companies").select("*");
+      if (!cancelled && data) setCompanies(data);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <>

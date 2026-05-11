@@ -1,6 +1,6 @@
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
 import supabase from "../lib/supabase";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function Navbar() {
@@ -9,7 +9,6 @@ export default function Navbar() {
     await supabase.auth.signOut();
     alert("ログアウトしました。");
     router.push("/");
-    router.reload();
   }
 
   return (
