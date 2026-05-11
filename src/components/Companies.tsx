@@ -32,7 +32,7 @@ export default function Companies() {
           <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
             <Link
               href="/companies/new"
-              className="w-1/2 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto"
+              className="w-1/2 text-action-foreground bg-action hover:bg-action/90 focus:ring-4 focus:ring-action/30 font-medium inline-flex items-center justify-center rounded-lg text-sm px-3 py-2 text-center sm:w-auto"
             >
               追加
             </Link>
@@ -109,14 +109,14 @@ function Company({ company }: CompanyProps) {
         <button
           type="button"
           data-modal-toggle="user-modal"
-          className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="text-action-foreground bg-action hover:bg-action/90 focus:ring-4 focus:ring-action/30 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           編集
         </button>
         <button
           type="button"
           data-modal-toggle="delete-user-modal"
-          className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+          className="text-danger-foreground bg-danger hover:bg-danger/90 focus:ring-4 focus:ring-danger/30 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
         >
           削除
         </button>
