@@ -18,8 +18,14 @@ export default function Companies() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const { data } = await supabase.from("companies").select("*");
-      if (!cancelled && data) setCompanies(data);
+      const { data, error } = await supabase.from("companies").select("*");
+      if (cancelled) return;
+      if (error) {
+        console.error("企業一覧の取得に失敗しました", error);
+        setCompanies([]);
+        return;
+      }
+      if (data) setCompanies(data);
     })();
     return () => {
       cancelled = true;
@@ -40,7 +46,13 @@ export default function Companies() {
             </p>
           </div>
           <div className={styles.actions}>
-            <button type="button" className={`${styles.btn} ${styles.btnGhost}`}>
+            <button
+              type="button"
+              className={`${styles.btn} ${styles.btnGhost}`}
+              disabled
+              aria-disabled="true"
+              title="未実装 — 機能は準備中です"
+            >
               CSV出力
             </button>
             <Link href="/companies/new" className={`${styles.btn} ${styles.btnPrimary}`}>
@@ -68,7 +80,10 @@ export default function Companies() {
                 <path d="m20 20-3-3" strokeLinecap="round" />
               </svg>
             </span>
-            <input placeholder="企業名・業種・担当者" />
+            <input
+              aria-label="企業名・業種・担当者で検索"
+              placeholder="企業名・業種・担当者"
+            />
           </div>
           <button type="button" className={styles.filterChip}>
             業種 <span className={styles.chipCaret}>▾</span>
@@ -133,7 +148,14 @@ function CompanyRow({ company }: { company: ICompany }) {
       <td className={styles.muted}>—</td>
       <td className={styles.right}>
         <div className={styles.rowActions}>
-          <button type="button" className={styles.iconBtn} aria-label="編集">
+          <button
+            type="button"
+            className={styles.iconBtn}
+            aria-label="編集"
+            disabled
+            aria-disabled="true"
+            title="未実装 — 機能は準備中です"
+          >
             <svg
               width="14"
               height="14"

@@ -119,6 +119,17 @@
   border-color: var(--ink-4);
   color: var(--ink);
 }
+.btn:disabled,
+.iconBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn:disabled:hover,
+.iconBtn:disabled:hover {
+  background: var(--paper);
+  border-color: var(--line);
+  color: var(--ink-2);
+}
 
 /* ---- Toolbar (search + filter chips) ----------------------------- */
 .toolbar {
