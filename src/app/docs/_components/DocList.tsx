@@ -43,7 +43,7 @@ export default function DocList({ itemsPerPage }: DocsProps) {
                 <CardTitle>{doc.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p>公開: {doc.created_at}</p>
+                <p>公開: {doc.createdAt}</p>
               </CardContent>
             </Card>
           ))}

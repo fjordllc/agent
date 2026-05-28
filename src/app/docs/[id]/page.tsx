@@ -1,14 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import SingleLayout from "@/components/layouts/SingleLayout";
-import ClientErrorToaster from "@/components/toast/ClientErrorToaster";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import DocDeleteButton from "../_components/DocDeleteButton";
+import { findDoc } from "@/server/services/docs";
 
 export default async function DocDetails({
   params,
@@ -16,49 +15,12 @@ export default async function DocDetails({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const supabase = await createClient();
-
-  const { data: doc, error: docError } = await supabase
-    .from("docs")
-    .select("title,body, user_id, created_at, updated_at")
-    .eq("id", Number(id))
-    .single();
-
-  const { data: user, error: userError } = await supabase
-    .from("users")
-    .select("last_name")
-    .eq("id", doc?.user_id ?? "")
-    .single();
-
-  if (docError) {
-    console.error(
-      `ドキュメントの取得に失敗しました。\n${docError.code} ${docError.message}`,
-    );
-  }
-
-  if (userError) {
-    console.error(
-      `ドキュメントを作成したユーザーの取得に失敗しました。\n${userError.code} ${userError.message}`,
-    );
-  }
+  const doc = await findDoc(Number(id));
 
   if (!doc) notFound();
 
-  console.log(`user: ${user}`);
-
   return (
     <SingleLayout>
-      {(docError || userError) && (
-        <ClientErrorToaster
-          errors={[docError, userError]}
-          title={
-            userError
-              ? "ドキュメントを作成したユーザーの取得に失敗しました。"
-              : "ドキュメントの取得に失敗しました。"
-          }
-        />
-      )}
-
       <Card className="p-6 max-w-6xl mx-auto my-6 flex flex-col h-full">
         <CardHeader>
           <div className="text-5xl font-bold">{doc.title}</div>
@@ -67,15 +29,15 @@ export default async function DocDetails({
           <div className="flex flex-row">
             <p>
               <span className="font-semibold text-gray-700">公開:</span>{" "}
-              {new Date(doc.created_at).toLocaleString()}
+              {doc.createdAt ? new Date(doc.createdAt).toLocaleString() : "—"}
             </p>
             <p className="mr-5 ml-5">
               <span className="font-semibold text-gray-700"></span>{" "}
-              {user?.last_name}
+              {doc.authorLastName}
             </p>
             <p>
               <span className="font-semibold text-gray-700">更新:</span>{" "}
-              {new Date(doc.updated_at).toLocaleString()}
+              {doc.updatedAt ? new Date(doc.updatedAt).toLocaleString() : "—"}
             </p>
           </div>
 

@@ -1,11 +1,11 @@
 import { updateDoc } from "../../_actions/updateDoc";
-import { createClient } from "@/utils/supabase/server";
 import SingleLayout from "@/components/layouts/SingleLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { findDocForEdit } from "@/server/services/docs";
 
 export default async function EditDoc({
   params,
@@ -13,12 +13,7 @@ export default async function EditDoc({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("docs")
-    .select("title, body")
-    .eq("id", Number(id))
-    .single();
+  const data = await findDocForEdit(Number(id));
 
   if (!data) {
     return <p>Document not found.</p>;

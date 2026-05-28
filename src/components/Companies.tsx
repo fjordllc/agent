@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import supabase from "../lib/supabase";
-import { Database } from "../lib/database.types";
+import type { Company } from "@/server/db/schema";
 import styles from "./Companies.module.css";
-
-type ICompany = Database["public"]["Tables"]["companies"]["Row"];
 
 function initial(name: string | null): string {
   if (!name) return "—";
@@ -12,27 +8,8 @@ function initial(name: string | null): string {
   return ch ?? "—";
 }
 
-export default function Companies() {
-  const [companies, setCompanies] = useState<ICompany[]>();
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { data, error } = await supabase.from("companies").select("*");
-      if (cancelled) return;
-      if (error) {
-        console.error("企業一覧の取得に失敗しました", error);
-        setCompanies([]);
-        return;
-      }
-      if (data) setCompanies(data);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const count = companies?.length ?? 0;
+export default function Companies({ companies }: { companies: Company[] }) {
+  const count = companies.length;
 
   return (
     <div className={styles.wrapper}>
@@ -110,7 +87,7 @@ export default function Companies() {
               </tr>
             </thead>
             <tbody>
-              {companies?.map((c) => (
+              {companies.map((c) => (
                 <CompanyRow key={c.id} company={c} />
               ))}
             </tbody>
@@ -121,7 +98,7 @@ export default function Companies() {
   );
 }
 
-function CompanyRow({ company }: { company: ICompany }) {
+function CompanyRow({ company }: { company: Company }) {
   return (
     <tr>
       <td>

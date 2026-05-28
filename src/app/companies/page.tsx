@@ -1,11 +1,12 @@
-"use client";
-
 import Companies from "@components/Companies";
+import { listCompanies } from "@/server/services/companies";
 
-export default function CompaniesPage() {
+export default async function CompaniesPage() {
+  const companies = await listCompanies();
+
   return (
     <>
-      <Companies />
+      <Companies companies={companies} />
     </>
   );
 }

@@ -1,28 +1,21 @@
 import { useForm } from "react-hook-form";
-import supabase from "../lib/supabase";
-import { useRouter } from "next/navigation";
+import { createCompanyAction } from "@/app/companies/actions";
 
 type Input = {
   name: string;
   website: string;
+  memo: string;
 };
 
 export default function NewCompany() {
-  const router = useRouter();
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<Input>();
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-
-    const { error } = await supabase.from("companies").insert(data);
-    console.log(error);
-    reset();
-    router.push("/companies");
+    await createCompanyAction(data);
   });
 
   return (
@@ -77,6 +70,7 @@ export default function NewCompany() {
               <textarea
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 placeholder="メモ…"
+                {...register("memo")}
               ></textarea>
             </div>
           </div>

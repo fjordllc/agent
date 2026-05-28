@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import { createDoc as createDocRecord } from "@/server/services/docs";
 
 export async function createDoc(formData: FormData) {
   const title = formData.get("title");
@@ -20,22 +21,18 @@ export async function createDoc(formData: FormData) {
     return { error: "ログインが必要です" };
   }
 
-  const { error } = await supabase
-    .from("docs")
-    .insert([
-      {
-        title,
-        body,
-        user_id: user.id,
-        last_updated_user_id: user.id,
-      },
-    ])
-    .select("id")
-    .single();
-
-  if (error) {
+  try {
+    await createDocRecord({
+      title,
+      body,
+      userId: user.id,
+      lastUpdatedUserId: user.id,
+    });
+  } catch (error) {
     return {
-      error: `ドキュメントの新規作成に失敗しました。 ${error.code} ${error.message}`,
+      error: `ドキュメントの新規作成に失敗しました。 ${
+        error instanceof Error ? error.message : ""
+      }`,
     };
   }
 

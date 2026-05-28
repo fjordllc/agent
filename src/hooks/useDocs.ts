@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
-import supabase from "@/lib/supabase";
-import type { Tables } from "@/lib/database.types";
+import { listDocsAction } from "@/app/docs/_actions/listDocs";
 
-type Doc = Tables<"docs">;
+export type Doc = {
+  id: number;
+  title: string;
+  body: string;
+  createdAt: string | null;
+  updatedAt: string | null;
+  userId: string;
+  lastUpdatedUserId: string;
+};
 
 interface UseDocsProps {
   itemsPerPage: number;
@@ -18,25 +25,18 @@ export function useDocs({ itemsPerPage = 20, currentPage = 1 }: UseDocsProps) {
     let cancelled = false;
 
     (async () => {
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage - 1;
-
-      const { data, count, error } = await supabase
-        .from("docs")
-        .select("*", { count: "exact" })
-        .order("updated_at", { ascending: false })
-        .range(start, end);
+      const result = await listDocsAction({ currentPage, itemsPerPage });
 
       if (cancelled) return;
 
-      if (error) {
-        console.error("Error fetching docs:", error.message);
+      if ("error" in result) {
+        console.error("Error fetching docs:", result.error);
         setLoading(false);
         return;
       }
 
-      setDocs(data || []);
-      setTotalPages(Math.ceil((count || 0) / itemsPerPage));
+      setDocs(result.docs);
+      setTotalPages(result.totalPages);
       setLoading(false);
     })();
 
